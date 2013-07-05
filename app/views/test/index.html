@@ -18,19 +18,61 @@ Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
     /*overflow: hidden;*/
   }
 
+  .progress-bar{
+  width: 800px;
+  height: 50px;
+  background-color: red;
+  z-index: 1;
+  position: relative;
+}
+.progress{
+  width:0px;
+  height: 100%;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background-color: blue;
+  z-index: 2;
+}
+.draggable-progress{
+  width: 20px;
+  background-color: black;
+  height: 100%;
+  position: absolute;
+  left: 0px;
+  z-index: 3;
+}
+
 </style>
 
 
 
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
     <script src="http://www.google.com/jsapi" type="text/javascript"></script>
     <script type="text/javascript">
+
+
+
       google.load("swfobject", "2.1");
-    </script>    
+    </script>
     <script type="text/javascript">
       /*
        * Chromeless player has no controls.
        */
-      
+
+
+  function updateProgressBar(currentTime, duration){
+        if (currentTime != 0 && duration != 0){
+          var progressRatio = currentTime / duration;
+          var progressUpdate = 800 * progressRatio;
+        }
+        $('.progress').css('width', progressUpdate);
+      }
+
+
+
+
       // Update a particular HTML element with a new value
       function updateHTML(elmId, value) {
         document.getElementById(elmId).innerHTML = value;
@@ -40,17 +82,17 @@ Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
         document.getElementById(elmId).value = value;
         // alert(elmId);
       }
-      
+
       // This function is called when an error is thrown by the player
       function onPlayerError(errorCode) {
         alert("An error occured of type:" + errorCode);
       }
-      
+
       // This function is called when the player changes state
       function onPlayerStateChange(newState) {
         updateHTML("playerState", newState);
       }
-      
+
       // Display information about the current state of the player
       function updatePlayerInfo() {
         // Also check that at least one function exists since when IE unloads the
@@ -58,6 +100,7 @@ Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
         if(ytplayer && ytplayer.getDuration) {
           updateHTML("videoDuration", ytplayer.getDuration());
           updateHTML("videoCurrentTime", ytplayer.getCurrentTime());
+          updateProgressBar(ytplayer.getCurrentTime(), ytplayer.getDuration());
           // $(".comment_list").animate("margin-top", "-"+ytplayer.getCurrentTime()*15+"px")
           // updateHTML("bytesTotal", ytplayer.getVideoBytesTotal());
           // updateHTML("startBytes", ytplayer.getVideoStartBytes());
@@ -65,7 +108,7 @@ Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
           // updateHTML("volume", ytplayer.getVolume());
         }
       }
-      
+
       // Allow the user to set the volume from 0-100
       // function setVideoVolume() {
       //   var volume = parseInt(document.getElementById("volumeSetting").value);
@@ -80,6 +123,12 @@ Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
 // function Test(){
 
 // }
+
+   function seekTo(time){
+        if(ytplayer) {
+          ytplayer.seekTo(time, true);
+        }
+      }
 
 var id;
 
@@ -104,7 +153,7 @@ var changeCss = function(){
 
 
       // var myInterval = 1;
-      
+
       function playVideo() {
         if (ytplayer) {
           ytplayer.playVideo();
@@ -121,14 +170,14 @@ var changeCss = function(){
 // // STARTS and Resets the loop if any
 
 
-// function doSomething(){ 
+// function doSomething(){
 // $(".comment_list").animate({height: '+=100px'}, 1000);​​​​​​​​​​​​​​​​​
 // }
 
 // }
 
 
-      
+
       function pauseVideo() {
         if (ytplayer) {
           ytplayer.pauseVideo();
@@ -136,20 +185,20 @@ var changeCss = function(){
 window.clearInterval(id);
         // myInterval = 1;
       }
-      
+
       // function muteVideo() {
       //   if(ytplayer) {
       //     ytplayer.mute();
       //   }
       // }
-      
+
       // function unMuteVideo() {
       //   if(ytplayer) {
       //     ytplayer.unMute();
       //   }
       // }
-      
-      
+
+
       // This function is automatically called by the player once it loads
       function onYouTubePlayerReady(playerId) {
         ytplayer = document.getElementById("ytPlayer");
@@ -160,9 +209,9 @@ window.clearInterval(id);
         ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
         ytplayer.addEventListener("onError", "onPlayerError");
         //Load an initial video into the player
-        ytplayer.cueVideoById("CGr2pB7drss");
+        ytplayer.cueVideoById("qJe3cdM7f1c");
       }
-      
+
       // The "main method" of this sample. Called when someone clicks "Run".
       function loadPlayer() {
         // Lets Flash from another domain call JavaScript
@@ -171,7 +220,7 @@ window.clearInterval(id);
         var atts = { id: "ytPlayer" };
         // All of the magic handled by SWFObject (http://code.google.com/p/swfobject/)
         swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
-                           "version=3&enablejsapi=1&playerapiid=player1", 
+                           "version=3&enablejsapi=1&playerapiid=player1",
                            "videoDiv", "480", "295", "9", null, null, params, atts);
       }
       function _run() {
@@ -192,6 +241,39 @@ $("#comment").mouseenter(function(){
   // stopTimer();
   addTiming();
   // alert("here");
+
+ var $progressBarContainer = $('.progress-bar');
+      var $progressBarStatus = $('.progress')
+      var $progressSlide = $('.draggable-progress');
+
+      function getProgressTimeRequest(e){
+        var parentOffsetX = $progressBarContainer.offset().left;
+        var mouseX = e.pageX;
+        var relativeX =  mouseX - parentOffsetX;
+        var mousePercentage = relativeX / $progressBarContainer.width();
+        return ytplayer.getDuration() * mousePercentage;
+      }
+
+      $('.progress-bar').click(function(e){
+        newTime = getProgressTimeRequest(e)
+        seekTo(newTime);
+      });
+
+      $('.draggable-progress').draggable({
+        axis: 'x',
+        containment: "parent",
+        drag: function(e){
+          var newTime = getProgressTimeRequest(e)
+          seekTo(newTime)
+        }
+      }).change(function(){
+        alert('s')
+      });
+
+
+
+
+
 });
 
 $("#comment").mouseleave(function(){
@@ -225,12 +307,12 @@ var stopTimer = function(){
     <td>
       <div class="comments">
       <ul class="comment_list">
-    <% 86.times do |comment| %>
+    <% 169.times do |comment| %>
     <li>Second <%= comment%>: What a bunch of dudes!</li>
     <% end%>
   </ul>
 </div>
-    
+
     </tr>
     </table>
 
@@ -245,4 +327,9 @@ var stopTimer = function(){
   <input id="time" type="text" value="time" readonly></br>
   <input type="submit" value="submit">
 </form>
+
+  <div class="progress-bar">
+      <div class="progress"></div>
+      <div class="draggable-progress"></div>
+    </div>
 
