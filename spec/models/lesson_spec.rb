@@ -4,6 +4,7 @@ describe Lesson do
   context 'testing associations' do
     it { should have_many :user_lessons }
     it { should have_many(:users).through(:user_lessons) }
+    it { should have_many(:contents) }
     it { should belong_to(:creator).class_name("User") }
   end
 
