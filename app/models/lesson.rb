@@ -1,5 +1,5 @@
 class Lesson < ActiveRecord::Base
-  attr_accessible :creator_id
+  attr_accessible :creator_id, :title, :contents_attributes
   has_many :user_lessons
   has_many :users, through: :user_lessons
   belongs_to :creator, class_name: "User"
