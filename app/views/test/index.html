@@ -1,321 +1,169 @@
-
-<!--
-You are free to copy and use this sample in accordance with the terms of the
-Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
--->
-<style type="text/css">
-  .comments {
-    height: 200px;
-    overflow: hidden;
-    /*p: 200px;*/
-  }
-
-  .comment_list {
-    /*margin-top: 150px;*/
-    top: 100px;
-    margin-top: -0px;
-    position: relative;
-    /*overflow: hidden;*/
-  }
-
-  .progress-bar{
-  width: 800px;
-  height: 50px;
-  background-color: red;
-  z-index: 1;
-  position: relative;
-}
-.progress{
-  width:0px;
-  height: 100%;
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  background-color: blue;
-  z-index: 2;
-}
-.draggable-progress{
-  width: 20px;
-  background-color: black;
-  height: 100%;
-  position: absolute;
-  left: 0px;
-  z-index: 3;
-}
-
-</style>
-
+<%= stylesheet_link_tag    "player_main_css.css", :media => "all" %>
 
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-    <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+        <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+
+    <script type="text/javascript">
+google.load("swfobject", "2.1");
+</script>
+
+    <%= javascript_include_tag "player_jquery" %>
+    <%= javascript_include_tag "jquery.jsPlumb-1.4.0-all-min" %>
+
+
+    <%= javascript_include_tag "player_jsplumb" %>
+
+
+
     <script type="text/javascript">
 
+// alert(google);
 
 
-      google.load("swfobject", "2.1");
-    </script>
-    <script type="text/javascript">
-      /*
-       * Chromeless player has no controls.
-       */
+  function updateProgressBar(currentTime, duration) {
+    if (currentTime !== 0 && duration !== 0) {
+        var progressRatio = currentTime / duration;
+        var progressUpdate = 800 * progressRatio;
+    }
+    $('.progress').css('width', progressUpdate);
+}
 
+function updateHTML(elmId, value) {
+    document.getElementById(elmId).innerHTML = value;
+}
 
-  function updateProgressBar(currentTime, duration){
-        if (currentTime != 0 && duration != 0){
-          var progressRatio = currentTime / duration;
-          var progressUpdate = 800 * progressRatio;
-        }
-        $('.progress').css('width', progressUpdate);
-      }
+function updateValue(elmId, value) {
+    document.getElementById(elmId).value = value;
+}
 
+function onPlayerError(errorCode) {
+    alert("An error occured of type:" + errorCode);
+}
 
+function onPlayerStateChange(newState) {
+    updateHTML("playerState", newState);
+}
 
+function updatePlayerInfo() {
+    if (ytplayer && ytplayer.getDuration) {
+        updateHTML("videoDuration", ytplayer.getDuration());
+        updateHTML("videoCurrentTime", ytplayer.getCurrentTime());
+        updateProgressBar(ytplayer.getCurrentTime(), ytplayer.getDuration());
+        // updateHTML("volume", ytplayer.getVolume());
+    }
 
-      // Update a particular HTML element with a new value
-      function updateHTML(elmId, value) {
-        document.getElementById(elmId).innerHTML = value;
-      }
+$("#"+Math.round(ytplayer.getCurrentTime())).show("display", "inline");
+}
 
-      function updateValue(elmId, value) {
-        document.getElementById(elmId).value = value;
-        // alert(elmId);
-      }
+function setVideoVolume() {
+    var volume = parseInt(document.getElementById("volumeSetting").value);
+    if (isNaN(volume) || volume < 0 || volume > 100) {
+        alert("Please enter a valid volume between 0 and 100.");
+    } else if (ytplayer) {
+        ytplayer.setVolume(volume);
+    }
+}
 
-      // This function is called when an error is thrown by the player
-      function onPlayerError(errorCode) {
-        alert("An error occured of type:" + errorCode);
-      }
-
-      // This function is called when the player changes state
-      function onPlayerStateChange(newState) {
-        updateHTML("playerState", newState);
-      }
-
-      // Display information about the current state of the player
-      function updatePlayerInfo() {
-        // Also check that at least one function exists since when IE unloads the
-        // page, it will destroy the SWF before clearing the interval.
-        if(ytplayer && ytplayer.getDuration) {
-          updateHTML("videoDuration", ytplayer.getDuration());
-          updateHTML("videoCurrentTime", ytplayer.getCurrentTime());
-          updateProgressBar(ytplayer.getCurrentTime(), ytplayer.getDuration());
-          // $(".comment_list").animate("margin-top", "-"+ytplayer.getCurrentTime()*15+"px")
-          // updateHTML("bytesTotal", ytplayer.getVideoBytesTotal());
-          // updateHTML("startBytes", ytplayer.getVideoStartBytes());
-          // updateHTML("bytesLoaded", ytplayer.getVideoBytesLoaded());
-          // updateHTML("volume", ytplayer.getVolume());
-        }
-      }
-
-      // Allow the user to set the volume from 0-100
-      // function setVideoVolume() {
-      //   var volume = parseInt(document.getElementById("volumeSetting").value);
-      //   if(isNaN(volume) || volume < 0 || volume > 100) {
-      //     alert("Please enter a valid volume between 0 and 100.");
-      //   }
-      //   else if(ytplayer){
-      //     ytplayer.setVolume(volume);
-      //   }
-      // }
-
-// function Test(){
-
-// }
-
-   function seekTo(time){
-        if(ytplayer) {
-          ytplayer.seekTo(time, true);
-        }
-      }
+function seekTo(time) {
+    if (ytplayer) {
+        ytplayer.seekTo(time, true);
+    }
+}
 
 var id;
 
-var Test = function(){
-
-return window.setInterval(function() {
-    // alert("Message to alert every 5 seconds");
-    // console.log("second passed");
-    changeCss();
-    // $(".comment_list").animate({height: '-=10px'}, 1000);​​​​​​​​​​​​​​​​​
-}, 0);
-
+var Test = function () {
+    return window.setInterval(function () {
+        changeCss();
+    }, 0);
 };
 
 
-var changeCss = function(){
-  // $(".comment_list").animate({marginTop : "-=5px"}, 250);
-  $(".comment_list").css("margin-top", "-"+ytplayer.getCurrentTime()*20+"px");
-// $(".comment_list").css({marginTop : '-=10px'}, 1000);​​​​​​​​​​​​​​​​​
+var changeCss = function () {
+    $(".qtrack_one").css("margin-left", "-" + ytplayer.getCurrentTime() * 100 + "px");
+    $(".qtrack_two").css("margin-left", "-" + ytplayer.getCurrentTime() * 100 + "px");
+
 };
-// var id = intervalTrigger();
 
-
-      // var myInterval = 1;
-
-      function playVideo() {
+    function playVideo() {
         if (ytplayer) {
-          ytplayer.playVideo();
+            ytplayer.playVideo();
         }
-        // myInterval = 0;
-        // setInterval( console.log("test"), 1000 );  // run
         id = Test();
-      }
+    }
 
-
-
-
-
-// // STARTS and Resets the loop if any
-
-
-// function doSomething(){
-// $(".comment_list").animate({height: '+=100px'}, 1000);​​​​​​​​​​​​​​​​​
-// }
-
-// }
-
-
-
-      function pauseVideo() {
+    function pauseVideo() {
         if (ytplayer) {
-          ytplayer.pauseVideo();
+            ytplayer.pauseVideo();
         }
-window.clearInterval(id);
-        // myInterval = 1;
-      }
+        window.clearInterval(id);
+    }
 
-      // function muteVideo() {
-      //   if(ytplayer) {
-      //     ytplayer.mute();
-      //   }
-      // }
-
-      // function unMuteVideo() {
-      //   if(ytplayer) {
-      //     ytplayer.unMute();
-      //   }
-      // }
-
-
-      // This function is automatically called by the player once it loads
-      function onYouTubePlayerReady(playerId) {
+    function onYouTubePlayerReady(playerId) {
         ytplayer = document.getElementById("ytPlayer");
-        // This causes the updatePlayerInfo function to be called every 250ms to
-        // get fresh data from the player
         setInterval(updatePlayerInfo, 250);
         updatePlayerInfo();
         ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
         ytplayer.addEventListener("onError", "onPlayerError");
-        //Load an initial video into the player
         ytplayer.cueVideoById("qJe3cdM7f1c");
-      }
+    }
 
-      // The "main method" of this sample. Called when someone clicks "Run".
-      function loadPlayer() {
-        // Lets Flash from another domain call JavaScript
-        var params = { allowScriptAccess: "always" };
-        // The element id of the Flash embed
-        var atts = { id: "ytPlayer" };
+    function loadPlayer() {
+        var params = {
+            allowScriptAccess: "always"
+        };
+        var atts = {
+            id: "ytPlayer"
+        };
         // All of the magic handled by SWFObject (http://code.google.com/p/swfobject/)
         swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
-                           "version=3&enablejsapi=1&playerapiid=player1",
-                           "videoDiv", "480", "295", "9", null, null, params, atts);
-      }
-      function _run() {
+            "version=3&enablejsapi=1&playerapiid=player1",
+            "videoDiv", "900", "500", "9", null, null, params, atts);
+    }
+
+    function _run() {
         loadPlayer();
-      }
+        // alert("here");
+    }
 
-
-
-
-
-
-      google.setOnLoadCallback(_run);
-
-$(document).ready(function(){
-$("#comment").mouseenter(function(){
-  // e.preventDefault();
-  pauseVideo();
-  // stopTimer();
-  addTiming();
-  // alert("here");
-
- var $progressBarContainer = $('.progress-bar');
-      var $progressBarStatus = $('.progress')
-      var $progressSlide = $('.draggable-progress');
-
-      function getProgressTimeRequest(e){
-        var parentOffsetX = $progressBarContainer.offset().left;
-        var mouseX = e.pageX;
-        var relativeX =  mouseX - parentOffsetX;
-        var mousePercentage = relativeX / $progressBarContainer.width();
-        return ytplayer.getDuration() * mousePercentage;
-      }
-
-      $('.progress-bar').click(function(e){
-        newTime = getProgressTimeRequest(e)
-        seekTo(newTime);
-      });
-
-      $('.draggable-progress').draggable({
-        axis: 'x',
-        containment: "parent",
-        drag: function(e){
-          var newTime = getProgressTimeRequest(e)
-          seekTo(newTime)
-        }
-      }).change(function(){
-        alert('s')
-      });
-
-
-
-
-
-});
-
-$("#comment").mouseleave(function(){
-  // e.preventDefault();
-  playVideo();
-  // stopTimer();
-  // addTiming();
-  // alert("here");
-});
-
-
-});
-
-
-var addTiming = function(){
-// updateValue("time", "4");
-// alert("here");
-updateValue("time", ytplayer.getCurrentTime());
-// alert(getCurrentTime());
-};
-
-var stopTimer = function(){
-
-};
+google.setOnLoadCallback(_run);
 
     </script>
 
-    <table>
-    <tr>
-    <td><div id="videoDiv">Loading...</div></td>
-    <td>
-      <div class="comments">
-      <ul class="comment_list">
-    <% 169.times do |comment| %>
-    <li>Second <%= comment%>: What a bunch of dudes!</li>
-    <% end%>
-  </ul>
+<table>
+
+<tr>
+  <td>
+<div id="videoDiv">Loading...</div>
+
+  </td><td>
+  <td>
+<div class="img_right">
+
+
+
+  <% 10.times do |question|%>
+
+<table class="table_question_right" id=<%= rand(160)+1%>>
+<tr>
+<td class="qpic">
+  <img class="face" src="http://www.biography.com/imported/images/Biography/Images/Profiles/Z/Mark-Zuckerberg-507402-1-402.jpg">
+</td>
+<td class="qquestion">
+
+<img id="bubble" src="http://www.mentalhelp.net/images/root/speechbubble_id28031361.jpg.jpg"></td>
+</tr>
+</table>
+
+<%end%>
+
 </div>
-
-    </tr>
-    </table>
-
+  </td>
+      </tr>
+</table>
+<br>
       <div id="videoInfo">
         <p>Player state: <span id="playerState">--</span></p>
         <p>Current Time: <span id="videoCurrentTime">--:--</span> | Duration: <span id="videoDuration">--:--</span></p>
@@ -325,11 +173,102 @@ var stopTimer = function(){
 <form>
   <input id="comment" type="text" value="comment"></br>
   <input id="time" type="text" value="time" readonly></br>
-  <input type="submit" value="submit">
+  <input id="clicker" type="submit" value="submit">
 </form>
 
   <div class="progress-bar">
       <div class="progress"></div>
-      <div class="draggable-progress"></div>
     </div>
+
+
+
+
+<!-- Questions -->
+
+<div class ="question_track">
+
+<div class="qtrack_one">
+
+<% 50.times do |question|%>
+
+<table class="table_question">
+<tr>
+<td class="qpic">
+  <img class="face" src="http://www.biography.com/imported/images/Biography/Images/Profiles/Z/Mark-Zuckerberg-507402-1-402.jpg">
+</td>
+<td class="qquestion">
+
+<img id="bubble" src="http://www.mentalhelp.net/images/root/speechbubble_id28031361.jpg.jpg"></td>
+</tr>
+<tr><td><%= question %>.</td></tr>
+</table>
+<table class="table_question">
+<tr>
+<td class="qemptypic">       </td>
+<td class="qemptyquest">       </td>
+</tr>
+</table>
+
+<%end%>
+
+
+</div>
+<br>
+
+</div>
+
+
+<div class ="answer_track">
+
+</div>
+
+
+<br>
+<br>
+<br>
+<br>
+
+
+<!-- Answers -->
+
+<table class="table_question">
+<tr>
+<td class="qpic">
+  <img id="face1" class="face" src="http://www.biography.com/imported/images/Biography/Images/Profiles/Z/Mark-Zuckerberg-507402-1-402.jpg">
+</td>
+<td class="qquestion">
+<img id="bubble" src="http://www.mentalhelp.net/images/root/speechbubble_id28031361.jpg.jpg"></td>
+</tr>
+</table>
+
+<table class="table_question">
+<tr>
+<td class="qpic">
+  <img id="face3" class="face" src="http://www.biography.com/imported/images/Biography/Images/Profiles/Z/Mark-Zuckerberg-507402-1-402.jpg">
+</td>
+<td class="qquestion">
+
+<img id="bubble" src="http://www.mentalhelp.net/images/root/speechbubble_id28031361.jpg.jpg"></td>
+</tr>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
