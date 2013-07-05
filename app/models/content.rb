@@ -3,4 +3,8 @@ class Content < ActiveRecord::Base
   belongs_to :lesson
   has_many :questions
   has_many :flashcards
+
+  def length
+    finish_time.to_f - start_time.to_f
+  end
 end
