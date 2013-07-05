@@ -20,3 +20,8 @@
 
 # Ignore schema
 /db/schema.rb
+
+#facebook key
+config/facebook.yml
+
+app/helpers/.DS_Store
