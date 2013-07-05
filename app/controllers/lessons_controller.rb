@@ -1,8 +1,10 @@
 class LessonsController < ApplicationController
-	def index
+	def show
 	end
 
-
+	def index
+	end
+	
 	def new
 	end
 end
