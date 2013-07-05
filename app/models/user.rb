@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   attr_accessible :email, :oauth_token
-
+  has_many :user_lessons
   has_many :lessons, through: :user_lessons
   has_many :created_lessons, class_name: 'Lesson', foreign_key: 'creator_id'
 
