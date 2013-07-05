@@ -1,4 +1,6 @@
 Raiseyourhand::Application.routes.draw do
+
+  get '/test' => 'test#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
