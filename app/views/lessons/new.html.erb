@@ -1,0 +1,13 @@
+<%= form_for @lesson do |f| %>
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <%= f.fields_for :contents do |builder| %>
+  <p>
+    <%= builder.label :url, "Youtube url" %><br />
+    <%= builder.text_field :url, :rows => 3 %>
+  </p>
+  <% end %>
+  <p><%= f.submit "Submit" %></p>
+<% end %>
