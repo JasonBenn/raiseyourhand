@@ -1,10 +1,16 @@
 Raiseyourhand::Application.routes.draw do
+
+
+  get '/test' => 'test#index'
+
   root to: 'lessons#index'
   match 'auth/:provider/callback', to: 'sessions#create'
   match 'auth/failure', to: redirect('/')
   match 'signout', to: 'sessions#destroy', as: 'signout'
 
   resources :lessons 
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -1,0 +1,248 @@
+
+<!--
+You are free to copy and use this sample in accordance with the terms of the
+Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
+-->
+<style type="text/css">
+  .comments {
+    height: 200px;
+    overflow: hidden;
+    /*p: 200px;*/
+  }
+
+  .comment_list {
+    /*margin-top: 150px;*/
+    top: 100px;
+    margin-top: -0px;
+    position: relative;
+    /*overflow: hidden;*/
+  }
+
+</style>
+
+
+
+    <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+    <script type="text/javascript">
+      google.load("swfobject", "2.1");
+    </script>    
+    <script type="text/javascript">
+      /*
+       * Chromeless player has no controls.
+       */
+      
+      // Update a particular HTML element with a new value
+      function updateHTML(elmId, value) {
+        document.getElementById(elmId).innerHTML = value;
+      }
+
+      function updateValue(elmId, value) {
+        document.getElementById(elmId).value = value;
+        // alert(elmId);
+      }
+      
+      // This function is called when an error is thrown by the player
+      function onPlayerError(errorCode) {
+        alert("An error occured of type:" + errorCode);
+      }
+      
+      // This function is called when the player changes state
+      function onPlayerStateChange(newState) {
+        updateHTML("playerState", newState);
+      }
+      
+      // Display information about the current state of the player
+      function updatePlayerInfo() {
+        // Also check that at least one function exists since when IE unloads the
+        // page, it will destroy the SWF before clearing the interval.
+        if(ytplayer && ytplayer.getDuration) {
+          updateHTML("videoDuration", ytplayer.getDuration());
+          updateHTML("videoCurrentTime", ytplayer.getCurrentTime());
+          // $(".comment_list").animate("margin-top", "-"+ytplayer.getCurrentTime()*15+"px")
+          // updateHTML("bytesTotal", ytplayer.getVideoBytesTotal());
+          // updateHTML("startBytes", ytplayer.getVideoStartBytes());
+          // updateHTML("bytesLoaded", ytplayer.getVideoBytesLoaded());
+          // updateHTML("volume", ytplayer.getVolume());
+        }
+      }
+      
+      // Allow the user to set the volume from 0-100
+      // function setVideoVolume() {
+      //   var volume = parseInt(document.getElementById("volumeSetting").value);
+      //   if(isNaN(volume) || volume < 0 || volume > 100) {
+      //     alert("Please enter a valid volume between 0 and 100.");
+      //   }
+      //   else if(ytplayer){
+      //     ytplayer.setVolume(volume);
+      //   }
+      // }
+
+// function Test(){
+
+// }
+
+var id;
+
+var Test = function(){
+
+return window.setInterval(function() {
+    // alert("Message to alert every 5 seconds");
+    // console.log("second passed");
+    changeCss();
+    // $(".comment_list").animate({height: '-=10px'}, 1000);​​​​​​​​​​​​​​​​​
+}, 0);
+
+};
+
+
+var changeCss = function(){
+  // $(".comment_list").animate({marginTop : "-=5px"}, 250);
+  $(".comment_list").css("margin-top", "-"+ytplayer.getCurrentTime()*20+"px");
+// $(".comment_list").css({marginTop : '-=10px'}, 1000);​​​​​​​​​​​​​​​​​
+};
+// var id = intervalTrigger();
+
+
+      // var myInterval = 1;
+      
+      function playVideo() {
+        if (ytplayer) {
+          ytplayer.playVideo();
+        }
+        // myInterval = 0;
+        // setInterval( console.log("test"), 1000 );  // run
+        id = Test();
+      }
+
+
+
+
+
+// // STARTS and Resets the loop if any
+
+
+// function doSomething(){ 
+// $(".comment_list").animate({height: '+=100px'}, 1000);​​​​​​​​​​​​​​​​​
+// }
+
+// }
+
+
+      
+      function pauseVideo() {
+        if (ytplayer) {
+          ytplayer.pauseVideo();
+        }
+window.clearInterval(id);
+        // myInterval = 1;
+      }
+      
+      // function muteVideo() {
+      //   if(ytplayer) {
+      //     ytplayer.mute();
+      //   }
+      // }
+      
+      // function unMuteVideo() {
+      //   if(ytplayer) {
+      //     ytplayer.unMute();
+      //   }
+      // }
+      
+      
+      // This function is automatically called by the player once it loads
+      function onYouTubePlayerReady(playerId) {
+        ytplayer = document.getElementById("ytPlayer");
+        // This causes the updatePlayerInfo function to be called every 250ms to
+        // get fresh data from the player
+        setInterval(updatePlayerInfo, 250);
+        updatePlayerInfo();
+        ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
+        ytplayer.addEventListener("onError", "onPlayerError");
+        //Load an initial video into the player
+        ytplayer.cueVideoById("CGr2pB7drss");
+      }
+      
+      // The "main method" of this sample. Called when someone clicks "Run".
+      function loadPlayer() {
+        // Lets Flash from another domain call JavaScript
+        var params = { allowScriptAccess: "always" };
+        // The element id of the Flash embed
+        var atts = { id: "ytPlayer" };
+        // All of the magic handled by SWFObject (http://code.google.com/p/swfobject/)
+        swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
+                           "version=3&enablejsapi=1&playerapiid=player1", 
+                           "videoDiv", "480", "295", "9", null, null, params, atts);
+      }
+      function _run() {
+        loadPlayer();
+      }
+
+
+
+
+
+
+      google.setOnLoadCallback(_run);
+
+$(document).ready(function(){
+$("#comment").mouseenter(function(){
+  // e.preventDefault();
+  pauseVideo();
+  // stopTimer();
+  addTiming();
+  // alert("here");
+});
+
+$("#comment").mouseleave(function(){
+  // e.preventDefault();
+  playVideo();
+  // stopTimer();
+  // addTiming();
+  // alert("here");
+});
+
+
+});
+
+
+var addTiming = function(){
+// updateValue("time", "4");
+// alert("here");
+updateValue("time", ytplayer.getCurrentTime());
+// alert(getCurrentTime());
+};
+
+var stopTimer = function(){
+
+};
+
+    </script>
+
+    <table>
+    <tr>
+    <td><div id="videoDiv">Loading...</div></td>
+    <td>
+      <div class="comments">
+      <ul class="comment_list">
+    <% 86.times do |comment| %>
+    <li>Second <%= comment%>: What a bunch of dudes!</li>
+    <% end%>
+  </ul>
+</div>
+    
+    </tr>
+    </table>
+
+      <div id="videoInfo">
+        <p>Player state: <span id="playerState">--</span></p>
+        <p>Current Time: <span id="videoCurrentTime">--:--</span> | Duration: <span id="videoDuration">--:--</span></p>
+        <p>Controls: <a href="javascript:void(0);" onclick="playVideo();">Play</a> | <a href="javascript:void(0);" onclick="pauseVideo();">Pause</a></p>
+      </div>
+
+<form>
+  <input id="comment" type="text" value="comment"></br>
+  <input id="time" type="text" value="time" readonly></br>
+  <input type="submit" value="submit">
+</form>
+
