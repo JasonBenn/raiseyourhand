@@ -3,7 +3,6 @@ require 'spec_helper'
 describe Content do
   context 'testing associations' do
     it { should belong_to(:lesson) }
-    it { should have_many(:chapters) }
     it { should have_many(:questions) }
     it { should have_many(:flashcards) }
   end
