@@ -17,6 +17,9 @@ Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
         margin-left: 3px;
       }
     </style>
+    <link rel="stylesheet" type="stylesheet" href="nemrow_test_youtube_css.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
     <script src="http://www.google.com/jsapi" type="text/javascript"></script>
     <script type="text/javascript">
       google.load("swfobject", "2.1");
@@ -52,7 +55,16 @@ Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
           updateHTML("startBytes", ytplayer.getVideoStartBytes());
           updateHTML("bytesLoaded", ytplayer.getVideoBytesLoaded());
           updateHTML("volume", ytplayer.getVolume());
+          updateProgressBar(ytplayer.getCurrentTime(), ytplayer.getDuration())
         }
+      }
+
+      function updateProgressBar(currentTime, duration){
+        if (currentTime != 0 && duration != 0){
+          var progressRatio = currentTime / duration;
+          var progressUpdate = 800 * progressRatio;
+        }
+        $('.progress').css('width', progressUpdate);
       }
       
       // Allow the user to set the volume from 0-100
@@ -89,6 +101,18 @@ Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
           ytplayer.unMute();
         }
       }
+
+      function seekTo(time){
+        if(ytplayer) {
+          ytplayer.seekTo(time, true);
+        }
+      }
+
+      function getDuration(){
+        if(ytplayer) {
+          return ytplayer.getDuration();
+        }
+      }
       
       
       // This function is automatically called by the player once it loads
@@ -113,7 +137,7 @@ Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
         // All of the magic handled by SWFObject (http://code.google.com/p/swfobject/)
         swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
                            "version=3&enablejsapi=1&playerapiid=player1", 
-                           "videoDiv", "480", "295", "9", null, null, params, atts);
+                           "videoDiv", "800", "410", "9", null, null, params, atts);
       }
       function _run() {
         loadPlayer();
@@ -135,5 +159,49 @@ Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
       </div>
     </td></tr>
     </table>
+
+    <div class="progress-bar">
+      <div class="progress"></div>
+      <div class="draggable-progress"></div>
+    </div>
+
+    <button class="set-new-chapter">Set A New Chapter</button>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+      var $progressBarContainer = $('.progress-bar');
+      var $progressBarStatus = $('.progress')
+      var $progressSlide = $('.draggable-progress');
+
+      function getProgressTimeRequest(e){
+        var parentOffsetX = $progressBarContainer.offset().left;
+        var mouseX = e.pageX;
+        var relativeX =  mouseX - parentOffsetX;
+        var mousePercentage = relativeX / $progressBarContainer.width();
+        return getDuration() * mousePercentage;
+      }
+
+      $('.progress-bar').click(function(e){
+        newTime = getProgressTimeRequest(e)
+        seekTo(newTime);
+      });
+
+      $('.draggable-progress').draggable({
+        axis: 'x',
+        containment: "parent",
+        drag: function(e){
+          var newTime = getProgressTimeRequest(e)
+          seekTo(newTime)
+        }
+      }).change(function(){
+        alert('s')
+      });
+
+      $('.set-new-chapter').click(function(){
+
+      })
+
+    });
+    </script>
   </body>
 </html>
