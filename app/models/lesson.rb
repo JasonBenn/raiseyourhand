@@ -4,5 +4,6 @@ class Lesson < ActiveRecord::Base
   has_many :users, through: :user_lessons
   belongs_to :creator, class_name: "User"
 
-  has_many :contents
+  has_many :contents, dependent: :destroy
+  accepts_nested_attributes_for :contents, :reject_if => lambda { |a| a[:url].blank? }
 end
