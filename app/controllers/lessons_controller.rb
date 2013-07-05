@@ -6,5 +6,7 @@ class LessonsController < ApplicationController
 	end
 	
 	def new
+		@lesson = Lesson.new
+		@lesson.contents.build
 	end
 end
