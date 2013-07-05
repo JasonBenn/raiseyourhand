@@ -11,25 +11,29 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130705145807) do
+ActiveRecord::Schema.define(:version => 20130705160329) do
 
   create_table "answers", :force => true do |t|
     t.integer  "question_id"
-    t.string   "text"
+    t.text     "text"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
 
   create_table "contents", :force => true do |t|
     t.integer  "lesson_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "url"
+    t.string   "position"
+    t.string   "start_time"
+    t.string   "finish_time"
   end
 
   create_table "flashcards", :force => true do |t|
     t.integer  "content_id"
-    t.string   "front"
-    t.string   "back"
+    t.text     "front"
+    t.text     "back"
     t.string   "time_in_content"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
@@ -39,10 +43,11 @@ ActiveRecord::Schema.define(:version => 20130705145807) do
     t.integer  "creator_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "title"
   end
 
   create_table "questions", :force => true do |t|
-    t.string   "text"
+    t.text     "text"
     t.integer  "content_id"
     t.string   "time_in_content"
     t.datetime "created_at",      :null => false
@@ -57,7 +62,7 @@ ActiveRecord::Schema.define(:version => 20130705145807) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email"
+    t.text     "email"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
     t.string   "provider"
