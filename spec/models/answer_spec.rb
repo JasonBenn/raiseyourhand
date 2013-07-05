@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-
 describe Answer do
   context 'testing associations' do
     it { should belong_to(:question) }
