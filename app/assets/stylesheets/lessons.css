@@ -1,5 +1,7 @@
 * {
   font-family: 'Open Sans', sans-serif;
+  padding-left: 0;
+  text-indent: 0;
 }
 
 nav {
@@ -32,11 +34,15 @@ ul {
 }
 
 .lesson-preview {
-  padding: 5px;
+  padding: 10px;
   width: 220px;
   display: inline-block;
   margin: 10px;
   box-shadow: 0 2px 2px #DCDCDC;
+}
+
+.lesson-preview:hover {
+  box-shadow: 0 0 15px #666;
 }
 
 span {
@@ -63,14 +69,26 @@ span {
   background-color: steelblue;
 }
 
+
+/*******SHOW LESSON*******/
+
 #video {
-  width: 850px;
+  width: 50%;
   height: 450px;
   background-color: steelblue;
   margin: 50px 5%;
+  display: inline-block;
 }
 
-/*******SHOW LESSON*******/
+#questions-answers {
+  display: inline-block;
+  position: absolute;
+  height: 80%;
+  width: 35%;
+  border: 1px solid black;
+  overflow: scroll;
+}
+
 #show-lesson-title {
   margin: 1em 2em;
   border-bottom: 2px solid gray;
@@ -91,4 +109,21 @@ span {
 
 #content-index ol li ul li {
   text-align: left;
+}
+
+.question, .answer {
+  margin: 15px;
+  text-align: left;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.question {
+  background-color: #db8adb;
+  margin-right: 80px;
+}
+
+.answer {
+  background-color: #9ed77e;
+  margin-left: 80px;
 }

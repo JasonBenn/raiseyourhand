@@ -1,6 +1,24 @@
 <h1 id='show-lesson-title'>Lesson <%= @lesson.id %></h1>
-
+<% @lesson.contents.length.times do %>
+  <div></div>
+<% end %>
 <div id='video'></div>
+<div id='questions-answers'>
+  <ul>
+    <% @lesson.questions.each do |question| %>
+      <li class='question'>
+        <%= question.text %>
+      </li>
+      <% question.answers.each do |answer| %>
+        <ul>
+          <li class='answer'>
+            <%= answer.text %>
+          </li>
+        </ul>
+      <% end %>
+    <% end %>
+  </ul>
+</div>
 
 <div id='content-index'>
   <ol>
@@ -11,7 +29,7 @@
         <ul>
           <li>Questions: <%= content.questions.count %></li>
           <li>Quiz questions: <%= content.flashcards.count %></li>
-        </ul> 
+        </ul>
       </li>
     <% end %>
   </ol>
