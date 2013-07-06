@@ -1,3 +1,4 @@
+<%= render partial: 'shared/voting', locals: { votable: @lesson } %>
 <h1 id='show-lesson-title'>Lesson <%= @lesson.id %></h1>
 
 <table class='content-nav'><tr>
@@ -16,11 +17,13 @@
   <ul>
     <% @lesson.questions.each do |question| %>
       <li class='question'>
+        <%= render partial: 'shared/voting', locals: { votable: question } %>
         <%= question.text %>
       </li>
       <% question.answers.each do |answer| %>
         <ul>
           <li class='answer'>
+            <%= render partial: 'shared/voting', locals: { votable: answer } %>
             <%= answer.text %>
           </li>
         </ul>
