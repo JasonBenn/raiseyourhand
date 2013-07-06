@@ -72,16 +72,20 @@ span {
 
 /*******SHOW LESSON*******/
 
-#video, #content-index {
+#video, .flashcards {
   width: 50%;
   height: 450px;
   background-color: steelblue;
   margin: 10px 5%;
-  display: inline-block;
+  position: absolute;
 }
 
 #content-index {
   background-color: white;
+  width: 50%;
+  height: 400px;
+  margin: 10px 5%;
+  margin-top: 500px;
 }
 
 #content-index ol li {
