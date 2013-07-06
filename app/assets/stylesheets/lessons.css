@@ -75,7 +75,8 @@ span {
 #video, .flashcards {
   width: 50%;
   height: 450px;
-  background-color: steelblue;
+  padding: 20px;
+  border: 1px solid gray;
   margin: 10px 5%;
   position: absolute;
 }
@@ -83,9 +84,9 @@ span {
 #content-index {
   background-color: white;
   width: 50%;
-  height: 400px;
+  height: 450px;
   margin: 10px 5%;
-  margin-top: 500px;
+  margin-top: 550px;
 }
 
 #content-index ol li {
