@@ -10,6 +10,7 @@ google.load("swfobject", "2.1");
 <%= javascript_include_tag "player_jquery" %>
 
 <!-- Page HTML -->
+<%= render partial: 'shared/voting', locals: { votable: @lesson } %>
 <h1 id='show-lesson-title'>
   Lesson <%= @lesson.id %>
 </h1>
@@ -18,24 +19,27 @@ google.load("swfobject", "2.1");
     <% @lesson.contents.each do |content| %>
     <td class='content-nav-piece'>
       <% if content.flashcards.any? %>
-      <span>
-        <%= content.flashcards.count %>
-      </span>
+        <span data-content-id="<%= content.id %>"><%= content.flashcards.count %></span>
       <% end %>
     </td>
-    <% end %>
-  </tr>
-</table>
+  <% end %>
+</tr></table>
+
+<div class='flashcards'>
+  <%= render partial: 'flashcards/card' %>
+</div>
+
 <div class="top">
   <div id="videoDiv">
   </div>
 </div>
+
 <div id='questions-answers'>
   <% 491.times do |question| %>
   <div>
     <div class="qcontainer">
-      <div class="triangle-border" data-time=<%= question%>>
-        <strong>Why am I so fresh? <%= question%></strong>
+      <div class="triangle-border" data-time=<%= question %>>
+        <strong>Why am I so fresh? <%= question %></strong>
         <p class="question_body">
           I was just wondering why I am so fresh? All the girls digg me and all the boys hate me. I am so awesome and super fresh and I was just wondering why this is? This video speaks about my general hotness but does not a good job explaining why I am such a baller. Can you help me?
         </p>
@@ -53,6 +57,32 @@ google.load("swfobject", "2.1");
   </div>
   <% end %>
 </div>
+
+<!-- Alternate version of Questions/Answers, uses DB data and has voting -->
+<!-- Use for reference when replacing above. -->
+<!-- <div id='questions-answers'>
+  <ul>
+    < @lesson.questions.each do |question| %>
+      <li class='question'>
+        <= render partial: 'shared/voting', locals: { votable: question } %>
+        <= question.text %>
+      </li>
+      < question.answers.each do |answer| %>
+        <ul>
+          <li class='answer'>
+            <= render partial: 'shared/voting', locals: { votable: answer } %>
+            <= answer.text %>
+          </li>
+        </ul>
+      <span>
+        <= content.flashcards.count %>
+      </span>
+      < end %>
+    </td>
+    < end %>
+  </tr>
+</table> -->
+
 <div class="progress-bar">
   <div class="progress">
     
