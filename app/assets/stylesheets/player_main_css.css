@@ -154,12 +154,12 @@
   width: 100px;
   height: 25px;
 }
-.questiont{
+
+.question {
 border: 2px solid black;
 float: left;
 }
-.chapter_overview{
-}
+
 #chapter{
   /*clear: both;*/
   float: left;
@@ -169,9 +169,6 @@ float: left;
   background-color: red;
   border: 1px solid black;
 }
-.ytplayer {
-  margin-left: 200px;
-}
 
 .top{
   margin-left: 60px;
@@ -179,6 +176,7 @@ float: left;
 .progress-bar{
   margin-left: 60px;
 }
+
 #navigation_bar{
   margin-left: 60px;
 }

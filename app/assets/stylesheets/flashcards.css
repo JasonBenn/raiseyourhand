@@ -1,6 +1,13 @@
 .flashcards {
+  height: 458px;
+  width: 858px;
+  padding: 20px;
+  border: 1px solid gray;
+  margin-left: 60px;
+  position: absolute;
   z-index: 1;
   display: none;
+  background: white;
 }
 
 .show-back, .next-card {
