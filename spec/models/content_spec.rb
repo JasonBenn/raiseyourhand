@@ -12,4 +12,6 @@ describe Content do
   end
 
   pending 'testing validations'
+  pending 'had lesson id'
+  pending 'lesson for that Id exisits'
 end
