@@ -3,7 +3,7 @@ class LessonsController < ApplicationController
 	end
 
 	def index
-		@lesson_slices = Lesson.all.each_slice(4)
+		@lessons = Lesson.all
 	end
 
 	def show
