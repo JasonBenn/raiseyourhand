@@ -1,17 +1,18 @@
-<!-- PLACEHOLDER, DELETE IN CASE OF MERGE CONFLICT -->
+<div class='title'>
+  <img src="" alt="">
+  <h1>Raise Your Hand</h1>
+  <h3>Become an expert in anything through free, interactive, user-generated courses.</h3>
+</div>
 
-<% @lessons.each do |lesson| %>
-  <h2>Lesson <%= lesson.id %></h2>
-  <ol>
-    <% lesson.contents.each do |content| %>
-      <li>
-        Content <%= content.id %>: <%= (content.length/60).round(2) %> minutes<br>
-        <%= content.url %>
-        <ul>
-          <li>Questions: <%= content.questions.count %></li>
-          <li>Quiz questions: <%= content.flashcards.count %></li>
-        </ul>
-      </li>
+<% @lesson_slices.each do |lesson_slice| %>
+  <ul>
+    <% lesson_slice.each do |lesson| %>
+      <%= link_to lesson_path(lesson) do %>
+        <li class='lesson-preview'>
+          <img class='lesson-preview-thumbnail'></img>
+          <span>Lesson <%= lesson.id %></span>
+        </li>
+      <% end %>
     <% end %>
-  </ol>
+  </ul>
 <% end %>
