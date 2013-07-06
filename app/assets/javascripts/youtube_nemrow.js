@@ -138,7 +138,7 @@ function _run(index) {
 $(document).ready(function(){
   var $progressBarContainer = $('.progress-bar');
   var $progressBarStatus = $('.progress')
-  var $progressSlide = $('.draggable-progress');
+  var $progressSlide = $('.create-draggable-progress');
 
   function getProgressTimeRequest(e, contentId){
     var parentOffsetX = $progressBarContainer.offset().left;
@@ -148,7 +148,7 @@ $(document).ready(function(){
     return getDuration() * mousePercentage;
   }
 
-  $('.draggable-progress').draggable({
+  $('.create-draggable-progress').draggable({
     axis: 'x',
     containment: "parent",
     drag: function(e){
