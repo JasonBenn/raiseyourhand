@@ -2,18 +2,16 @@
 <script type="text/javascript">
 	google.load("swfobject", "2.1");
 </script>
-<h1>Jordan make the magic happen</h1>
-
+<h1>Edit your lesson</h1>
 
 <div class="video-window">
-	<% @lesson.contents.each do |content| %>
-		<%= render partial: 'content/new_content', locals: {content: content} %>
+	<% @lesson.contents.each_with_index do |content, index| %>
+		<%= render partial: 'contents/new_content', locals: {content: content, positionIndex: index} %>
 	<% end %>
 </div>
 
 <table>
 <tr>
-<td><div id="videoDiv">Loading...</div></td>
 <td valign="top">
   <div id="videoInfo">
     <p>Player state: <span id="playerState">--</span></p>

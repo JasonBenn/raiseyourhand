@@ -1,6 +1,14 @@
-<div class="indi-video-shell indi-video-shell-<%= content.id %>" data-content-id="<%= content.id %>">
-	<div id="videoDiv"></div>
+<div class="indi-video-shell indi-video-shell-<%= positionIndex %>" data-content-id="<%= content.id %>">
+	<input type="hidden" class="youtubeId-player<%= positionIndex %>" value='<%= content.url %>'>
+	<div id="videoDiv-<%= positionIndex %>"></div>
+
+	<div class="progress-bar progress-bar-<%= positionIndex %>" data-content-id="<%= positionIndex %>">
+	  <div class="progress"></div>
+	  <div class="draggable-progress"></div>
+	</div>
+
 	<script type="text/javascript">
-		_run('<%= content.id %>');
+		setCurrentYoutubeId('<%= content.url %>');
+		_run('<%= positionIndex %>');
 	</script>
-</div>
+</div><br><br>

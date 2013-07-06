@@ -26,7 +26,6 @@ class LessonsController < ApplicationController
 
 	def edit
 		@lesson = Lesson.find(params[:id])
-		@lesson.contents.build
 	end
 
 	def update
