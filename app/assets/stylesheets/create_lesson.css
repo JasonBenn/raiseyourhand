@@ -1,24 +1,25 @@
-.progress-bar{
+.create-progress-bar{
 	width: 800px;
 	height: 50px;
 	background-color: red;
 	z-index: 1;
 	position: relative;
 }
-.progress{
+.create-progress{
 	width:0px;
 	height: 100%;
 	position: absolute;
-	left: 0px;
 	top: 0px;
 	background-color: blue;
 	z-index: 2;
 }
-.draggable-progress{
+.create-draggable-progress{
 	width: 20px;
 	background-color: black;
 	height: 100%;
 	position: absolute;
-	left: 0px;
 	z-index: 3;
+}
+.create-draggable-progress-end{
+	right: 0px;
 }
