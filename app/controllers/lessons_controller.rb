@@ -26,6 +26,8 @@ class LessonsController < ApplicationController
 
 	def edit
 		@lesson = Lesson.find(params[:id])
+		p "~~~~~~~~~~~~~~~"
+		p @lesson.contents.count
 	end
 
 	def update

@@ -1,6 +1,5 @@
 class ContentsController < ApplicationController
 	def update
-		p params
 		content = Content.find(params[:id])
 		content.update_attributes(params[:content_data])
 		render json: {test: 'test'}
@@ -17,7 +16,7 @@ class ContentsController < ApplicationController
 	def show
 		@content = Content.find(params[:id])
 		@lesson = @content.lesson
-		@positionIndex = @lesson.contents.count + 1
+		@positionIndex = @lesson.contents.count - 1
 		render layout: false
 	end
 end

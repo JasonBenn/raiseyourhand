@@ -1,27 +1,30 @@
+<script type="text/javascript">
+	// var newPositionIndex = (timeline.length + 1)
+	var new_content = {
+			lesson_id: '<%= lesson.id %>',
+			content_id: '<%= content.id %>',
+			url: '<%= content.url %>',
+			position: '<%= content.position %>',
+			start_time: '<%= content.start_time ? content.start_time : "" %>',
+			finish_time: '<%= content.finish_time %>',
+			position: '<%= positionIndex %>'
+		}
+	addContentToTimeline(new_content);
+</script>
 <div class="indi-video-shell indi-video-shell-<%= positionIndex %>" data-content-id="<%= content.id %>" data-index-id="<%= positionIndex %>">
 	<input type="hidden" class="youtubeId-player<%= positionIndex %>" value='<%= content.url %>'>
 	<div id="videoDiv-<%= positionIndex %>"></div>
 	<div class="create-progress-bar progress-bar-<%= positionIndex %>" data-index-id="<%= positionIndex %>">
 	<!-- <div class="create-progress-bar progress-bar-<%= positionIndex %>" data-content-id="<%= positionIndex %>"> -->
 	  <div class="create-progress"></div>
-	  <div class="create-draggable-progress create-draggable-progress-id-<%= positionIndex %>" data-timestamp="0"></div>
-	  <div class="create-draggable-progress create-draggable-progress-end create-draggable-progress-end-id-<%= positionIndex %>" data-timestamp="end"></div>
+	  <div class="create-draggable-progress create-draggable-progress-id-<%= positionIndex %> create-draggable-splicer-1-<%= positionIndex %>" data-timestamp="0"></div>
+	  <div class="create-draggable-progress create-draggable-progress-end create-draggable-splicer-2-<%= positionIndex %> create-draggable-progress-end-id-<%= positionIndex %>" data-timestamp="end"></div>
 	</div>
 	<button class="add-clip-to-lesson">Add clip to lesson</button>
 
 	<script type="text/javascript">
 		// setCurrentYoutubeId('<%= content.url %>');
-		_run('<%= positionIndex %>');
-		youtubeDataApiRequest();
-		timeline.push({
-			lesson_id: '<%= lesson.id %>',
-			content_id: '<%= content.id %>',
-			url: '<%= content.url %>',
-			position: '<%= content.position %>' || '<%= positionIndex %>',
-			start_time: '<%= content.start_time %>',
-			finish_time: '<%= content.finish_time %>',
-			position: '<%= positionIndex %>'
-		})
+		_run('<%= positionIndex %>');		
 
 		function addYoutubeContent<%= content.id %>(data){
 			var duration = data['entry']['media$group']['yt$duration']['seconds'];
@@ -39,8 +42,14 @@
 	<script type="text/javascript" src="http://gdata.youtube.com/feeds/api/videos/<%= getVideoIdFromUrl(content.url) %>?v=2&alt=json-in-script&format=5&callback=addYoutubeContent<%= content.id %>"></script>
 
 	<script type="text/javascript">
+	console.log(4)
 	placeSlidersByTime(timeline[<%= positionIndex %>].start_time, timeline[<%= positionIndex %>].duration, <%= positionIndex %>, 'start_time');
+	console.log(5)
 	placeSlidersByTime(timeline[<%= positionIndex %>].finish_time, timeline[<%= positionIndex %>].duration, <%= positionIndex %>, 'end_time');
+
+	makeDraggable($('.create-draggable-splicer-1-<%= positionIndex %>'), <%= positionIndex %>);
+	makeDraggable($('.create-draggable-splicer-2-<%= positionIndex %>'), <%= positionIndex %>);
+	console.log('test')
 	</script>
 
 </div><br><br>

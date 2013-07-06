@@ -141,11 +141,8 @@ function getContentFromIndexId(index){
   return content[0]
 }
 
-function youtubeDataApiRequest(){
-  var youtube_id = 'Cqz713hhz1Y'
-  $.get('http://gdata.youtube.com/feeds/api/videos/Cqz713hhz1Y?v=2&alt=jsonc&callback=youtubeFeedCallback&prettyprint=true', function(data){
-    alert('s');
-  })
+function addContentToTimeline(content){
+  timeline.push(content);
 }
 
 function updateContentTime(index, content){
@@ -210,35 +207,52 @@ function placeSlidersByTime(time, duration, indexId, type){
   }
 }
 
-$(document).ready(function(){
-  var $progressBarContainer = $('.create-progress-bar');
-  var $progressBarStatus = $('.create-progress')
-  var $progressSlide = $('.create-draggable-progress');
-
-  function getProgressTimeRequest(e, contentId){
-    var parentOffsetX = $progressBarContainer.offset().left;
-    var mouseX = e.pageX;
-    var relativeX =  mouseX - parentOffsetX;
-    var mousePercentage = relativeX / $progressBarContainer.width();
-    return getDuration() * mousePercentage;
-  }
-
-  $('.create-draggable-progress').draggable({
+function makeDraggable($element, indexId){
+  $element.draggable({
     axis: 'x',
     containment: "parent",
     drag: function(e){
-      var indexId = $(this).parent().attr('data-index-id');
       activateContent(indexId);
       var newTime = getProgressTimeRequest(e, indexId);
       seekTo(newTime)
     },
     stop: function(e){
-      var indexId = getIndexIdFromParent($(this));
       var content = getContentFromIndexId(indexId);
-      $(this).attr('data-timestamp', parseFloat(getProgressTimeRequest(e, indexId)).toFixed(2));
+      $element.attr('data-timestamp', parseFloat(getProgressTimeRequest(e, indexId)).toFixed(2));
       updateContentTime(indexId, content);
     }
   })
+}
+
+function getProgressTimeRequest(e, contentId){
+  var parentOffsetX = $progressBarContainer.offset().left;
+  var mouseX = e.pageX;
+  var relativeX =  mouseX - parentOffsetX;
+  var mousePercentage = relativeX / $progressBarContainer.width();
+  return getDuration() * mousePercentage;
+}
+
+$(document).ready(function(){
+  $progressBarContainer = $('.create-progress-bar');
+  $progressBarStatus = $('.create-progress')
+  $progressSlide = $('.create-draggable-progress');
+
+  //  $('.create-draggable-progress').draggable({
+  //   axis: 'x',
+  //   containment: "parent",
+  //   drag: function(e){
+  //     var indexId = $(this).parent().attr('data-index-id');
+  //     activateContent(indexId);
+  //     var newTime = getProgressTimeRequest(e, indexId);
+  //     seekTo(newTime)
+  //   },
+  //   stop: function(e){
+  //     var indexId = getIndexIdFromParent($(this));
+  //     var content = getContentFromIndexId(indexId);
+  //     $(this).attr('data-timestamp', parseFloat(getProgressTimeRequest(e, indexId)).toFixed(2));
+  //     updateContentTime(indexId, content);
+  //   }
+  // })
 
   $('.video-window').on('click', '.add-clip-to-lesson', function(){
     var indexId = getIndexIdFromParent($(this));
