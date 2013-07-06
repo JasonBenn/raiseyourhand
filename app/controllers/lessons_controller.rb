@@ -23,4 +23,13 @@ class LessonsController < ApplicationController
 			render :new
 		end
 	end
+
+	def edit
+		@lesson = Lesson.find(params[:id])
+		@lesson.contents.build
+	end
+
+	def update
+		p params
+	end
 end
