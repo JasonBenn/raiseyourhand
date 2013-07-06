@@ -121,10 +121,23 @@ span {
   display: inline-block;
   position: absolute;
   right: 4%;
-  height: 80%;
-  width: 35%;
+  height: 900px;
+  float: right;
+  top: 230px;
+  margin-left: 50px;
+  width: 500px;
   border: 1px solid black;
   overflow: scroll;
+}
+
+.videoDiv{
+  top: 0px;
+}
+
+.soundcloud {
+  width: 900px;
+  height: 50px;
+  background-color: yellow;
 }
 
 #show-lesson-title {
@@ -152,6 +165,8 @@ span {
 
 .qanswer{
   display: none;
+}
+
 .content-nav {
   width: 93%;
   margin: 10px auto;
