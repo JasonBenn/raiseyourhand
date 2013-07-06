@@ -1,8 +1,17 @@
 <h1 id='show-lesson-title'>Lesson <%= @lesson.id %></h1>
-<% @lesson.contents.length.times do %>
-  <div></div>
-<% end %>
+
+<table class='content-nav'><tr>
+  <% @lesson.contents.each do |content| %>
+    <td class='content-nav-piece'>
+      <% if content.flashcards.any? %>
+        <span><%= content.flashcards.count %></span>
+      <% end %>
+    </td>
+  <% end %>
+</tr></table>
+
 <div id='video'></div>
+
 <div id='questions-answers'>
   <ul>
     <% @lesson.questions.each do |question| %>
