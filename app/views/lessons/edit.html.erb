@@ -6,7 +6,7 @@
 
 <div class="video-window">
 	<% @lesson.contents.each_with_index do |content, index| %>
-		<%= render partial: 'contents/new_content', locals: {content: content, positionIndex: index} %>
+		<%= render partial: 'contents/new_content', locals: {content: content, positionIndex: index, lesson: @lesson} %>
 	<% end %>
 </div>
 

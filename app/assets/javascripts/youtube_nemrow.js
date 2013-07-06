@@ -1,4 +1,5 @@
 var current_youtube_id = 'CGr2pB7drss';
+var timeline = [];
 // Update a particular HTML element with a new value
 function updateHTML(elmId, value) {
   document.getElementById(elmId).innerHTML = value;
@@ -135,6 +136,20 @@ function _run(index) {
   loadPlayer(index);
 }
 
+function updateTimelimeObject(objectId, startTime, endTime){
+  alert()
+}
+
+function getContentIdFromParent(parentElement){
+  return parentElement.parent().attr('data-content-id');
+}
+
+function getContentIdFromIndexId(index){
+  timeline.filter(function(f){
+    alert(f)
+  })
+}
+
 $(document).ready(function(){
   var $progressBarContainer = $('.progress-bar');
   var $progressBarStatus = $('.progress')
@@ -158,7 +173,9 @@ $(document).ready(function(){
       seekTo(newTime)
     },
     stop: function(e){
-      $(this).attr('data-timestamp', getProgressTimeRequest(e))
+      var contentId = getContentIdFromParent($(this))
+      alert (getProgressTimeRequest(e, contentId))
+      alert(contentId)
     }
   })
 

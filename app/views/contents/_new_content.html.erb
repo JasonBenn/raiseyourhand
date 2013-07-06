@@ -3,6 +3,7 @@
 	<div id="videoDiv-<%= positionIndex %>"></div>
 
 	<div class="create-progress-bar progress-bar-<%= positionIndex %>" data-content-id="<%= positionIndex %>">
+	<!-- <div class="create-progress-bar progress-bar-<%= positionIndex %>" data-content-id="<%= positionIndex %>"> -->
 	  <div class="create-progress"></div>
 	  <div class="create-draggable-progress"></div>
 	  <div class="create-draggable-progress create-draggable-progress-end"></div>
@@ -11,5 +12,13 @@
 	<script type="text/javascript">
 		setCurrentYoutubeId('<%= content.url %>');
 		_run('<%= positionIndex %>');
+		timeline.push({
+			lesson_id: '<%= lesson.id %>',
+			content_id: '<%= content.id %>',
+			url: '<%= content.url %>',
+			start_time: null,
+			end_time: null,
+			position: '<%= positionIndex %>'
+		})
 	</script>
 </div><br><br>
