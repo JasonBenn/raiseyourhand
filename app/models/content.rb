@@ -3,7 +3,7 @@ class Content < ActiveRecord::Base
   belongs_to :lesson
   has_many :questions
   has_many :flashcards
-  validates_presence_of :lesson
+  validates_presence_of :lesson_id
   validates_associated :lesson
 
   def length
