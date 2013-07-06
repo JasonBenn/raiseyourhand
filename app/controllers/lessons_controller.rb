@@ -26,9 +26,5 @@ class LessonsController < ApplicationController
 	end
 
 	def update
-		p params
 	end
-
-
-
 end
