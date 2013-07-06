@@ -17,8 +17,8 @@
 	<div class="create-progress-bar progress-bar-<%= positionIndex %>" data-index-id="<%= positionIndex %>">
 	<!-- <div class="create-progress-bar progress-bar-<%= positionIndex %>" data-content-id="<%= positionIndex %>"> -->
 	  <div class="create-progress"></div>
-	  <div class="create-draggable-progress create-draggable-progress-id-<%= positionIndex %> create-draggable-splicer-1-<%= positionIndex %>" data-timestamp="0"></div>
-	  <div class="create-draggable-progress create-draggable-progress-end create-draggable-splicer-2-<%= positionIndex %> create-draggable-progress-end-id-<%= positionIndex %>" data-timestamp="end"></div>
+	  <div class="create-draggable-progress create-draggable-progress-id-<%= positionIndex %> create-draggable-splicer-1-<%= positionIndex %>" data-timestamp="<%= content.start_time %>"></div>
+	  <div class="create-draggable-progress create-draggable-progress-end create-draggable-splicer-2-<%= positionIndex %> create-draggable-progress-end-id-<%= positionIndex %>" data-timestamp="<%= content.finish_time %>"></div>
 	</div>
 	<button class="add-clip-to-lesson">Add clip to lesson</button>
 
@@ -34,6 +34,7 @@
 			}
 			if (timeline[<%= positionIndex %>].start_time == ''){
 				timeline[<%= positionIndex %>].start_time = 0;
+				$('.create-draggable-progress-id-<%= positionIndex %>').attr('data-timestamp', 0);
 			}
 			timeline[<%= positionIndex %>].duration = duration;
 		}
@@ -42,14 +43,11 @@
 	<script type="text/javascript" src="http://gdata.youtube.com/feeds/api/videos/<%= getVideoIdFromUrl(content.url) %>?v=2&alt=json-in-script&format=5&callback=addYoutubeContent<%= content.id %>"></script>
 
 	<script type="text/javascript">
-	console.log(4)
 	placeSlidersByTime(timeline[<%= positionIndex %>].start_time, timeline[<%= positionIndex %>].duration, <%= positionIndex %>, 'start_time');
-	console.log(5)
 	placeSlidersByTime(timeline[<%= positionIndex %>].finish_time, timeline[<%= positionIndex %>].duration, <%= positionIndex %>, 'end_time');
 
 	makeDraggable($('.create-draggable-splicer-1-<%= positionIndex %>'), <%= positionIndex %>);
 	makeDraggable($('.create-draggable-splicer-2-<%= positionIndex %>'), <%= positionIndex %>);
-	console.log('test')
 	</script>
 
 </div><br><br>

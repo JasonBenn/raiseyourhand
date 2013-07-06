@@ -150,10 +150,8 @@ function updateContentTime(index, content){
   $('.progress-bar-'+index).children('.create-draggable-progress').each(function(){
     timestampArray.push($(this).attr('data-timestamp'));
   })
-  if (timestampArray[0] == 'end' || timestampArray[1] == 'end'){
-    content.start_time = timestampArray[0];
-    content.finish_time = getDuration();
-  } else if (parseInt(timestampArray[0]) <= parseInt(timestampArray[1])){
+  alert(timestampArray)
+  if (parseInt(timestampArray[0]) <= parseInt(timestampArray[1])){
     content.start_time = timestampArray[0];
     content.finish_time = timestampArray[1];
   } else {
