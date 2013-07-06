@@ -81,6 +81,24 @@ span {
   position: absolute;
 }
 
+
+.questions-answers {
+  clear: both;
+  margin-left: 950px;
+  top:200px;
+  display: inline-block;
+  position: absolute;
+  height: 83%;
+  width: 35%;
+  border: 1px solid black;
+  overflow: scroll;
+}
+
+#show-lesson-title {
+  margin: 1em 2em;
+  border-bottom: 2px solid gray;
+}
+
 #content-index {
   background-color: white;
   width: 50%;
@@ -90,8 +108,10 @@ span {
 }
 
 #content-index ol li {
+
   list-style-type: none;
   padding: 5px;
+
 }
 
 #content-index ol li ul {
@@ -105,11 +125,22 @@ span {
 #questions-answers {
   display: inline-block;
   position: absolute;
-  right: 4%;
-  height: 80%;
-  width: 35%;
+  right: 70px;
+  height: 650px;
+  top: 230px;
+  width: 500px;
   border: 1px solid black;
   overflow: scroll;
+}
+
+.videoDiv{
+  top: 0px;
+}
+
+.soundcloud {
+  width: 900px;
+  height: 50px;
+  background-color: yellow;
 }
 
 #show-lesson-title {
@@ -118,6 +149,7 @@ span {
 }
 
 .question, .answer {
+  /*display: none;*/
   margin: 15px;
   text-align: left;
   padding: 5px;
@@ -127,11 +159,16 @@ span {
 .question {
   background-color: #db8adb;
   margin-right: 80px;
+  height: 50px;
 }
 
 .answer {
   background-color: #9ed77e;
   margin-left: 80px;
+}
+
+.qanswer{
+  display: none;
 }
 
 .content-nav {
@@ -174,4 +211,129 @@ span {
   display: inline-block;
   position: absolute;
   left: 10%;
+
+}
+
+.triangle-border {
+  width: 400px;
+  /*height: 50px;*/
+  position:relative;
+  padding:15px;
+  /*margin:1em 0 3em;*/
+  margin-left: 20px;
+  /*border:5px solid black;*/
+  color:#333;
+  background:steelblue;
+  /* css3 */
+  -webkit-border-radius:10px;
+  -moz-border-radius:10px;
+  border-radius:10px;
+}
+.triangle-border:before {
+  content:"";
+  position:absolute;
+  bottom:-20px; /* value = - border-top-width - border-bottom-width */
+  left:40px; /* controls horizontal position */
+  border-width:20px 20px 0;
+  border-style:solid;
+  border-color:steelblue transparent;
+  background-color: white;
+  /* reduce the damage in FF3.0 */
+  display:block; 
+  width:0;
+}
+
+/* creates the smaller  triangle */
+.triangle-border:after {
+  content:"";
+  position:absolute;
+  bottom:-13px; /* value = - border-top-width - border-bottom-width */
+  left:47px; /* value = (:before left) + (:before border-left) - (:after border-left) */
+  border-width:13px 13px 0;
+  border-style:solid;
+  border-color:steelblue transparent;
+  /* reduce the damage in FF3.0 */
+  display:block; 
+  width:0;
+}
+
+.bubble-face {
+  vertical-align: left;
+  clear: both;
+  margin-top: 10px;
+  margin-left: 21px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  /*left:0px;*/
+}
+
+.qcontainer {
+  height: 150px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.atriangle-border {
+  width: 400px;
+  height: 50px;
+  position:relative;
+  padding:15px;
+  margin-left: 20px;
+  color:#333;
+  background:green;
+  /* css3 */
+  -webkit-border-radius:10px;
+  -moz-border-radius:10px;
+  border-radius:10px;
+}
+
+
+
+.atriangle-border:before {
+  content:"";
+  position:absolute;
+  bottom:-20px; /* value = - border-top-width - border-bottom-width */
+  right:40px; /* controls horizontal position */
+  border-width:20px 20px 0;
+  border-style:solid;
+  border-color:green transparent;
+  background-color: white;
+  /* reduce the damage in FF3.0 */
+  display:block; 
+  width:0;
+}
+
+/* creates the smaller  triangle */
+.atriangle-border:after {
+  content:"";
+  position:absolute;
+  bottom:-13px; /* value = - border-top-width - border-bottom-width */
+  right:47px; /* value = (:before left) + (:before border-left) - (:after border-left) */
+  border-width:13px 13px 0;
+  border-style:solid;
+  border-color:green transparent;
+  display:block; 
+  width:0;
+}
+.abubble-face {
+  vertical-align: left;
+  clear: both;
+  margin-top: 10px;
+  margin-left: 195px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+}
+.repective-answers{
+  margin-top: 0px;
+}
+
+.acontainer {
+  display: none;
+  height: 150px;
+}
+
+.question_body {
+  display: none;
 }
