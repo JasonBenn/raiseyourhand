@@ -3,6 +3,7 @@ class LessonsController < ApplicationController
 	end
 
 	def index
+		@home = true
 		@lessons = Lesson.all
 	end
 
@@ -30,6 +31,6 @@ class LessonsController < ApplicationController
 	end
 
 	def update
-		p params
 	end
 end
+

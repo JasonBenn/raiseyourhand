@@ -72,13 +72,14 @@ span {
 
 /*******SHOW LESSON*******/
 
-#video {
+#video, #content-index {
   width: 50%;
   height: 450px;
   background-color: steelblue;
-  margin: 50px 5%;
+  margin: 10px 5%;
   display: inline-block;
 }
+
 
 .questions-answers {
   clear: both;
@@ -98,11 +99,13 @@ span {
 }
 
 #content-index {
-  margin: 2em;
-  text-align: none;
+  background-color: white;
 }
 
 #content-index ol li {
+
+  list-style-type: none;
+  padding: 5px;
 
 }
 
@@ -112,6 +115,21 @@ span {
 
 #content-index ol li ul li {
   text-align: left;
+}
+
+#questions-answers {
+  display: inline-block;
+  position: absolute;
+  right: 4%;
+  height: 80%;
+  width: 35%;
+  border: 1px solid black;
+  overflow: scroll;
+}
+
+#show-lesson-title {
+  margin: 1em 2em;
+  border-bottom: 2px solid gray;
 }
 
 .question, .answer {
@@ -134,4 +152,45 @@ span {
 
 .qanswer{
   display: none;
+.content-nav {
+  width: 93%;
+  margin: 10px auto;
+  border-spacing: 6px;
+}
+
+.content-nav-piece {
+  background-color: #E6E6E6;
+}
+
+.content-nav-piece:hover {
+  border-spacing: 10px;
+  background-color: steelblue;
+}
+
+.content-nav-piece span {
+  background-color: white;
+  float: right;
+  margin-right: 5%;
+  text-align: center;
+  width: 8px;
+  height: 8px;
+  font-size: 14px;
+  line-height: 8px;
+  border-radius: 16px;
+  border: 1px solid gray;
+  color: gray;
+}
+
+/*******NAV*******/
+
+#login-logout {
+  width: 25%;
+  float: right;
+}
+
+#title {
+  display: inline-block;
+  position: absolute;
+  left: 10%;
+
 }
