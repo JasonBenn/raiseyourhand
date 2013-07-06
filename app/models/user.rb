@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :user_lessons
   has_many :lessons, through: :user_lessons
   has_many :created_lessons, class_name: 'Lesson', foreign_key: 'creator_id'
+  has_many :votes
 
   validates :oauth_token, presence: true
 
