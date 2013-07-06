@@ -1,22 +1,23 @@
 class ContentsController < ApplicationController
-	def update
-		content = Content.find(params[:id])
-		content.update_attributes(params[:content_data])
-		render json: {test: 'test'}
-	end
 
 	def create
-		@content = Content.create(
-															url: params[:url],
-															lesson_id: params[:lesson_id]
-															)
-		redirect_to content_path(@content.id)
+		@content = Content.new(params[:content])
+		if @content.save
+			render partial: 'new_content', locals: { content: @content }, status: "201"
+		else
+			render text: "Invalid Content", status: "400"
+		end
 	end
 
-	def show
-		@content = Content.find(params[:id])
-		@lesson = @content.lesson
-		@positionIndex = @lesson.contents.count - 1
-		render layout: false
+
+	def update
+		if @content = Content.find_by_id(params[:id])
+		@content.update_attributes(params[:content])
+			if @content.save
+				render partial: 'new_content', locals: { content: @content }
+			end
+		else
+			render text: "Invalid Content", status: "400"
+		end
 	end
 end
