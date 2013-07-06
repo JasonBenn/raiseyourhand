@@ -1,0 +1,37 @@
+.flashcards {
+  height: 458px;
+  width: 858px;
+  padding: 20px;
+  border: 1px solid gray;
+  margin-left: 60px;
+  position: absolute;
+  z-index: 1;
+  display: none;
+  background: white;
+}
+
+.show-back, .next-card {
+  position: absolute;
+  bottom: 1em;
+  width: 150px;
+  height: 3em;
+  line-height: 3em;
+  left: 42%;
+}
+
+.show-back:hover, .next-card:hover {
+  background-color: gray;
+}
+
+.flashcards #done {
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  color: white;
+  text-align: center;
+  line-height: 20px;
+  padding: 0;
+  background-color: red;
+  top: 1em;
+  right: 1em;
+}
