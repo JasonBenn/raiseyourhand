@@ -5,7 +5,7 @@
   <% @lesson.contents.each do |content| %>
     <td class='content-nav-piece'>
       <% if content.flashcards.any? %>
-        <span><%= content.flashcards.count %></span>
+        <span data-content-id="<%= content.id %>"><%= content.flashcards.count %></span>
       <% end %>
     </td>
   <% end %>
