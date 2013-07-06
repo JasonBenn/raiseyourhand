@@ -1,12 +1,36 @@
 $(document).ready(function(){
-  alert("here");
-$("#comment").mouseenter(function(){
+// alert("here");
+$("#ask_question").mouseenter(function(){
   // alert("here");
  pauseVideo();
   addTiming();
   });
 
-$("#comment").mouseleave(function(){
+$(".question").click(function(){
+  // alert("here");
+$(this).children("ul").children("li").slideDown();
+// alert($(this).parent("ul").position().top);
+// $(".questions-answers").scrollTop(300);
+// alert($(this).parent("ul").position().top*-1);
+var position = Math.round($(this).parent("ul").position().top*-1);
+// alert(position);
+
+$(".questions-answers").scrollTop(position);
+});
+
+$(".question").on('dblclick', function(){
+  // alert("here");
+$(this).children("ul").children("li").slideUp();
+
+
+});
+
+
+
+
+
+
+$("#ask_question").mouseleave(function(){
   playVideo();
 });
 

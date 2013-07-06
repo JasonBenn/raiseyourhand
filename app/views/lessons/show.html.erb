@@ -1,24 +1,268 @@
+<%= stylesheet_link_tag    "player_main_css.css", :media => "all" %>
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+        <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+
+    <script type="text/javascript">
+google.load("swfobject", "2.1");
+</script>
+
+    <%= javascript_include_tag "player_jquery" %>
+    <%= javascript_include_tag "jquery.jsPlumb-1.4.0-all-min" %>
+
+
+    <%= javascript_include_tag "player_jsplumb" %>
+
+
+
+    <script type="text/javascript">
+
+// alert(google);
+
+
+  function updateProgressBar(currentTime, duration) {
+    if (currentTime !== 0 && duration !== 0) {
+        var progressRatio = currentTime / duration;
+        var progressUpdate = 800 * progressRatio;
+    }
+    $('.progress').css('width', progressUpdate);
+}
+
+function updateHTML(elmId, value) {
+    document.getElementById(elmId).innerHTML = value;
+}
+
+function updateValue(elmId, value) {
+    document.getElementById(elmId).value = value;
+}
+
+function onPlayerError(errorCode) {
+    alert("An error occured of type:" + errorCode);
+}
+
+function onPlayerStateChange(newState) {
+    updateHTML("playerState", newState);
+}
+
+function updatePlayerInfo() {
+    if (ytplayer && ytplayer.getDuration) {
+        updateHTML("videoDuration", ytplayer.getDuration());
+        updateHTML("videoCurrentTime", ytplayer.getCurrentTime());
+        updateProgressBar(ytplayer.getCurrentTime(), ytplayer.getDuration());
+        // updateHTML("volume", ytplayer.getVolume());
+    }
+
+$("#"+Math.round(ytplayer.getCurrentTime())).show("display", "inline");
+}
+
+function setVideoVolume() {
+    var volume = parseInt(document.getElementById("volumeSetting").value);
+    if (isNaN(volume) || volume < 0 || volume > 100) {
+        alert("Please enter a valid volume between 0 and 100.");
+    } else if (ytplayer) {
+        ytplayer.setVolume(volume);
+    }
+}
+
+function seekTo(time) {
+    if (ytplayer) {
+        ytplayer.seekTo(time, true);
+    }
+}
+
+var id;
+
+var Test = function () {
+    return window.setInterval(function () {
+        changeCss();
+    }, 0);
+};
+
+
+var changeCss = function () {
+    $(".qtrack_one").css("margin-left", "-" + ytplayer.getCurrentTime() * 100 + "px");
+    $(".qtrack_two").css("margin-left", "-" + ytplayer.getCurrentTime() * 100 + "px");
+
+};
+
+    function playVideo() {
+      // alert("here");
+        if (ytplayer) {
+            ytplayer.playVideo();
+        }
+        id = Test();
+    }
+
+    function pauseVideo() {
+        if (ytplayer) {
+            ytplayer.pauseVideo();
+        }
+        window.clearInterval(id);
+    }
+
+    function onYouTubePlayerReady(playerId) {
+        ytplayer = document.getElementById("ytPlayer");
+        setInterval(updatePlayerInfo, 250);
+        updatePlayerInfo();
+        ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
+        ytplayer.addEventListener("onError", "onPlayerError");
+        ytplayer.cueVideoById("sfw5ZPowLJY");
+    }
+
+    function loadPlayer() {
+        var params = {
+            allowScriptAccess: "always"
+        };
+        var atts = {
+            id: "ytPlayer"
+        };
+        // All of the magic handled by SWFObject (http://code.google.com/p/swfobject/)
+        swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
+            "version=3&enablejsapi=1&playerapiid=player1",
+            "videoDiv", "900", "500", "9", null, null, params, atts);
+    }
+
+    function _run() {
+        loadPlayer();
+        // alert("here");
+    }
+
+google.setOnLoadCallback(_run);
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <h1 id='show-lesson-title'>Lesson <%= @lesson.id %></h1>
 <% @lesson.contents.length.times do %>
   <div></div>
 <% end %>
-<div id='video'></div>
-<div id='questions-answers'>
+
+<div id="chapter_overview">
+    <div id="chapter">Chapter 1</div>
+    <div id="chapter">Chapter 2</div>
+    <div id="chapter">Chapter 3</div>
+    <div id="chapter">Chapter 4</div>
+    <div id="chapter">Chapter 5</div>
+    <div id="chapter">Chapter 6</div>
+    <div id="chapter">Chapter 7</div>
+    <div id="chapter">Chapter 8</div>
+    <div id="chapter">Chapter 9</div>
+</div>
+
+<div id="videoDiv">Loading...</div>
+
+
+
+<!-- <div id='video'></div> -->
+<div class='questions-answers'>
   <ul>
     <% @lesson.questions.each do |question| %>
-      <li class='question'>
+      <li class='question' id=<%= question.time_in_content.to_i %>>
         <%= question.text %>
-      </li>
+<span><%= question.answers.count%> answers</span>
       <% question.answers.each do |answer| %>
         <ul>
-          <li class='answer'>
+          <li class='answer qanswer'>
             <%= answer.text %>
           </li>
+                </li>
         </ul>
+
       <% end %>
+      <button>Answer this question</button>
     <% end %>
   </ul>
 </div>
+
+
+<div id="videoDiv">Loading...</div>
+
+  <div class="progress-bar">
+      <div class="progress"></div>
+    </div>
+
+<div id="navigation_bar">
+<button id="play" onclick="playVideo();">Play</button>
+<button id="pause" onclick="pauseVideo();">Pause</button>
+</div>
+
+<!-- <div class ="question_track">
+
+<div class="qtrack_one">
+
+    <% @lesson.questions.each do |question| %>
+
+<table class="table_question">
+<tr>
+<td class="qpic">
+  <img class="face" src="http://www.biography.com/imported/images/Biography/Images/Profiles/Z/Mark-Zuckerberg-507402-1-402.jpg">
+
+</td>
+<td class="qquestion">
+<p class="questiont"> How come I am so rich?</p>
+</td>
+</tr>
+</table>
+
+<%end%>
+
+
+</div>
+
+
+
+</div> -->
+
+<div id="ask_question">
+<p id="question-header">Raise your hand and ask a question</p>
+
+<form>
+<input id="q-title" type="text" placeholder="Question Title"><br>
+<textarea id="q-body" placeholder="Question"></textarea>
+<input id="current_time" type="hidden" readonly><br>
+<input id="q-submit" type="submit" value="Raise your hand">
+
+</form>
+</div>
+
+
+
+
+
+
+      <div id="videoInfo">
+        <p>Player state: <span id="playerState">--</span></p>
+        <p>Current Time: <span id="videoCurrentTime">--:--</span> | Duration: <span id="videoDuration">--:--</span></p>
+      </div>
+
+
+
+
+
+
+
 
 <div id='content-index'>
   <ol>

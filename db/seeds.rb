@@ -36,8 +36,8 @@ end
 
 Content.all.each do |content|
   three_minute_intervals = (content.length/180).ceil
-  three_minute_intervals.times do 
-    Que stion.create(
+  three_minute_intervals.times do
+    Question.create(
     content_id: content.id,
     time_in_content: random_time_in(content),
     text: Faker::Lorem.sentence(rand(15..100)).gsub('.', '?')

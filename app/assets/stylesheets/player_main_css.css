@@ -8,7 +8,7 @@
     position: relative;
   }
   .progress-bar{
-  width: 800px;
+  width: 900px;
   height: 50px;
   background-color: red;
   z-index: 1;
@@ -32,7 +32,7 @@
   z-index: 3;
 }
 .question_track {
-  width: 100%;
+  width: 900px;
   overflow: hidden;
   margin-left: 0px;
 }
@@ -45,6 +45,7 @@
   width: 50px;
   height: 20px;
   padding-top: 150px;
+  border-radius:
 }
 .qquestion {
   width: 50px;
@@ -76,12 +77,15 @@
   height: 50px;
   padding-bottom: 0px;
   margin-bottom: 0px;
+  border-radius: 50px;
+  border: 3px solid black;
 }
 .face_mini {
   width: 20px;
   height: 20px;
   padding-bottom: 0px;
   margin-bottom: 0px;
+
 }
 #container0{
   width: 100px;
@@ -120,4 +124,47 @@
 }
 #videoInfo{
   clear: both;
+}
+#ask_question {
+  width: 900px;
+  background-color: #354B59;
+}
+#q-title{
+  margin-left: 25%;
+  width: 450px;
+  height: 40px;
+  font-size: 20px;
+}
+#q-body{
+  margin-left: 25%;
+  margin-top: 20px;
+  width: 450px;
+  height: 100px;
+  font-size: 20px;
+}
+#question-header {
+  font-size: 25px;
+  text-align: center;
+  font-weight: bold;
+}
+#q-submit{
+  margin-left: 45%;
+  font-size: 20px;
+  width: 100px;
+  height: 25px;
+}
+.questiont{
+border: 2px solid black;
+float: left;
+}
+.chapter_overview{
+}
+#chapter{
+  /*clear: both;*/
+  float: left;
+  width: 95px;
+  margin-left: 2px;
+  height: 20px;
+  background-color: red;
+  border: 1px solid black;
 }

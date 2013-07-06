@@ -80,10 +80,13 @@ span {
   display: inline-block;
 }
 
-#questions-answers {
+.questions-answers {
+  clear: both;
+  margin-left: 950px;
+  top:200px;
   display: inline-block;
   position: absolute;
-  height: 80%;
+  height: 83%;
   width: 35%;
   border: 1px solid black;
   overflow: scroll;
@@ -100,7 +103,7 @@ span {
 }
 
 #content-index ol li {
-  
+
 }
 
 #content-index ol li ul {
@@ -112,6 +115,7 @@ span {
 }
 
 .question, .answer {
+  /*display: none;*/
   margin: 15px;
   text-align: left;
   padding: 5px;
@@ -126,4 +130,8 @@ span {
 .answer {
   background-color: #9ed77e;
   margin-left: 80px;
+}
+
+.qanswer{
+  display: none;
 }
