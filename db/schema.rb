@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20130705160329) do
     t.string   "time_in_content"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.string   "title"
   end
 
   create_table "user_lessons", :force => true do |t|

@@ -132,42 +132,84 @@ google.setOnLoadCallback(_run);
 
     </script>
 
-<table>
+<h1>
+    Lesson Dummy Header
+</h1>
 
-<tr>
-  <td>
+<div id="chapter_overview">
+    <div id="chapter">Chapter 1</div>
+    <div id="chapter">Chapter 2</div>
+    <div id="chapter">Chapter 3</div>
+    <div id="chapter">Chapter 4</div>
+    <div id="chapter">Chapter 5</div>
+    <div id="chapter">Chapter 6</div>
+    <div id="chapter">Chapter 7</div>
+    <div id="chapter">Chapter 8</div>
+    <div id="chapter">Chapter 9</div>
+</div>
+
 <div id="videoDiv">Loading...</div>
 
-  </td><td>
-  <td>
-<div class="img_right">
+  <div class="progress-bar">
+      <div class="progress"></div>
+    </div>
+
+<div id="navigation_bar">
+<button id="play" onclick="playVideo();">Play</button>
+<button id="pause" onclick="pauseVideo();">Pause</button>
+</div>
+
+<div class ="question_track">
+
+<div class="qtrack_one">
+
+<% 50.times do |question|%>
 
 
-
-  <% 10.times do |question|%>
-
-<table class="table_question_right" id=<%= rand(160)+1%>>
+<table class="table_question">
 <tr>
 <td class="qpic">
   <img class="face" src="http://www.biography.com/imported/images/Biography/Images/Profiles/Z/Mark-Zuckerberg-507402-1-402.jpg">
+
 </td>
 <td class="qquestion">
-
-<img id="bubble" src="http://www.mentalhelp.net/images/root/speechbubble_id28031361.jpg.jpg"></td>
+<p class="questiont">How come I am so rich? </p>
+</td>
 </tr>
 </table>
 
 <%end%>
 
+
 </div>
-  </td>
-      </tr>
-</table>
+
+
+
+</div>
 <br>
+
+
+
+<div id="ask_question">
+<p id="question-header">Raise your hand and ask a question</p>
+
+<form>
+<input id="q-title" type="text" placeholder="Question Title"><br>
+<textarea id="q-body" placeholder="Question"></textarea>
+<input id="current_time" type="hidden" readonly><br>
+<input id="q-submit" type="submit" value="Raise your hand">
+
+</form>
+</div>
+
+
+
+
+
+
       <div id="videoInfo">
         <p>Player state: <span id="playerState">--</span></p>
         <p>Current Time: <span id="videoCurrentTime">--:--</span> | Duration: <span id="videoDuration">--:--</span></p>
-        <p>Controls: <a href="javascript:void(0);" onclick="playVideo();">Play</a> | <a href="javascript:void(0);" onclick="pauseVideo();">Pause</a></p>
       </div>
 
 <form>
@@ -176,46 +218,14 @@ google.setOnLoadCallback(_run);
   <input id="clicker" type="submit" value="submit">
 </form>
 
-  <div class="progress-bar">
-      <div class="progress"></div>
-    </div>
+
 
 
 
 
 <!-- Questions -->
 
-<div class ="question_track">
 
-<div class="qtrack_one">
-
-<% 50.times do |question|%>
-
-<table class="table_question">
-<tr>
-<td class="qpic">
-  <img class="face" src="http://www.biography.com/imported/images/Biography/Images/Profiles/Z/Mark-Zuckerberg-507402-1-402.jpg">
-</td>
-<td class="qquestion">
-
-<img id="bubble" src="http://www.mentalhelp.net/images/root/speechbubble_id28031361.jpg.jpg"></td>
-</tr>
-<tr><td><%= question %>.</td></tr>
-</table>
-<table class="table_question">
-<tr>
-<td class="qemptypic">       </td>
-<td class="qemptyquest">       </td>
-</tr>
-</table>
-
-<%end%>
-
-
-</div>
-<br>
-
-</div>
 
 
 <div class ="answer_track">
@@ -231,15 +241,11 @@ google.setOnLoadCallback(_run);
 
 <!-- Answers -->
 
-<table class="table_question">
-<tr>
-<td class="qpic">
-  <img id="face1" class="face" src="http://www.biography.com/imported/images/Biography/Images/Profiles/Z/Mark-Zuckerberg-507402-1-402.jpg">
-</td>
-<td class="qquestion">
-<img id="bubble" src="http://www.mentalhelp.net/images/root/speechbubble_id28031361.jpg.jpg"></td>
-</tr>
-</table>
+
+
+
+
+
 
 <table class="table_question">
 <tr>
