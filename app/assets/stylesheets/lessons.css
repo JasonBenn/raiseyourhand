@@ -1,0 +1,94 @@
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+
+nav {
+  color: white;
+  background-color: #354B59;
+  padding: 10px;
+  height: 40px;
+  position: relative;
+}
+
+nav h5 {
+  display: inline-block;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  position: absolute;
+  right: 5%;
+  top: 40%;
+}
+
+nav a:hover {
+  color: yellow;
+}
+
+ul {
+  list-style-type: none;
+  text-align: center;
+}
+
+.lesson-preview {
+  padding: 5px;
+  width: 220px;
+  display: inline-block;
+  margin: 10px;
+  box-shadow: 0 2px 2px #DCDCDC;
+}
+
+span {
+  display: block;
+  padding: 10px;
+}
+
+.lesson-preview-thumbnail {
+  width: 218px;
+  height: 134px;
+  background-color: steelblue;
+}
+
+.title {
+  margin: 60px 0 60px 200px;
+  height: 150px;
+}
+
+.title img {
+  float: left;
+  margin-right: 20px;
+  width: 125px;
+  height: 125px;
+  background-color: steelblue;
+}
+
+#video {
+  width: 850px;
+  height: 450px;
+  background-color: steelblue;
+  margin: 50px 5%;
+}
+
+/*******SHOW LESSON*******/
+#show-lesson-title {
+  margin: 1em 2em;
+  border-bottom: 2px solid gray;
+}
+
+#content-index {
+  margin: 2em;
+  text-align: none;
+}
+
+#content-index ol li {
+  
+}
+
+#content-index ol li ul {
+  margin-bottom: 30px;
+}
+
+#content-index ol li ul li {
+  text-align: left;
+}
