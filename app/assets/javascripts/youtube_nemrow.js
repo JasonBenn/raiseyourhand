@@ -20,12 +20,6 @@ function updatePlayerInfo(playerId) {
   // Also check that at least one function exists since when IE unloads the
   // page, it will destroy the SWF before clearing the interval.
   if(ytplayer && ytplayer.getDuration) {
-    updateHTML("videoDuration", ytplayer.getDuration());
-    updateHTML("videoCurrentTime", ytplayer.getCurrentTime());
-    updateHTML("bytesTotal", ytplayer.getVideoBytesTotal());
-    updateHTML("startBytes", ytplayer.getVideoStartBytes());
-    updateHTML("bytesLoaded", ytplayer.getVideoBytesLoaded());
-    updateHTML("volume", ytplayer.getVolume());
     updateProgressBar(ytplayer.getCurrentTime(), ytplayer.getDuration(), playerId)
   }
 }
@@ -136,23 +130,48 @@ function _run(index) {
   loadPlayer(index);
 }
 
-function updateTimelimeObject(objectId, startTime, endTime){
-  alert()
+function getIndexIdFromParent(element){
+  return element.parent().attr('data-index-id');
 }
 
-function getContentIdFromParent(parentElement){
-  return parentElement.parent().attr('data-content-id');
+function getContentFromIndexId(index){
+  content = timeline.filter(function(content){
+    return (content.position == index);
+  });
+  return content[0]
 }
 
-function getContentIdFromIndexId(index){
-  timeline.filter(function(f){
-    alert(f)
+function youtubeDataApiRequest(){
+  var youtube_id = 'Cqz713hhz1Y'
+  $.get('http://gdata.youtube.com/feeds/api/videos/Cqz713hhz1Y?v=2&alt=jsonc&callback=youtubeFeedCallback&prettyprint=true', function(data){
+    alert('s');
   })
 }
 
+function updateContentTime(index, content){
+  var timestampArray = []
+  $('.progress-bar-'+index).children('.create-draggable-progress').each(function(){
+    timestampArray.push($(this).attr('data-timestamp'));
+  })
+  if (timestampArray[0] == 'end' || timestampArray[1] == 'end'){
+    content.start_time = timestampArray[0];
+    content.end_time = getDuration();
+  } else if (parseInt(timestampArray[0]) <= parseInt(timestampArray[1])){
+    content.start_time = timestampArray[0];
+    content.end_time = timestampArray[1];
+  } else {
+    content.start_time = timestampArray[1];
+    content.end_time = timestampArray[0];
+  }
+}
+
+function addClipToLesson(){
+
+}
+
 $(document).ready(function(){
-  var $progressBarContainer = $('.progress-bar');
-  var $progressBarStatus = $('.progress')
+  var $progressBarContainer = $('.create-progress-bar');
+  var $progressBarStatus = $('.create-progress')
   var $progressSlide = $('.create-draggable-progress');
 
   function getProgressTimeRequest(e, contentId){
@@ -167,20 +186,24 @@ $(document).ready(function(){
     axis: 'x',
     containment: "parent",
     drag: function(e){
-      activateContent($(this).parent().attr('data-content-id'));
-      var indexId = $(this).parent().attr('data-content-id');
+      var indexId = $(this).parent().attr('data-index-id');
+      activateContent(indexId);
       var newTime = getProgressTimeRequest(e, indexId);
       seekTo(newTime)
     },
     stop: function(e){
-      var contentId = getContentIdFromParent($(this))
-      alert (getProgressTimeRequest(e, contentId))
-      alert(contentId)
+      var indexId = getIndexIdFromParent($(this));
+      var content = getContentFromIndexId(indexId);
+      $(this).attr('data-timestamp', parseFloat(getProgressTimeRequest(e, indexId)).toFixed(2));
+      updateContentTime(indexId, content);
     }
   })
 
-  $('.set-new-chapter').click(function(){
-
+  $('.video-window').on('click', '.add-clip-to-lesson', function(){
+    var indexId = getIndexIdFromParent($(this));
+    var content = getContentFromIndexId(indexId);
+    updateContentTime(indexId, content);
+    console.log(content);
   })
 
 });
