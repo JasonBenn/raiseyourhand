@@ -3,6 +3,7 @@ class LessonsController < ApplicationController
 	end
 
 	def index
+		@home = true
 		@lessons = Lesson.all
 	end
 
