@@ -124,6 +124,7 @@
 }
 #videoInfo{
   clear: both;
+  display: none;
 }
 #ask_question {
   width: 900px;
@@ -167,4 +168,17 @@ float: left;
   height: 20px;
   background-color: red;
   border: 1px solid black;
+}
+.ytplayer {
+  margin-left: 200px;
+}
+
+.top{
+  margin-left: 60px;
+}
+.progress-bar{
+  margin-left: 60px;
+}
+#navigation_bar{
+  margin-left: 60px;
 }
