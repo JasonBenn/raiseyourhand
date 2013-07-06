@@ -40,6 +40,7 @@ Content.all.each do |content|
     Question.create(
     content_id: content.id,
     time_in_content: random_time_in(content),
+    title: Faker::Lorem.sentence(rand(3..5)).gsub('.', '?'),
     text: Faker::Lorem.sentence(rand(15..100)).gsub('.', '?')
     )
   end
