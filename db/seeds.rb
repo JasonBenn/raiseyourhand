@@ -35,12 +35,12 @@ end
 end
 
 Content.all.each do |content|
-  ninety_second_intervals = (content.length/90).ceil
-  ninety_second_intervals.times do 
-    Question.create(
+  three_minute_intervals = (content.length/180).ceil
+  three_minute_intervals.times do 
+    Que stion.create(
     content_id: content.id,
     time_in_content: random_time_in(content),
-    text: Faker::Lorem.sentence(rand(15..100))
+    text: Faker::Lorem.sentence(rand(15..100)).gsub('.', '?')
     )
   end
 
@@ -55,7 +55,7 @@ Content.all.each do |content|
 end
 
 Question.count.times do
-  rand(0..4).times do
+  rand(0..3).times do
     Answer.create(
       question_id: rand(1..Question.all.length),
       text: Faker::Lorem.sentence(rand(15..150))
