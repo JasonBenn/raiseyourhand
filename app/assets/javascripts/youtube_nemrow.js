@@ -186,6 +186,21 @@ function updateContentInDatabase(content){
   });
 }
 
+function createNewContent(url){
+  $.ajax({
+    url:'/contents',
+    type: 'post',
+    data: {
+      url: url,
+      lesson_id: lesson_id
+    }
+  }).success(function(result){
+    $('.video-window').append(result)
+  }).fail(function(result){
+    alert('could not add video to lesson.')
+  });
+}
+
 function placeSlidersByTime(time, duration, indexId, type){
   percent = parseFloat(parseFloat(time) / parseFloat(duration)).toFixed(2);
   if (type == 'start_time'){
@@ -230,6 +245,10 @@ $(document).ready(function(){
     var content = getContentFromIndexId(indexId);
     updateContentTime(indexId, content);
     addClipToLesson(content);
+  })
+
+  $('.add-new_youtube-clip').click(function(){
+    createNewContent($('.add-youtube-movie-input').val());
   })
 
 });

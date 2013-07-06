@@ -37,7 +37,7 @@
 	</script>
 
 	<script type="text/javascript" src="http://gdata.youtube.com/feeds/api/videos/<%= getVideoIdFromUrl(content.url) %>?v=2&alt=json-in-script&format=5&callback=addYoutubeContent<%= content.id %>"></script>
-	
+
 	<script type="text/javascript">
 	placeSlidersByTime(timeline[<%= positionIndex %>].start_time, timeline[<%= positionIndex %>].duration, <%= positionIndex %>, 'start_time');
 	placeSlidersByTime(timeline[<%= positionIndex %>].finish_time, timeline[<%= positionIndex %>].duration, <%= positionIndex %>, 'end_time');

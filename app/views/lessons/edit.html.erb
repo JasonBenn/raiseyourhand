@@ -1,6 +1,7 @@
 <script src="http://www.google.com/jsapi" type="text/javascript"></script>
 <script type="text/javascript">
 	google.load("swfobject", "2.1");
+  var lesson_id = <%= @lesson.id %>
 </script>
 <h1>Edit your lesson</h1>
 
@@ -15,4 +16,5 @@
   <!-- <div class="draggable-progress"></div> -->
 <!-- </div> -->
 
-<button class="set-new-chapter" onClick="_run()">run</button>
+<input type="text" class="add-youtube-movie-input" value="http://www.youtube.com/watch?v=k0BWlvnBmIE">
+<button class="add-new_youtube-clip">Add Another Youtube Clip</button>
