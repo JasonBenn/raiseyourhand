@@ -3,6 +3,11 @@ class LessonsController < ApplicationController
 	end
 
 	def index
+		@lessons = Lesson.all
+	end
+
+	def show
+		@lesson = Lesson.find(params[:id])
 	end
 	
 	def new
@@ -19,7 +24,6 @@ class LessonsController < ApplicationController
 		end
 	end
 
-
 	def edit
 		@lesson = Lesson.find(params[:id])
 		@lesson.contents.build
@@ -28,3 +32,4 @@ class LessonsController < ApplicationController
 	def update
 	end
 end
+

@@ -1,0 +1,18 @@
+<h1 id='show-lesson-title'>Lesson <%= @lesson.id %></h1>
+
+<div id='video'></div>
+
+<div id='content-index'>
+  <ol>
+    <% @lesson.contents.each do |content| %>
+      <li>
+        Content <%= content.id %>: <%= (content.length/60).round(2) %> minutes<br>
+        <%= content.url %>
+        <ul>
+          <li>Questions: <%= content.questions.count %></li>
+          <li>Quiz questions: <%= content.flashcards.count %></li>
+        </ul> 
+      </li>
+    <% end %>
+  </ol>
+</div>
