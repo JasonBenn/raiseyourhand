@@ -4,7 +4,7 @@
 	<div class="create-progress-bar progress-bar-<%= positionIndex %>" data-index-id="<%= positionIndex %>">
 	<!-- <div class="create-progress-bar progress-bar-<%= positionIndex %>" data-content-id="<%= positionIndex %>"> -->
 	  <div class="create-progress"></div>
-	  <div class="create-draggable-progress" data-timestamp="0"></div>
+	  <div class="create-draggable-progress create-draggable-progress-id-<%= positionIndex %>" data-timestamp="0"></div>
 	  <div class="create-draggable-progress create-draggable-progress-end create-draggable-progress-end-id-<%= positionIndex %>" data-timestamp="end"></div>
 	</div>
 	<button class="add-clip-to-lesson">Add clip to lesson</button>
@@ -19,22 +19,28 @@
 			url: '<%= content.url %>',
 			position: '<%= content.position %>' || '<%= positionIndex %>',
 			start_time: '<%= content.start_time %>',
-			end_time: '<%= content.finish_time %>',
+			finish_time: '<%= content.finish_time %>',
 			position: '<%= positionIndex %>'
 		})
 
 		function addYoutubeContent<%= content.id %>(data){
 			var duration = data['entry']['media$group']['yt$duration']['seconds'];
-			if (timeline[<%= positionIndex %>].end_time == ''){
-				timeline[<%= positionIndex %>].end_time = duration;
+			if (timeline[<%= positionIndex %>].finish_time == ''){
+				timeline[<%= positionIndex %>].finish_time = duration;
 				$('.create-draggable-progress-end-id-<%= positionIndex %>').attr('data-timestamp', duration);
 			}
 			if (timeline[<%= positionIndex %>].start_time == ''){
 				timeline[<%= positionIndex %>].start_time = 0;
 			}
-		}	
+			timeline[<%= positionIndex %>].duration = duration;
+		}
 	</script>
 
 	<script type="text/javascript" src="http://gdata.youtube.com/feeds/api/videos/<%= getVideoIdFromUrl(content.url) %>?v=2&alt=json-in-script&format=5&callback=addYoutubeContent<%= content.id %>"></script>
+	
+	<script type="text/javascript">
+	placeSlidersByTime(timeline[<%= positionIndex %>].start_time, timeline[<%= positionIndex %>].duration, <%= positionIndex %>, 'start_time');
+	placeSlidersByTime(timeline[<%= positionIndex %>].finish_time, timeline[<%= positionIndex %>].duration, <%= positionIndex %>, 'end_time');
+	</script>
 
 </div><br><br>

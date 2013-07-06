@@ -155,18 +155,44 @@ function updateContentTime(index, content){
   })
   if (timestampArray[0] == 'end' || timestampArray[1] == 'end'){
     content.start_time = timestampArray[0];
-    content.end_time = getDuration();
+    content.finish_time = getDuration();
   } else if (parseInt(timestampArray[0]) <= parseInt(timestampArray[1])){
     content.start_time = timestampArray[0];
-    content.end_time = timestampArray[1];
+    content.finish_time = timestampArray[1];
   } else {
     content.start_time = timestampArray[1];
-    content.end_time = timestampArray[0];
+    content.finish_time = timestampArray[0];
   }
 }
 
-function addClipToLesson(){
+function addClipToLesson(content){
+  updateContentInDatabase(content);
+}
 
+function updateContentInDatabase(content){
+  $.ajax({
+    url:'/contents/'+content.content_id,
+    type: 'put',
+    data: {
+      content_data: {
+        start_time: content.start_time,
+        finish_time: content.finish_time
+      }
+    }
+  }).success(function(result){
+    //
+  }).fail(function(result){
+    //
+  });
+}
+
+function placeSlidersByTime(time, duration, indexId, type){
+  percent = parseFloat(parseFloat(time) / parseFloat(duration)).toFixed(2);
+  if (type == 'start_time'){
+    $('.create-draggable-progress-id-'+indexId).css('left', 800 * percent);
+  } else {
+    $('.create-draggable-progress-end-id-'+indexId).css('left', 800 * percent);
+  }
 }
 
 $(document).ready(function(){
@@ -203,7 +229,7 @@ $(document).ready(function(){
     var indexId = getIndexIdFromParent($(this));
     var content = getContentFromIndexId(indexId);
     updateContentTime(indexId, content);
-    console.log(content);
+    addClipToLesson(content);
   })
 
 });
