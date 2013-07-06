@@ -4,16 +4,19 @@
   <title>Raiseyourhand</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-	<% if is_logged_in? %>
-		<h1>Welcome <%= current_user.name %></h1>
-		<%= link_to "sign out", signout_path %>
-	<% else %>
-		<%= link_to "sign in", "/auth/facebook" %> 
-	<% end %>
+  <nav>
+  	<% if is_logged_in? %>
+  		<h5>Welcome <%= current_user.name %></h5>
+  		<%= link_to "sign out", signout_path %>
+  	<% else %>
+  		<%= link_to "sign in", "/auth/facebook" %> 
+  	<% end %>
+  </nav>
 	<%= yield %>
 
 </body>
