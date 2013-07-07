@@ -150,7 +150,6 @@ function updateContentTime(index, content){
   $('.progress-bar-'+index).children('.create-draggable-progress').each(function(){
     timestampArray.push($(this).attr('data-timestamp'));
   })
-  alert(timestampArray)
   if (parseInt(timestampArray[0]) <= parseInt(timestampArray[1])){
     content.start_time = timestampArray[0];
     content.finish_time = timestampArray[1];
@@ -241,23 +240,6 @@ $(document).ready(function(){
   $progressBarContainer = $('.create-progress-bar');
   $progressBarStatus = $('.create-progress')
   $progressSlide = $('.create-draggable-progress');
-
-  //  $('.create-draggable-progress').draggable({
-  //   axis: 'x',
-  //   containment: "parent",
-  //   drag: function(e){
-  //     var indexId = $(this).parent().attr('data-index-id');
-  //     activateContent(indexId);
-  //     var newTime = getProgressTimeRequest(e, indexId);
-  //     seekTo(newTime)
-  //   },
-  //   stop: function(e){
-  //     var indexId = getIndexIdFromParent($(this));
-  //     var content = getContentFromIndexId(indexId);
-  //     $(this).attr('data-timestamp', parseFloat(getProgressTimeRequest(e, indexId)).toFixed(2));
-  //     updateContentTime(indexId, content);
-  //   }
-  // })
 
   $('.video-window').on('click', '.add-clip-to-lesson', function(){
     var indexId = getIndexIdFromParent($(this));
