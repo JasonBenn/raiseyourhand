@@ -1,5 +1,6 @@
 var current_youtube_id = 'CGr2pB7drss';
 var timeline = [];
+var active_edit_video = 0;
 // Update a particular HTML element with a new value
 function updateHTML(elmId, value) {
   document.getElementById(elmId).innerHTML = value;
@@ -21,6 +22,13 @@ function updatePlayerInfo(playerId) {
   // page, it will destroy the SWF before clearing the interval.
   if(ytplayer && ytplayer.getDuration) {
     updateProgressBar(ytplayer.getCurrentTime(), ytplayer.getDuration(), playerId)
+    detectClipEndTime(ytplayer.getCurrentTime());
+  }
+}
+
+function detectClipEndTime(current_time){
+  if (current_time >= getFinishTimeFromId(active_edit_video)){
+    seekTo(getStartTimeFromId(active_edit_video));
   }
 }
 
@@ -29,7 +37,7 @@ function updateProgressBar(currentTime, duration, playerId){
     var progressRatio = currentTime / duration;
     var progressUpdate = 800 * progressRatio;
   }
-  $('.progress-bar-'+playerId+' .progress').css('width', progressUpdate);
+  $('.progress-bar-'+active_edit_video+' .progress').css('width', progressUpdate);
 }
 
 // Allow the user to set the volume from 0-100
@@ -73,6 +81,12 @@ function seekTo(time){
   }
 }
 
+function stopVideo(){
+  if(ytplayer) {
+    ytplayer.stopVideo();
+  }
+}
+
 function getDuration(){
   if(ytplayer) {
     return ytplayer.getDuration();
@@ -92,18 +106,36 @@ function getVideoIdFromUrl(url){
   return video_id
 }
 
+function getIdFromPlayerString(playerString){
+  return playerString.match(/\d+/);
+}
+
+function getStartTimeFromId(playerId){
+  content = getContentFromIndexId(playerId);
+  return content.start_time;
+}
+
+function getFinishTimeFromId(playerId){
+  content = getContentFromIndexId(playerId);
+  return content.finish_time;
+}
+
 // This function is automatically called by the player once it loads
-function onYouTubePlayerReady(playerId) {
-  ytplayer = document.getElementById(playerId);
+// playerString comes out like 'player0' 
+function onYouTubePlayerReady(playerString) { 
   // This causes the updatePlayerInfo function to be called every 250ms to
   // get fresh data from the player
-  setInterval(250);
+  var playerId = getIdFromPlayerString(playerString);
+  activateContent(playerId);
+  setInterval(updatePlayerInfo, 250);
   updatePlayerInfo(playerId);
+
   ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
   ytplayer.addEventListener("onError", "onPlayerError");
   //Load an initial video into the player
-  url = getYoutubeURLFromDiv(playerId);
-  ytplayer.cueVideoById(getVideoIdFromUrl(url));
+  var url = getYoutubeURLFromDiv(playerString);
+  var start_time = getStartTimeFromId(playerId);
+  ytplayer.cueVideoById(getVideoIdFromUrl(url), start_time);
   // CGr2pB7drss
 }
 
@@ -113,6 +145,7 @@ function getYoutubeURLFromDiv(playerId){
 
 function activateContent(index){
   ytplayer = document.getElementById('player'+index);
+  active_edit_video = index;
 }
 
 // The "main method" of this sample. Called when someone clicks "Run".
@@ -163,12 +196,15 @@ function updateContentTime(index, content){
     timestampArray.push($(this).attr('data-timestamp'));
   })
   if (parseInt(timestampArray[0]) <= parseInt(timestampArray[1])){
-    content.start_time = timestampArray[0];
-    content.finish_time = timestampArray[1];
+    setContentTimes(content, timestampArray[0], timestampArray[1]);
   } else {
-    content.start_time = timestampArray[1];
-    content.finish_time = timestampArray[0];
+    setContentTimes(content, timestampArray[1], timestampArray[0]);
   }
+}
+
+function setContentTimes(content, start_time, finish_time){
+  content.start_time = start_time;
+  content.finish_time = finish_time;
 }
 
 function getNewPositionIndex(){
@@ -177,7 +213,6 @@ function getNewPositionIndex(){
     content.position = index;
     updateContentInDatabase(content);
   })
-  console.log(timeline)
 }
 
 function addClipToLesson(content){
@@ -193,12 +228,13 @@ function update_full_lesson_timeline_bar(){
   $('.full-lesson-timeline').html('');
   var total_time = getTotalLessonTime();
   timeline.forEach(function(element, index){
-    var percent_filled = (getVideoClipTime(element) / total_time) * 100;
+    var percent_filled = (getVideoClipTime(element) / total_time) * 80;
     $('.full-lesson-timeline').append('<li class="timeline-portion '
       + 'timeline-portion-id-'+element.position+'" style="width:'
       + percent_filled+'%; background-color:#'
       + getRandomColor()+'" data-position-index='+element.position+'></li>');
   })
+
   $('.full-lesson-timeline').sortable({
     axis: 'x',
     containment: "parent",
@@ -213,6 +249,7 @@ function update_full_lesson_timeline_bar(){
 }
 
 function updateContentInDatabase(content){
+  dispayUpdateLoader()
   $.ajax({
     url:'/contents/'+content.id,
     type: 'put',
@@ -227,10 +264,18 @@ function updateContentInDatabase(content){
       }
     }
   }).success(function(result){
-    // alert(result)
+    hideUpdateLoader();
   }).fail(function(result){
     alert(result)
   });
+}
+
+function dispayUpdateLoader(){
+  $('.updating-data').css('visibility', 'visible');
+}
+
+function hideUpdateLoader(){
+  $('.updating-data').css('visibility', 'hidden');
 }
 
 function createNewContent(url){
@@ -245,11 +290,17 @@ function createNewContent(url){
       }
     }
   }).success(function(result){
-    $('.video-window').append(result)
-    update_full_lesson_timeline_bar()
+    $('.video-window').append(result);
+    update_full_lesson_timeline_bar();
+    switchPlayerToNewContent();
   }).fail(function(result){
     alert('could not add video to lesson.')
   });
+}
+
+function switchPlayerToNewContent(){
+  var last_element = (parseInt(timeline.length) - 1)
+  switchVideoVisibilies(last_element);
 }
 
 function placeSlidersByTime(time, duration, indexId, type){
@@ -261,20 +312,37 @@ function placeSlidersByTime(time, duration, indexId, type){
   }
 }
 
+function validateDragTime(content, time){
+  if (time > content.duration){
+    time = content.duration;
+    console.log(content.duration);
+  }
+  if (time < 0){
+    time = 0;
+  }
+  return time
+}
+
 function makeDraggable($element, indexId){
+  // var content = getContentFromIndexId(indexId);
   $element.draggable({
     axis: 'x',
     containment: "parent",
+    cursor: "crosshair",
+    zIndex: 9999, 
     drag: function(e){
       activateContent(indexId);
-      var newTime = getProgressTimeRequest(e, indexId);
-      seekTo(newTime)
+      updateProgressSpan(indexId);
+      var content = getContentFromIndexId(indexId);
+      var time = validateDragTime(content, getProgressTimeRequest(e, indexId));
+      seekTo(time);
     },
     stop: function(e){
+      activateContent(indexId);
       var content = getContentFromIndexId(indexId);
-      $element.attr('data-timestamp', parseFloat(getProgressTimeRequest(e, indexId)).toFixed(2));
-      updateContentTime(indexId, content);
-      updateClipInTimeline(indexId)
+      var time = validateDragTime(content, getProgressTimeRequest(e, indexId));
+      $element.attr('data-timestamp', time);
+      updateClipInTimeline(indexId, content);
     }
   })
 }
@@ -287,14 +355,35 @@ function getProgressTimeRequest(e, contentId){
   return getDuration() * mousePercentage;
 }
 
-function updateClipInTimeline(indexId){
-  var content = getContentFromIndexId(indexId);
+function updateClipInTimeline(indexId, content){
   updateContentTime(indexId, content);
   addClipToLesson(content);
 }
 
 function initiatePlayer(){
-  $('.indi-video-shell-0').show();
+  $('.indi-video-shell-0').css('visibility','visible');
+}
+
+function playActiveVideo(){
+  seekTo(200);
+}
+
+function updateProgressSpan(indexId){
+  var point_a = $('.create-draggable-progress-id-'+indexId).css('left');
+  var point_b = $('.create-draggable-progress-end-id-'+indexId).css('left');
+  var length = Math.abs(parseFloat(point_b) - parseFloat(point_a)); 
+  $('.progress-span-id-'+ indexId).css({
+    left: point_a,
+    width: length
+  })
+}
+
+function switchVideoVisibilies(contentId){
+  stopVideo();
+  $('.indi-video-shell').css('visibility','hidden');
+  $('.indi-video-shell-'+contentId).css('visibility','visible');
+  activateContent(contentId);
+  playVideo();
 }
 
 $(document).ready(function(){
@@ -304,8 +393,7 @@ $(document).ready(function(){
 
   $(document).on('click', '.timeline-portion', function(){
     var clicked_video = $(this).attr('data-position-index');
-    $('.indi-video-shell').hide();
-    $('.indi-video-shell-'+clicked_video).show();
+    switchVideoVisibilies(clicked_video);
   })
 
   // not needed. server updates in real time when clip changes
