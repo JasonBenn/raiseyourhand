@@ -166,18 +166,22 @@ function addClipToLesson(content){
 
 function updateContentInDatabase(content){
   $.ajax({
-    url:'/contents/'+content.content_id,
+    url:'/contents/'+content.id,
     type: 'put',
     data: {
-      content_data: {
+      content: {
         start_time: content.start_time,
-        finish_time: content.finish_time
+        finish_time: content.finish_time,
+        url: content.url,
+        position: content.position,
+        id: content.id,
+        lesson_id: content.lesson_id
       }
     }
   }).success(function(result){
-    //
+    alert(result)
   }).fail(function(result){
-    //
+    alert(result)
   });
 }
 
@@ -186,8 +190,11 @@ function createNewContent(url){
     url:'/contents',
     type: 'post',
     data: {
-      url: url,
-      lesson_id: lesson_id
+      content: {
+        url: url,
+        lesson_id: lesson_id,
+        position: timeline.length
+      }
     }
   }).success(function(result){
     $('.video-window').append(result)

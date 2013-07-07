@@ -1,11 +1,10 @@
 <script type="text/javascript">
-	// var newPositionIndex = (timeline.length + 1)
 	var new_content = {
 			lesson_id: '<%= lesson.id %>',
-			content_id: '<%= content.id %>',
+			id: '<%= content.id %>',
 			url: '<%= content.url %>',
 			position: '<%= content.position %>',
-			start_time: '<%= content.start_time ? content.start_time : "" %>',
+			start_time: '<%= content.start_time %>',
 			finish_time: '<%= content.finish_time %>',
 			position: '<%= positionIndex %>'
 		}
@@ -23,28 +22,12 @@
 	<button class="add-clip-to-lesson">Add clip to lesson</button>
 
 	<script type="text/javascript">
-		// setCurrentYoutubeId('<%= content.url %>');
 		_run('<%= positionIndex %>');		
-
-		function addYoutubeContent<%= content.id %>(data){
-			var duration = data['entry']['media$group']['yt$duration']['seconds'];
-			if (timeline[<%= positionIndex %>].finish_time == ''){
-				timeline[<%= positionIndex %>].finish_time = duration;
-				$('.create-draggable-progress-end-id-<%= positionIndex %>').attr('data-timestamp', duration);
-			}
-			if (timeline[<%= positionIndex %>].start_time == ''){
-				timeline[<%= positionIndex %>].start_time = 0;
-				$('.create-draggable-progress-id-<%= positionIndex %>').attr('data-timestamp', 0);
-			}
-			timeline[<%= positionIndex %>].duration = duration;
-		}
 	</script>
 
-	<script type="text/javascript" src="http://gdata.youtube.com/feeds/api/videos/<%= getVideoIdFromUrl(content.url) %>?v=2&alt=json-in-script&format=5&callback=addYoutubeContent<%= content.id %>"></script>
-
 	<script type="text/javascript">
-	placeSlidersByTime(timeline[<%= positionIndex %>].start_time, timeline[<%= positionIndex %>].duration, <%= positionIndex %>, 'start_time');
-	placeSlidersByTime(timeline[<%= positionIndex %>].finish_time, timeline[<%= positionIndex %>].duration, <%= positionIndex %>, 'end_time');
+	placeSlidersByTime(timeline[<%= positionIndex %>].start_time, <%= content.duration %>, <%= positionIndex %>, 'start_time');
+	placeSlidersByTime(timeline[<%= positionIndex %>].finish_time, <%= content.duration %>, <%= positionIndex %>, 'end_time');
 
 	makeDraggable($('.create-draggable-splicer-1-<%= positionIndex %>'), <%= positionIndex %>);
 	makeDraggable($('.create-draggable-splicer-2-<%= positionIndex %>'), <%= positionIndex %>);

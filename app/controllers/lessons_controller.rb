@@ -19,7 +19,7 @@ class LessonsController < ApplicationController
 	def create
 		url = params[:lesson][:contents_attributes]['0'][:url]
 		video_data = getMetaDataFromYoutubeWithUrl(url)
-		params[:lesson][:contents_attributes]['0'][:finish_time] = get_youtube_duration(url)
+		params[:lesson][:contents_attributes]['0'][:finish_time] = params[:lesson][:contents_attributes]['0'][:duration] = get_youtube_duration(url)
 		@lesson = Lesson.new(params[:lesson])
 		if @lesson.save
 			redirect_to edit_lesson_path(@lesson)
