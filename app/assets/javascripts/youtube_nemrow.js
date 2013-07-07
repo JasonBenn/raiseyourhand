@@ -305,6 +305,7 @@ function makeDraggable($element, indexId){
     containment: "parent",
     drag: function(e){
       activateContent(indexId);
+      updateProgressSpan(indexId);
       var newTime = getProgressTimeRequest(e, indexId);
       seekTo(newTime)
     },
@@ -335,6 +336,16 @@ function initiatePlayer(){
 
 function playActiveVideo(){
   seekTo(200);
+}
+
+function updateProgressSpan(indexId){
+  var point_a = $('.create-draggable-progress-id-'+indexId).css('left');
+  var point_b = $('.create-draggable-progress-end-id-'+indexId).css('left');
+  var length = Math.abs(parseFloat(point_b) - parseFloat(point_a)); 
+  $('.progress-span-id-'+ indexId).css({
+    left: point_a,
+    width: length
+  })
 }
 
 function switchVideoVisibilies(contentId){

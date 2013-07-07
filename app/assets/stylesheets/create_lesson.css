@@ -29,6 +29,11 @@
 	border-radius: 10px;
 	background-color: black;
 }
+.progress-span{
+	height: 100%;
+	background-color: blue;
+	position: absolute;
+}
 .create-draggable-progress-end{
 	right: 0px;
 }
@@ -42,6 +47,7 @@
 	top: 0px;
 	left: 0px;
 	visibility: hidden;
+	margin: 10px;
 }
 .full-lesson-timeline{
 	width: 800px;
