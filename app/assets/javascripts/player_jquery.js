@@ -17,15 +17,6 @@ $(document).ready(function(){
   seekToPercentage(currentChapter, percentage);
 });   
 
- $('body').unbind('keyup').keyup(function (e) {
-  e.preventDefault();
-  if (e.keyCode == 32) {
-    newVid();
-    return false; 
-  }
-  return false; 
-});
-
  $("#ask_question").mouseenter(function(){
    pauseVideo();
  });
