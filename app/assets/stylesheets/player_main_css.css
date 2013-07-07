@@ -10,19 +10,11 @@
   .progress-bar{
   width: 900px;
   height: 50px;
-  background-color: red;
+  background-color: green;
   z-index: 1;
   position: relative;
 }
-.progress{
-  width:0px;
-  height: 100%;
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  background-color: blue;
-  z-index: 2;
-}
+
 .draggable-progress{
   width: 20px;
   background-color: black;
@@ -161,7 +153,6 @@ float: left;
 }
 
 #chapter{
-  /*clear: both;*/
   float: left;
   width: 95px;
   margin-left: 2px;
