@@ -15,10 +15,10 @@ class Content < ActiveRecord::Base
   def generate_parameter
 		youtube_id = getVideoIdFromUrl(url)
   	youtube_data = getMetaDataFromYoutubeWithId(youtube_id)
-  	duration = get_youtube_duration(youtube_id)
+  	get_duration = get_youtube_duration(youtube_id)
   	self.start_time = 0
-		self.finish_time = duration
-		self.duration = duration
+		self.finish_time = get_duration
+		self.duration = get_duration
   end
 
   def getMetaDataFromYoutubeWithId(youtube_id)
