@@ -1,4 +1,6 @@
 var videoCount = 0;
+var currentVideoID = "";
+var checker = false;
 
 function updateProgressBar(currentTime, duration) {
     if (currentTime !== 0 && duration !== 0) {
@@ -30,10 +32,24 @@ function updatePlayerInfo() {
         updateHTML("videoCurrentTime", ytplayer.getCurrentTime());
         updateProgressBar(ytplayer.getCurrentTime(), ytplayer.getDuration());
 
-        if (ytplayer.getCurrentTime() >= contents[videoCount][2] ) {
-            newVid();
-        }
-    }
+}
+
+
+
+if (ytplayer.getCurrentTime() >= parseInt(contents[videoCount][2])-1 && checker == false) {
+   //  contents[videoCount][2] ++= 10;
+   console.log("here");
+   checker = true;
+   newVid();
+   
+   // keyCode = 32;
+}
+
+        // if (parseInt(ytplayer.getCurrentTime()) >= parseInt(contents[videoCount][2])-5) {
+        //     // alert("here");
+            
+        // }
+    
 
     $("#"+Math.round(ytplayer.getCurrentTime())).show("display", "inline");
 }
@@ -51,6 +67,34 @@ function seekTo(time) {
     if (ytplayer) {
         ytplayer.seekTo(time, true);
     }
+}
+
+function seekToPercentage(videoID, percentage) {    
+    var totalTime = contents[videoID][2] - contents[videoID][1];
+    var timeInUncut = totalTime * percentage;
+    var timeinCut = timeInUncut + contents[videoID][1];
+
+
+if (currentVideoID !== contents[videoID][0]) {
+
+
+ytplayer = document.getElementById("ytPlayer");
+    setInterval(updatePlayerInfo, 250);
+    updatePlayerInfo();
+    ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
+    ytplayer.addEventListener("onError", "onPlayerError");
+    ytplayer.loadVideoById({'videoId':contents[videoID][0], 'startSeconds':timeinCut, 'endSeconds':contents[videoID][2], 'suggestedQuality':"highres"});
+    currentVideoID = contents[videoID][0];
+    videoCount = videoID;
+  }  
+
+
+
+
+    // alert(timeinCut);   
+
+    seekTo(timeinCut);
+//to come
 }
 
 var id;
@@ -92,16 +136,22 @@ function onYouTubePlayerReady(playerId) {
     // This loads the video based on the predefined start and endtime set when creating the course
     ytplayer.cueVideoById({videoId:video_link, startSeconds:start_time, endSeconds:end_time, suggestedQuality:"highres"});
     videoCount = 0;
+    currentVideoID = video_link;
 }
 
 function newVid(playerId) {
+    // console.log(videoCount);
     ytplayer = document.getElementById("ytPlayer");
     setInterval(updatePlayerInfo, 250);
     updatePlayerInfo();
     ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
     ytplayer.addEventListener("onError", "onPlayerError");
     videoCount ++;
+    console.log(videoCount);
+    // alert(videoCount);
     ytplayer.loadVideoById({'videoId':contents[videoCount][0], 'startSeconds':contents[videoCount][1], 'endSeconds':contents[videoCount][2], 'suggestedQuality':"highres"});
+    currentVideoID = contents[videoCount][0];
+    checker = false;
 }
 
 function loadPlayer() {
