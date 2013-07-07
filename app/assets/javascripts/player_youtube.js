@@ -86,7 +86,7 @@ function pauseVideo() {
 function onYouTubePlayerReady(playerId) {
     ytplayer = document.getElementById("ytPlayer");
     setInterval(updatePlayerInfo, 250);
-    updatePlayerInfo();
+    updatePlayerInfo(playerId);
     ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
     ytplayer.addEventListener("onError", "onPlayerError");
     // This loads the video based on the predefined start and endtime set when creating the course

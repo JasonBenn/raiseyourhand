@@ -14,11 +14,20 @@
 	z-index: 2;
 }
 .create-draggable-progress{
-	width: 20px;
+	width: 2px;
 	background-color: black;
 	height: 100%;
 	position: absolute;
 	z-index: 3;
+}
+.tab-for-progress-bar{
+	position: absolute;
+	bottom: -20px;
+	height: 20px;
+	width: 20px;
+	left: -10px;
+	border-radius: 10px;
+	background-color: black;
 }
 .create-draggable-progress-end{
 	right: 0px;
@@ -32,7 +41,7 @@
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	display: none;
+	visibility: hidden;
 }
 .full-lesson-timeline{
 	width: 800px;
