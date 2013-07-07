@@ -23,3 +23,24 @@
 .create-draggable-progress-end{
 	right: 0px;
 }
+.video-window{
+	height:500px;
+	overflow: hidden;
+	position: relative; 
+}
+.indi-video-shell{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	display: none;
+}
+.full-lesson-timeline{
+	width: 800px;
+	height: 50px;
+	background-color: purple;
+	position: relative;
+}
+.timeline-portion{
+	height: 100%;
+	display: inline-block;
+}

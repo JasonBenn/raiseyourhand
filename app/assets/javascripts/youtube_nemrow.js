@@ -141,6 +141,18 @@ function getContentFromIndexId(index){
   return content[0]
 }
 
+function getVideoClipTime(element){
+  return parseFloat(element.finish_time) - parseFloat(element.start_time)
+}
+
+function getTotalLessonTime(){
+  var time = 0
+  timeline.forEach(function(element, index){
+    time += getVideoClipTime(element)
+  })
+  return time.toFixed(2)
+}
+
 function addContentToTimeline(content){
   timeline.push(content);
 }
@@ -161,6 +173,27 @@ function updateContentTime(index, content){
 
 function addClipToLesson(content){
   updateContentInDatabase(content);
+  update_full_lesson_timeline_bar();
+}
+
+function getRandomColor(){
+  return Math.floor(Math.random()*16777215).toString(16);
+}
+
+function update_full_lesson_timeline_bar(){
+  $('.full-lesson-timeline').html('');
+  var total_time = getTotalLessonTime();
+  timeline.forEach(function(element, index){
+    var percent_filled = (getVideoClipTime(element) / total_time) * 100;
+    $('.full-lesson-timeline').append('<div class="timeline-portion '
+      + 'timeline-portion-id-'+element.position+'" style="width:'
+      + percent_filled+'%; background-color:#'
+      + getRandomColor()+'" data-position-index='+element.position+'></div>');
+  })
+}
+
+function displateAndActivateVideo(id){
+  $
 }
 
 function updateContentInDatabase(content){
@@ -178,7 +211,7 @@ function updateContentInDatabase(content){
       }
     }
   }).success(function(result){
-    alert(result)
+    // alert(result)
   }).fail(function(result){
     alert(result)
   });
@@ -197,6 +230,7 @@ function createNewContent(url){
     }
   }).success(function(result){
     $('.video-window').append(result)
+    update_full_lesson_timeline_bar()
   }).fail(function(result){
     alert('could not add video to lesson.')
   });
@@ -224,6 +258,7 @@ function makeDraggable($element, indexId){
       var content = getContentFromIndexId(indexId);
       $element.attr('data-timestamp', parseFloat(getProgressTimeRequest(e, indexId)).toFixed(2));
       updateContentTime(indexId, content);
+      updateClipInTimeline(indexId)
     }
   })
 }
@@ -236,17 +271,37 @@ function getProgressTimeRequest(e, contentId){
   return getDuration() * mousePercentage;
 }
 
+function updateClipInTimeline(indexId){
+  var content = getContentFromIndexId(indexId);
+  updateContentTime(indexId, content);
+  addClipToLesson(content);
+}
+
+function initiatePlayer(){
+  $('.indi-video-shell-0').show();
+}
+
 $(document).ready(function(){
   $progressBarContainer = $('.create-progress-bar');
   $progressBarStatus = $('.create-progress')
   $progressSlide = $('.create-draggable-progress');
 
+  $(document).on('click', '.timeline-portion', function(){
+    var clicked_video = $(this).attr('data-position-index');
+    $('.indi-video-shell').hide();
+    $('.indi-video-shell-'+clicked_video).show();
+  })
+
+  // not needed. server updates in real time when clip changes
   $('.video-window').on('click', '.add-clip-to-lesson', function(){
     var indexId = getIndexIdFromParent($(this));
     var content = getContentFromIndexId(indexId);
     updateContentTime(indexId, content);
     addClipToLesson(content);
   })
+
+  initiatePlayer();
+  update_full_lesson_timeline_bar()
 
   $('.add-new_youtube-clip').click(function(){
     createNewContent($('.add-youtube-movie-input').val());
