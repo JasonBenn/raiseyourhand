@@ -20,4 +20,15 @@ class ContentsController < ApplicationController
 			render text: "Invalid Content", status: "400"
 		end
 	end
+
+
+	def sortorder
+		#TODO find way to branch reponse based on validations
+		@lesson = Lesson.find(params[:sortorder][:lesson_id])
+		contents = params[:sortorder][:order].each_with_index do |id, index|
+			content = @lesson.contents.find_by_id(id.to_i)
+			content.update_attributes(position: index)
+		end
+		render text: "Success", status: "200"
+	end
 end
