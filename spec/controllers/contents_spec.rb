@@ -32,7 +32,7 @@ describe ContentsController do
     end
     it "returns a error message when invalid params are submitted" do
       post :create
-      response.body.should eq("Invalid Content") 
+      response.body.should eq("Invalid Request") 
     end
   end
 
@@ -72,7 +72,7 @@ describe ContentsController do
     end
     it "returns a error message when invalid params are submitted" do
       post :update
-      response.body.should eq("Invalid Content") 
+      response.body.should eq("Invalid Request") 
     end
 
   end
@@ -97,9 +97,14 @@ describe ContentsController do
       expect{ delete(:destroy, {id: lesson.contents.first.id, lesson_id: lesson.id})}.to change { lesson.contents.count }.by(-1)
     end
 
-    it "only remove content for the current lesson" do
-      expect{ delete(:destroy, {id: (lesson.contents.first.id + 1), lesson_id: lesson.id})}.to change { lesson.contents.count }.by(0)
+    it "only removes content with correct lesson id" do
+      expect{ delete(:destroy, {id: lesson.contents.first.id, lesson_id: (lesson.id + 1)})}.to change { lesson.contents.count }.by(0)
     end
+
+    it "only removes content with the correct content id " do
+      expect{ delete(:destroy, {id: (lesson.contents.last.id + 1), lesson_id: lesson.id})}.to change { lesson.contents.count }.by(0)
+    end
+
   end
 
 
