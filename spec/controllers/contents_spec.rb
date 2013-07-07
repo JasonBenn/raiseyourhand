@@ -38,14 +38,15 @@ describe ContentsController do
 
 
   describe '#post' do
-    let(:content) { FactoryGirl.create(:content) }
+    let(:lesson) { FactoryGirl.create(:lesson_with_content) }
+
     it "update content given valid params" do
-      post(:update, {id: content.id, content: {lesson_id: content.lesson.id,
+      put(:update, {id: lesson.contents.first.id, content: {lesson_id: lesson.id,
                              url: "http://www.youtube.com/watch?v=2YYF0j-FV3c",
                              start_time: "200",
                              finish_time: "400",
                              position: 2}})
-      update_content = Content.find(content.id)
+      update_content = Content.find(lesson.contents.first.id)
       expect(update_content.start_time).to eq("200")
       expect(update_content.finish_time).to eq("400")
       expect(update_content.position).to eq("2")
@@ -53,7 +54,7 @@ describe ContentsController do
     end
 
     it "renders the _new_content template" do
-      post(:update, {id: content.id, content: {lesson_id: content.lesson.id,
+      put(:update, {id: lesson.contents.first.id, content: {lesson_id: lesson.id,
                              url: "http://www.youtube.com/watch?v=2YYF0j-FV3c",
                              start_time: "200",
                              finish_time: "400",
@@ -62,7 +63,7 @@ describe ContentsController do
     end
 
     it "returns a 201 status code when editing a record" do
-      post(:update, {id: content.id, content: {lesson_id: content.lesson.id,
+      put(:update, {id: lesson.contents.first.id, content: {lesson_id: lesson.id,
                              url: "http://www.youtube.com/watch?v=2YYF0j-FV3c",
                              start_time: "200",
                              finish_time: "400",
@@ -75,4 +76,22 @@ describe ContentsController do
     end
 
   end
+
+  describe '#sortorder' do
+    let(:lesson) { FactoryGirl.create(:lesson_with_muiltiple_content) }
+    
+    it "update position of content from a list of ID's" do 
+      content_ids = lesson.contents.each { |c| c.id }.shuffle
+      post(:sortorder, sortorder: { lesson_id: lesson.id, order: content_ids })
+      expect(Content.find(content_ids[0]).position).to eq("0")
+      expect(Content.find(content_ids[1]).position).to eq("1")
+      expect(Content.find(content_ids[2]).position).to eq("2")
+      expect(Content.find(content_ids[3]).position).to eq("3")
+      expect(Content.find(content_ids[4]).position).to eq("4") 
+    end
+  end
 end
+
+
+
+
