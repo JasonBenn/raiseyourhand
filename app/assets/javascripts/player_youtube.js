@@ -81,7 +81,8 @@ function onYouTubePlayerReady(playerId) {
     updatePlayerInfo();
     ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
     ytplayer.addEventListener("onError", "onPlayerError");
-    ytplayer.cueVideoById("sfw5ZPowLJY");
+    // This loads the video based on the predefined start and endtime set when creating the course
+    ytplayer.cueVideoById({videoId:video_link, startSeconds:start_time, endSeconds:end_time, suggestedQuality:"highres"});
 }
 
 function loadPlayer() {
