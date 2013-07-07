@@ -32,7 +32,7 @@ describe ContentsController do
     end
     it "returns a error message when invalid params are submitted" do
       post :create
-      response.body.should eq("Invalid Content") 
+      response.body.should eq("Invalid Request") 
     end
   end
 
@@ -72,7 +72,7 @@ describe ContentsController do
     end
     it "returns a error message when invalid params are submitted" do
       post :update
-      response.body.should eq("Invalid Content") 
+      response.body.should eq("Invalid Request") 
     end
 
   end
@@ -82,7 +82,7 @@ describe ContentsController do
     
     it "update position of content from a list of ID's" do 
       content_ids = lesson.contents.each { |c| c.id }.shuffle
-      post(:sortorder, sortorder: { lesson_id: lesson.id, order: content_ids })
+      put(:sortorder,  { lesson_id: lesson.id, sortorder: content_ids })
       expect(Content.find(content_ids[0]).position).to eq("0")
       expect(Content.find(content_ids[1]).position).to eq("1")
       expect(Content.find(content_ids[2]).position).to eq("2")
@@ -90,7 +90,26 @@ describe ContentsController do
       expect(Content.find(content_ids[4]).position).to eq("4") 
     end
   end
+
+  describe '#destroy' do
+    let(:lesson) { FactoryGirl.create(:lesson_with_muiltiple_content) }
+    it "removes content from lesson" do
+      expect{ delete(:destroy, {id: lesson.contents.first.id, lesson_id: lesson.id})}.to change { lesson.contents.count }.by(-1)
+    end
+
+    it "only removes content with correct lesson id" do
+      expect{ delete(:destroy, {id: lesson.contents.first.id, lesson_id: (lesson.id + 1)})}.to change { lesson.contents.count }.by(0)
+    end
+
+    it "only removes content with the correct content id " do
+      expect{ delete(:destroy, {id: (lesson.contents.last.id + 1), lesson_id: lesson.id})}.to change { lesson.contents.count }.by(0)
+    end
+
+  end
+
+
 end
+
 
 
 
