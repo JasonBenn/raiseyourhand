@@ -35,7 +35,7 @@ google.load("swfobject", "2.1");
 <!-- gets first content of lesson (equal to one video) -->
 <% video_one = @lesson.contents.first %>
 <% ee = video_one.url.match(/(=)(\w+)/) %>
-<% video_length = video_one.finish_time.to_f - video_one.start_time.to_f %>
+<% video_length = video_one.length %>
 
 <!-- set video link to content-link, start-time and end-time via script tag -->
 <script type="text/javascript">
@@ -44,8 +44,9 @@ google.load("swfobject", "2.1");
   var end_time = "<%= video_one.finish_time.to_f %>"
 </script>
 
-<% times = {} %>
-<% video_one.questions.each {|question| times[question.time_in_content.to_f.ceil] = question} %>
+
+
+<% times = get_question_timing(video_one) %>
 
 <% video_length.ceil.times do |question| %>
 <% if times.has_key?(question) %>
