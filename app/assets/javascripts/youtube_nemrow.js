@@ -228,12 +228,13 @@ function update_full_lesson_timeline_bar(){
   $('.full-lesson-timeline').html('');
   var total_time = getTotalLessonTime();
   timeline.forEach(function(element, index){
-    var percent_filled = (getVideoClipTime(element) / total_time) * 100;
+    var percent_filled = (getVideoClipTime(element) / total_time) * 80;
     $('.full-lesson-timeline').append('<li class="timeline-portion '
       + 'timeline-portion-id-'+element.position+'" style="width:'
       + percent_filled+'%; background-color:#'
       + getRandomColor()+'" data-position-index='+element.position+'></li>');
   })
+
   $('.full-lesson-timeline').sortable({
     axis: 'x',
     containment: "parent",
@@ -311,19 +312,36 @@ function placeSlidersByTime(time, duration, indexId, type){
   }
 }
 
+function validateDragTime(content, time){
+  if (time > content.duration){
+    time = content.duration;
+    console.log(content.duration);
+  }
+  if (time < 0){
+    time = 0;
+  }
+  return time
+}
+
 function makeDraggable($element, indexId){
+  // var content = getContentFromIndexId(indexId);
   $element.draggable({
     axis: 'x',
     containment: "parent",
+    cursor: "crosshair",
+    zIndex: 9999, 
     drag: function(e){
       activateContent(indexId);
       updateProgressSpan(indexId);
-      var newTime = getProgressTimeRequest(e, indexId);
-      seekTo(newTime)
+      var content = getContentFromIndexId(indexId);
+      var time = validateDragTime(content, getProgressTimeRequest(e, indexId));
+      seekTo(time);
     },
     stop: function(e){
+      activateContent(indexId);
       var content = getContentFromIndexId(indexId);
-      $element.attr('data-timestamp', parseFloat(getProgressTimeRequest(e, indexId)).toFixed(2));
+      var time = validateDragTime(content, getProgressTimeRequest(e, indexId));
+      $element.attr('data-timestamp', time);
       updateClipInTimeline(indexId, content);
     }
   })

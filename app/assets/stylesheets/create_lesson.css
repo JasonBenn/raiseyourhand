@@ -66,14 +66,22 @@
 	top: 0px;
 	left: 0px;
 }
-.full-lesson-timeline{
+.full-timeline-window{
 	width: 800px;
 	height: 50px;
-	background-color: black;
+	overflow: hidden;
+	margin: 10px 0;
+}
+.full-lesson-timeline{
+	width: 1000px;
+	height: 50px;
+	background-image: url('honey_im_subtle.png');
 	position: relative;
 	overflow: hidden;
+	margin: 0px;
+	padding: 0px;
 }
 .timeline-portion{
 	height: 100%;
-	display: inline-block;
+	float: left;
 }
