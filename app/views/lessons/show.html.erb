@@ -35,26 +35,55 @@ google.load("swfobject", "2.1");
 </div>
 
 <div id='questions-answers'>
-  <% 491.times do |question| %>
-  <div>
+
+<!-- gets first content of lesson (equal to one video) -->
+<% video_one = @lesson.contents.first %>
+<% ee = video_one.url.match(/(=)(\w+)/) %>
+<% video_length = video_one.length %>
+
+<!-- set video link to content-link, start-time and end-time via script tag -->
+<script type="text/javascript">
+  var video_link = "<%= ee[2] %>"
+  var start_time = "<%= video_one.start_time.to_f %>"
+  var end_time = "<%= video_one.finish_time.to_f %>"
+</script>
+
+
+
+<% times = get_question_timing(video_one) %>
+
+<% video_length.ceil.times do |question| %>
+<% if times.has_key?(question) %>
+<div>
     <div class="qcontainer">
-      <div class="triangle-border" data-time=<%= question %>>
-        <strong>Why am I so fresh? <%= question %></strong>
+      <div class="triangle-border">
+        <strong>
+          <%= times[question].title%>
+        </strong>
         <p class="question_body">
-          I was just wondering why I am so fresh? All the girls digg me and all the boys hate me. I am so awesome and super fresh and I was just wondering why this is? This video speaks about my general hotness but does not a good job explaining why I am such a baller. Can you help me?
+          <%= times[question].text%>
         </p>
       </div>
       <img class="bubble-face" src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-prn2/c0.0.160.160/p160x160/202896_4_1782288297_n.jpg">
     </div>
     <div class="repective-answers">
-      <% 2.times do |answer|%>
+    <% times[question].answers.each do |answer|%>
       <div class="acontainer">
-        <div class="atriangle-border" data-time=<%= question%>>Because you are so fucking hot dawg</div>
+        <div class="atriangle-border"><%= answer.text%>
+        </div>
         <img class="abubble-face" src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-prn2/c0.0.160.160/p160x160/202896_4_1782288297_n.jpg">
       </div>
       <% end %>
     </div>  
   </div>
+  
+<% else %>
+<div>
+<div class="qcontainer">
+  <%= question %>
+</div>
+</div>
+<% end %>
   <% end %>
 </div>
 
@@ -84,8 +113,7 @@ google.load("swfobject", "2.1");
 </table> -->
 
 <div class="progress-bar">
-  <div class="progress">
-    
+  <div class="progress">  
   </div>
 </div>
 <div id="navigation_bar">
