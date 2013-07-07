@@ -1,45 +1,105 @@
-<h1 id='show-lesson-title'>Lesson <%= @lesson.id %></h1>
+<!-- Required Stylesheets -->
+<%= stylesheet_link_tag    "player_main_css.css", :media => "all" %>
 
-<table class='content-nav'><tr>
-  <% @lesson.contents.each do |content| %>
+<!-- Required Javascript -->
+<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+<script type="text/javascript">
+google.load("swfobject", "2.1");
+</script>
+<%= javascript_include_tag "player_youtube" %>
+<%= javascript_include_tag "player_jquery" %>
+
+<!-- Page HTML -->
+<%= render partial: 'shared/voting', locals: { votable: @lesson } %>
+<h1 id='show-lesson-title'>
+  Lesson <%= @lesson.id %>
+</h1>
+<table class='content-nav'>
+  <tr>
+    <% @lesson.contents.each do |content| %>
     <td class='content-nav-piece'>
       <% if content.flashcards.any? %>
-        <span><%= content.flashcards.count %></span>
+        <span data-content-id="<%= content.id %>"><%= content.flashcards.count %></span>
       <% end %>
     </td>
   <% end %>
 </tr></table>
 
-<div id='video'></div>
-
-<div id='questions-answers'>
-  <ul>
-    <% @lesson.questions.each do |question| %>
-      <li class='question'>
-        <%= question.text %>
-      </li>
-      <% question.answers.each do |answer| %>
-        <ul>
-          <li class='answer'>
-            <%= answer.text %>
-          </li>
-        </ul>
-      <% end %>
-    <% end %>
-  </ul>
+<div class='flashcards'>
+  <%= render partial: 'flashcards/card' %>
 </div>
 
-<div id='content-index'>
-  <ol>
-    <% @lesson.contents.each do |content| %>
-      <li>
-        Content <%= content.id %>: <%= (content.length/60).round(2) %> minutes<br>
-        <%= content.url %>
-        <ul>
-          <li>Questions: <%= content.questions.count %></li>
-          <li>Quiz questions: <%= content.flashcards.count %></li>
-        </ul>
+<div class="top">
+  <div id="videoDiv">
+  </div>
+</div>
+
+<div id='questions-answers'>
+  <% 491.times do |question| %>
+  <div>
+    <div class="qcontainer">
+      <div class="triangle-border" data-time=<%= question %>>
+        <strong>Why am I so fresh? <%= question %></strong>
+        <p class="question_body">
+          I was just wondering why I am so fresh? All the girls digg me and all the boys hate me. I am so awesome and super fresh and I was just wondering why this is? This video speaks about my general hotness but does not a good job explaining why I am such a baller. Can you help me?
+        </p>
+      </div>
+      <img class="bubble-face" src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-prn2/c0.0.160.160/p160x160/202896_4_1782288297_n.jpg">
+    </div>
+    <div class="repective-answers">
+      <% 2.times do |answer|%>
+      <div class="acontainer">
+        <div class="atriangle-border" data-time=<%= question%>>Because you are so fucking hot dawg</div>
+        <img class="abubble-face" src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-prn2/c0.0.160.160/p160x160/202896_4_1782288297_n.jpg">
+      </div>
+      <% end %>
+    </div>  
+  </div>
+  <% end %>
+</div>
+
+<!-- Alternate version of Questions/Answers, uses DB data and has voting -->
+<!-- Use for reference when replacing above. -->
+<!-- <div id='questions-answers'>
+  <ul>
+    < @lesson.questions.each do |question| %>
+      <li class='question'>
+        <= render partial: 'shared/voting', locals: { votable: question } %>
+        <= question.text %>
       </li>
-    <% end %>
-  </ol>
+      < question.answers.each do |answer| %>
+        <ul>
+          <li class='answer'>
+            <= render partial: 'shared/voting', locals: { votable: answer } %>
+            <= answer.text %>
+          </li>
+        </ul>
+      <span>
+        <= content.flashcards.count %>
+      </span>
+      < end %>
+    </td>
+    < end %>
+  </tr>
+</table> -->
+
+<div class="progress-bar">
+  <div class="progress">
+    
+  </div>
+</div>
+<div id="navigation_bar">
+  <button id="play" onclick="playVideo();">
+    Play
+  </button>
+  <button id="pause" onclick="pauseVideo();">
+    Pause
+  </button>
+</div>
+
+
+<!-- diregard for now. Needed for now though. Please dont delete -->
+<div id="videoInfo">
+  <p>Player state: <span id="playerState">--</span></p>
+  <p>Current Time: <span id="videoCurrentTime">--:--</span> | Duration: <span id="videoDuration">--:--</span></p>
 </div>
