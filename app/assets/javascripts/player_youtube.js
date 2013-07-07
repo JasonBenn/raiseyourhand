@@ -1,3 +1,5 @@
+var videoCount = 0;
+
 function updateProgressBar(currentTime, duration) {
     if (currentTime !== 0 && duration !== 0) {
         var progressRatio = currentTime / duration;
@@ -27,6 +29,10 @@ function updatePlayerInfo() {
         updateHTML("videoDuration", ytplayer.getDuration());
         updateHTML("videoCurrentTime", ytplayer.getCurrentTime());
         updateProgressBar(ytplayer.getCurrentTime(), ytplayer.getDuration());
+
+        if (ytplayer.getCurrentTime() >= contents[videoCount][2] ) {
+            newVid();
+        }
     }
 
     $("#"+Math.round(ytplayer.getCurrentTime())).show("display", "inline");
@@ -75,6 +81,8 @@ function pauseVideo() {
     window.clearInterval(id);
 }
 
+
+
 function onYouTubePlayerReady(playerId) {
     ytplayer = document.getElementById("ytPlayer");
     setInterval(updatePlayerInfo, 250);
@@ -83,6 +91,17 @@ function onYouTubePlayerReady(playerId) {
     ytplayer.addEventListener("onError", "onPlayerError");
     // This loads the video based on the predefined start and endtime set when creating the course
     ytplayer.cueVideoById({videoId:video_link, startSeconds:start_time, endSeconds:end_time, suggestedQuality:"highres"});
+    videoCount = 0;
+}
+
+function newVid(playerId) {
+    ytplayer = document.getElementById("ytPlayer");
+    setInterval(updatePlayerInfo, 250);
+    updatePlayerInfo();
+    ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
+    ytplayer.addEventListener("onError", "onPlayerError");
+    videoCount ++;
+    ytplayer.loadVideoById({'videoId':contents[videoCount][0], 'startSeconds':contents[videoCount][1], 'endSeconds':contents[videoCount][2], 'suggestedQuality':"highres"});
 }
 
 function loadPlayer() {
