@@ -3,15 +3,24 @@
 	google.load("swfobject", "2.1");
   lesson_id = <%= @lesson.id %>
 </script>
-<h1>Edit your lesson</h1>
-
+<h1><%= @lesson.title %></h1>
+<div class="update-save-container">
+	<%= image_tag 'progress.gif', :class => 'updating-data' %>
+	<%= image_tag 'check_small.png', :class => 'data-saved' %>
+</div>
 <div class="video-window">
 	<% @lesson.contents.each_with_index do |content, index| %>
 		<%= render partial: 'contents/new_content', locals: {content: content, positionIndex: index, lesson: @lesson} %>
 	<% end %>
 </div>
 
-<ul class="full-lesson-timeline"></ul>
+
+<button class="play-current-editing-video" onClick='playVideo()'>Play</button>
+<button class="pause-current-editing-video" onClick='pauseVideo()'>Pause</button>
+
+<div class="full-timeline-window">
+	<ul class="full-lesson-timeline"></ul>
+</div>
 
 <input type="text" class="add-youtube-movie-input" value="http://www.youtube.com/watch?v=k0BWlvnBmIE">
 <button class="add-new_youtube-clip">Add Another Youtube Clip</button>

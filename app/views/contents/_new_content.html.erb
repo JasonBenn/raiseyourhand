@@ -5,18 +5,27 @@
 			url: '<%= content.url %>',
 			position: '<%= content.position %>',
 			start_time: '<%= content.start_time %>',
-			finish_time: '<%= content.finish_time %>'
+			finish_time: '<%= content.finish_time %>',
+			duration: '<%= content.duration %>'
 		}
 	addContentToTimeline(new_content);
 </script>
 <div class="indi-video-shell indi-video-shell-<%= positionIndex %>" data-content-id="<%= content.id %>" data-index-id="<%= positionIndex %>">
 	<input type="hidden" class="youtubeId-player<%= positionIndex %>" value='<%= content.url %>'>
 	<div id="videoDiv-<%= positionIndex %>"></div>
+
 	<div class="create-progress-bar progress-bar-<%= positionIndex %>" data-index-id="<%= positionIndex %>">
-	<!-- <div class="create-progress-bar progress-bar-<%= positionIndex %>" data-content-id="<%= positionIndex %>"> -->
-	  <div class="create-progress"></div>
-	  <div class="create-draggable-progress create-draggable-progress-id-<%= positionIndex %> create-draggable-splicer-1-<%= positionIndex %>" data-timestamp="<%= content.start_time %>"></div>
-	  <div class="create-draggable-progress create-draggable-progress-end create-draggable-splicer-2-<%= positionIndex %> create-draggable-progress-end-id-<%= positionIndex %>" data-timestamp="<%= content.finish_time %>"></div>
+
+	  <div class="progress"></div>
+	  <div class="create-draggable-progress create-draggable-progress-id-<%= positionIndex %> create-draggable-splicer-1-<%= positionIndex %>" data-timestamp="<%= content.start_time %>">
+			<div class="tab-for-progress-bar"></div>
+	  </div>
+
+	  <div class="progress-span progress-span-id-<%= positionIndex %>"></div>
+
+	  <div class="create-draggable-progress create-draggable-progress-end create-draggable-splicer-2-<%= positionIndex %> create-draggable-progress-end-id-<%= positionIndex %>" data-timestamp="<%= content.finish_time %>">
+			<div class="tab-for-progress-bar"></div>
+	  </div>
 	</div>
 	<!-- <button class="add-clip-to-lesson">Add clip to lesson</button> -->
 
@@ -30,6 +39,7 @@
 
 	makeDraggable($('.create-draggable-splicer-1-<%= positionIndex %>'), <%= positionIndex %>);
 	makeDraggable($('.create-draggable-splicer-2-<%= positionIndex %>'), <%= positionIndex %>);
+	updateProgressSpan(<%= positionIndex %>);
 	</script>
 
 </div><br><br>
