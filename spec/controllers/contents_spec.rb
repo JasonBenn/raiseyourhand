@@ -96,6 +96,10 @@ describe ContentsController do
     it "removes content from lesson" do
       expect{ delete(:destroy, {id: lesson.contents.first.id, lesson_id: lesson.id})}.to change { lesson.contents.count }.by(-1)
     end
+
+    it "only remove content for the current lesson" do
+      expect{ delete(:destroy, {id: (lesson.contents.first.id + 1), lesson_id: lesson.id})}.to change { lesson.contents.count }.by(0)
+    end
   end
 
 
