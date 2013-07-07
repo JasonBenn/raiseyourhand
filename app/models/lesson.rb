@@ -7,6 +7,6 @@ class Lesson < ActiveRecord::Base
   belongs_to :creator, class_name: "User"
   has_many :votes, as: :votable
 
-  has_many :contents, dependent: :destroy
+  has_many :contents, inverse_of: :lesson, dependent: :destroy
   accepts_nested_attributes_for :contents, :reject_if => lambda { |a| a[:url].blank? }, :allow_destroy => true
 end

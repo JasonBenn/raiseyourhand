@@ -5,6 +5,7 @@
   </p>
   <%= f.fields_for :contents do |builder| %>
   <p>
+    <%= builder.hidden_field :position, value: "1" %>
     <%= builder.label :url, "Youtube url" %><br />
     <%= builder.text_field :url %>
   </p>
