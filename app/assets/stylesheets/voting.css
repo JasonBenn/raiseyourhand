@@ -1,0 +1,13 @@
+.vote {
+  color: #444;
+  text-decoration: none;
+}
+
+.voting-panel {
+  float: left;
+  width: 25px;
+}
+
+.voting-panel span {
+  padding: 1px;
+}
