@@ -37,8 +37,9 @@
 .full-lesson-timeline{
 	width: 800px;
 	height: 50px;
-	background-color: purple;
+	background-color: black;
 	position: relative;
+	overflow: hidden;
 }
 .timeline-portion{
 	height: 100%;

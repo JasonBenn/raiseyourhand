@@ -5,8 +5,7 @@
 			url: '<%= content.url %>',
 			position: '<%= content.position %>',
 			start_time: '<%= content.start_time %>',
-			finish_time: '<%= content.finish_time %>',
-			position: '<%= positionIndex %>'
+			finish_time: '<%= content.finish_time %>'
 		}
 	addContentToTimeline(new_content);
 </script>
@@ -19,7 +18,7 @@
 	  <div class="create-draggable-progress create-draggable-progress-id-<%= positionIndex %> create-draggable-splicer-1-<%= positionIndex %>" data-timestamp="<%= content.start_time %>"></div>
 	  <div class="create-draggable-progress create-draggable-progress-end create-draggable-splicer-2-<%= positionIndex %> create-draggable-progress-end-id-<%= positionIndex %>" data-timestamp="<%= content.finish_time %>"></div>
 	</div>
-	<button class="add-clip-to-lesson">Add clip to lesson</button>
+	<!-- <button class="add-clip-to-lesson">Add clip to lesson</button> -->
 
 	<script type="text/javascript">
 		_run('<%= positionIndex %>');		

@@ -171,6 +171,15 @@ function updateContentTime(index, content){
   }
 }
 
+function getNewPositionIndex(){
+  $('.full-lesson-timeline li').each(function(index){
+    var content = getContentFromIndexId($(this).attr('data-position-index'));
+    content.position = index;
+    updateContentInDatabase(content);
+  })
+  console.log(timeline)
+}
+
 function addClipToLesson(content){
   updateContentInDatabase(content);
   update_full_lesson_timeline_bar();
@@ -185,15 +194,22 @@ function update_full_lesson_timeline_bar(){
   var total_time = getTotalLessonTime();
   timeline.forEach(function(element, index){
     var percent_filled = (getVideoClipTime(element) / total_time) * 100;
-    $('.full-lesson-timeline').append('<div class="timeline-portion '
+    $('.full-lesson-timeline').append('<li class="timeline-portion '
       + 'timeline-portion-id-'+element.position+'" style="width:'
       + percent_filled+'%; background-color:#'
-      + getRandomColor()+'" data-position-index='+element.position+'></div>');
+      + getRandomColor()+'" data-position-index='+element.position+'></li>');
   })
-}
+  $('.full-lesson-timeline').sortable({
+    axis: 'x',
+    containment: "parent",
+    cursor: "move",
+    forceHelperSize: true,
+    update: function(e) {
+      getNewPositionIndex();
+    }
+    // forcePlaceholderSize: true
 
-function displateAndActivateVideo(id){
-  $
+  });
 }
 
 function updateContentInDatabase(content){
@@ -293,12 +309,12 @@ $(document).ready(function(){
   })
 
   // not needed. server updates in real time when clip changes
-  $('.video-window').on('click', '.add-clip-to-lesson', function(){
-    var indexId = getIndexIdFromParent($(this));
-    var content = getContentFromIndexId(indexId);
-    updateContentTime(indexId, content);
-    addClipToLesson(content);
-  })
+  // $('.video-window').on('click', '.add-clip-to-lesson', function(){
+  //   var indexId = getIndexIdFromParent($(this));
+  //   var content = getContentFromIndexId(indexId);
+  //   updateContentTime(indexId, content);
+  //   addClipToLesson(content);
+  // })
 
   initiatePlayer();
   update_full_lesson_timeline_bar()
