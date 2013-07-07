@@ -5,6 +5,7 @@
 <script src="http://www.google.com/jsapi" type="text/javascript"></script>
 <script type="text/javascript">
 google.load("swfobject", "2.1");
+var contents = []
 </script>
 <%= javascript_include_tag "player_youtube" %>
 <%= javascript_include_tag "player_jquery" %>
@@ -28,14 +29,26 @@ google.load("swfobject", "2.1");
 <div class='flashcards'>
   <%= render partial: 'flashcards/card' %>
 </div>
-
+<% count = 0 %>
 <div class="top">
+
+<!-- Refactor to helper method -->
+<% @lesson.contents.each do |content| %>
+<% url = content.url.match(/(=)(\w+)/)[2] %>
+<% start_time = content.start_time.to_f %>
+<% end_time = content.finish_time.to_f %>
+<% count += 1 %>
+
+<script type="text/javascript">
+contents.push(["<%= url%>", <%= start_time%>, <%= end_time%>]);
+</script>
+<% end%>  
+
   <div id="videoDiv">
   </div>
 </div>
 
 <div id='questions-answers'>
-
 <!-- gets first content of lesson (equal to one video) -->
 <% video_one = @lesson.contents.first %>
 <% ee = video_one.url.match(/(=)(\w+)/) %>
@@ -47,8 +60,6 @@ google.load("swfobject", "2.1");
   var start_time = "<%= video_one.start_time.to_f %>"
   var end_time = "<%= video_one.finish_time.to_f %>"
 </script>
-
-
 
 <% times = get_question_timing(video_one) %>
 
