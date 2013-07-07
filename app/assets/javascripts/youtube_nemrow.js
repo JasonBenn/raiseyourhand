@@ -37,7 +37,7 @@ function updateProgressBar(currentTime, duration, playerId){
     var progressRatio = currentTime / duration;
     var progressUpdate = 800 * progressRatio;
   }
-  $('.progress-bar-'+playerId+' .progress').css('width', progressUpdate);
+  $('.progress-bar-'+active_edit_video+' .progress').css('width', progressUpdate);
 }
 
 // Allow the user to set the volume from 0-100
@@ -196,12 +196,15 @@ function updateContentTime(index, content){
     timestampArray.push($(this).attr('data-timestamp'));
   })
   if (parseInt(timestampArray[0]) <= parseInt(timestampArray[1])){
-    content.start_time = timestampArray[0];
-    content.finish_time = timestampArray[1];
+    setContentTimes(content, timestampArray[0], timestampArray[1]);
   } else {
-    content.start_time = timestampArray[1];
-    content.finish_time = timestampArray[0];
+    setContentTimes(content, timestampArray[1], timestampArray[0]);
   }
+}
+
+function setContentTimes(content, start_time, finish_time){
+  content.start_time = start_time;
+  content.finish_time = finish_time;
 }
 
 function getNewPositionIndex(){
@@ -245,6 +248,7 @@ function update_full_lesson_timeline_bar(){
 }
 
 function updateContentInDatabase(content){
+  dispayUpdateLoader()
   $.ajax({
     url:'/contents/'+content.id,
     type: 'put',
@@ -259,10 +263,18 @@ function updateContentInDatabase(content){
       }
     }
   }).success(function(result){
-    // alert(result)
+    hideUpdateLoader();
   }).fail(function(result){
     alert(result)
   });
+}
+
+function dispayUpdateLoader(){
+  $('.updating-data').css('visibility', 'visible');
+}
+
+function hideUpdateLoader(){
+  $('.updating-data').css('visibility', 'hidden');
 }
 
 function createNewContent(url){

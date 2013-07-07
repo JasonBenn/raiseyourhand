@@ -4,7 +4,10 @@
   lesson_id = <%= @lesson.id %>
 </script>
 <h1>Edit your lesson</h1>
-
+<div class="update-save-container">
+	<%= image_tag 'progress.gif', :class => 'updating-data' %>
+	<%= image_tag 'check_small.png', :class => 'data-saved' %>
+</div>
 <div class="video-window">
 	<% @lesson.contents.each_with_index do |content, index| %>
 		<%= render partial: 'contents/new_content', locals: {content: content, positionIndex: index, lesson: @lesson} %>
