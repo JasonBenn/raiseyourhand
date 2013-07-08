@@ -3,9 +3,9 @@ class Content < ActiveRecord::Base
   belongs_to :lesson, inverse_of: :contents
   has_many :questions
   has_many :flashcards
-  validates_presence_of :lesson, :url, :start_time, :finish_time
-	validates_associated :lesson
-	validates :position, numericality: true
+ #  validates_presence_of :lesson, :url, :start_time, :finish_time
+	# validates_associated :lesson
+	# validates :position, numericality: true
 
 	before_validation :generate_parameter
 

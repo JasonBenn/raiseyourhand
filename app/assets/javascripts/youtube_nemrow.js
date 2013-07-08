@@ -18,7 +18,8 @@ var CreateLesson = {
     $('.playlist-container').sortable({
       stop: function(){
         that.readPlaylistOder();
-      }
+      },
+      cursor: 'move'
     });
     $('.playlist-container').disableSelection();
 
@@ -28,6 +29,12 @@ var CreateLesson = {
     $('.add-new_youtube-clip').click(function(){
       that.createNewContent($('.add-youtube-movie-input').val());
     });
+
+    $('.playlist-container').on('click', '.delete-content', function(){
+      that.deleteContentById($(this).attr('data-contentId'));
+      $(this).parent().remove();
+      that.update_full_lesson_timeline_bar();
+    })
   },
 
   // Update a particular HTML element with a new value
@@ -39,6 +46,18 @@ var CreateLesson = {
   onPlayerError: function(errorCode) {
     alert("An error occured of type:" + errorCode);
   },
+
+  deleteContentById: function(contentId){
+    var that = this;
+    timeline.forEach(function(content, index){
+      if (content.id == contentId){
+        timeline.splice(index, 1);
+      }
+    })
+    that.deleteContentFromDataBase(contentId)
+  },
+
+
 
   // This function is called when the player changes state
   onPlayerStateChange: function(newState) {
@@ -144,7 +163,7 @@ var CreateLesson = {
   },
 
   getFinishTimeFromId: function(contentId){
-    content = this.getContentFromContentId(contentId);
+    content = CreateLesson.getContentFromContentId(contentId);
     return content.finish_time;
   },
 
@@ -268,7 +287,8 @@ var CreateLesson = {
     content = timeline[timeline.length - 1];
     $('.playlist-container').append('<li class="playlist-content" data-id=' + content.id
         + ' style="background-color:#' + colors[content.position] +'">' 
-        + '<span class="up-down-arrow"></span>'+ content.title +'</li>')
+        + content.title + '<div class="delete-content" data-contentId="' 
+        + content.id +'">Delete</div></li>');
   },
 
   getRandomColor: function(){
@@ -288,9 +308,26 @@ var CreateLesson = {
     });
   },
 
-  sendOrderToDB: function(){
-    this.dispayUpdateLoader();
+  deleteContentFromDataBase: function(contentId){
     var that = this;
+    that.dispayUpdateLoader();
+    $.ajax({
+      url:'/contents/'+contentId,
+      type: 'delete',
+      data: {
+        lesson_id: lesson_id, 
+        id: contentId 
+      }
+    }).success(function(result){
+      that.hideUpdateLoader();
+    }).fail(function(result){
+      alert(result);
+    });
+  },
+
+  sendOrderToDB: function(){
+    var that = this;
+    that.dispayUpdateLoader();
     var position_array = [];
     timeline.forEach(function(content){
       position_array.push(content.id);
@@ -310,8 +347,8 @@ var CreateLesson = {
   },
 
   updateContentInDatabase: function(content){
-    this.dispayUpdateLoader();
     var that = this;
+    that.dispayUpdateLoader();
     $.ajax({
       url:'/contents/'+content.id,
       type: 'put',
@@ -342,6 +379,7 @@ var CreateLesson = {
 
   createNewContent: function(url){
     var that = this;
+    that.dispayUpdateLoader();
     $.ajax({
       url:'/contents',
       type: 'post',
@@ -355,6 +393,7 @@ var CreateLesson = {
     }).success(function(result){
       $('.video-window').append(result);
       that.reOrganizeTimeline();
+      that.hideUpdateLoader();
     }).fail(function(result){
       alert('could not add video to lesson.');
     });
@@ -381,7 +420,8 @@ var CreateLesson = {
       var title = content.title;
       html += ('<li class="playlist-content" data-id=' + content.id
         + ' style="background-color:#' + colors[index] +'">' 
-        + '<span class="up-down-arrow"></span>'+title+'</li>');
+        + title +'<div class="delete-content" data-contentId="'
+        + content.id + '">Delete</div></li>');
     });
     $('.playlist-container').append(html);
   },
