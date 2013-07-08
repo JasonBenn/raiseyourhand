@@ -16,15 +16,16 @@
 		<% end %>
 	</div>
 
+	<div class="playlist-shell">
 		<ul class="playlist-container">
 		</ul>
+	</div>
 
 	<button class="play-current-editing-video" onClick='CreateLesson.playVideo()'>Play</button>
 	<button class="pause-current-editing-video" onClick='CreateLesson.pauseVideo()'>Pause</button>
 
 	<div class="full-timeline-window">
 		<ul class="full-lesson-timeline"></ul>
-		<%= image_tag 'garbage.png', :class => 'playlist-garbage' %>
 	</div>
 
 	<input type="text" class="add-youtube-movie-input" value="http://www.youtube.com/watch?v=k0BWlvnBmIE">
