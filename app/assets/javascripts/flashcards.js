@@ -66,5 +66,5 @@ function quizGame(contentId) {
 
   function endOfDeck() {
     return (counter === cards.length);
-  }
+  };
 };

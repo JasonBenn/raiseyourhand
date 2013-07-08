@@ -23,7 +23,7 @@ $('#tabs').tabs();
     });
     $(this).clearForm();
     return false;
-  })
+  });
 
   $('form#new_flashcard').submit(function(event) {
     event.preventDefault();
@@ -33,7 +33,7 @@ $('#tabs').tabs();
     });
     $(this).clearForm();
     return false;
-  })
+  });
 
  $(".chapter").on('click', function(e){
   var location = e.pageX;
