@@ -1,0 +1,7 @@
+<%= form_for question do |f| %>
+  <%= f.text_field :title, placeholder: 'Title for question' %>
+  <%= f.text_field :text, placeholder: 'What is your question?' %>
+  <%= f.text_field :content_id, hidden: true %>
+  <%= f.text_field :time_in_content, hidden: true %>
+  <%= f.submit %>
+<% end %>
