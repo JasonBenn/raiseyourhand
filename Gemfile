@@ -11,7 +11,7 @@ gem 'pg'
 
 gem 'jquery-rails'
 gem 'koala'
-gem 'textacular', "~> 3.0", require: 'textacular/rails'
+gem 'sunspot_rails'
 
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
@@ -37,4 +37,8 @@ group :test do
   gem 'guard-rspec'
   gem 'database_cleaner'
   gem 'selenium-webdriver'
+end
+
+group :development do
+  gem 'sunspot_solr'
 end
