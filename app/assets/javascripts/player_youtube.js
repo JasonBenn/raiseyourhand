@@ -106,7 +106,7 @@
               Player.updateProgressBar(Player.getCurrentTime(), Player.getTotalTime());
           };
 
-          if (Player.ytplayer.getCurrentTime() >= parseInt(Player.contents[Player.videoCount][2]) && Player.checker == false) {
+          if (Player.ytplayer.getCurrentTime() >= parseInt(Player.contents[Player.videoCount][2]-0.01) && Player.checker == false && Player.contents.length-1 != Player.videoCount) {
               Player.checker = true;
               Player.newVid();
           };
@@ -210,6 +210,7 @@
       newVid: function (playerId) {
           Player.playerSubMethod(playerId);
           Player.videoCount++;
+          // alert(Player.videoCount);
           Player.ytplayer.loadVideoById({
               'videoId': Player.contents[Player.videoCount][0],
                   'startSeconds': Player.contents[Player.videoCount][1],
