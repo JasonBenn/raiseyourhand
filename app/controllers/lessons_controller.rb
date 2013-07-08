@@ -3,10 +3,10 @@ class LessonsController < ApplicationController
 	end
 
 	def search
-		@search = Lesson.search do 
+		search = Lesson.search do 
 			fulltext params[:search]
-		end
-		render json: @search.results
+		end		
+		render partial: 'list', locals: { lessons: search.results }
 	end
 
 	def index
