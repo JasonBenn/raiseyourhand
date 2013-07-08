@@ -1,7 +1,7 @@
 <script src="http://www.google.com/jsapi" type="text/javascript"></script>
 <script type="text/javascript">
-	google.load("swfobject", "2.1");
-  lesson_id = <%= @lesson.id %>
+  lesson_id = <%= @lesson.id %>;
+  active_edit_video = <%= @lesson.contents.first.id %>;
 </script>
 <h1><%= @lesson.title %></h1>
 
@@ -19,8 +19,8 @@
 		<ul class="playlist-container">
 		</ul>
 
-	<button class="play-current-editing-video" onClick='playVideo()'>Play</button>
-	<button class="pause-current-editing-video" onClick='pauseVideo()'>Pause</button>
+	<button class="play-current-editing-video" onClick='CreateLesson.playVideo()'>Play</button>
+	<button class="pause-current-editing-video" onClick='CreateLesson.pauseVideo()'>Pause</button>
 
 	<div class="full-timeline-window">
 		<ul class="full-lesson-timeline"></ul>
@@ -29,3 +29,22 @@
 	<input type="text" class="add-youtube-movie-input" value="http://www.youtube.com/watch?v=k0BWlvnBmIE">
 	<button class="add-new_youtube-clip">Add Another Youtube Clip</button>
 </div>
+<script type="text/javascript">
+	function onYouTubePlayerReady(playerString) { 
+	  // This causes the updatePlayerInfo to be called every 250ms to
+	  // get fresh data from the player
+	  var playerId = CreateLesson.getIdFromPlayerString(playerString);
+	  CreateLesson.activateContent(playerId);
+	  setInterval(CreateLesson.updatePlayerInfo, 250);
+	  CreateLesson.updatePlayerInfo(playerId);
+	  ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
+	  ytplayer.addEventListener("onError", "onPlayerError");
+	  //Load an initial video into the player
+	  var url = CreateLesson.getYoutubeURLFromDiv(playerString);
+	  var start_time = CreateLesson.getStartTimeFromId(playerId);
+	  ytplayer.cueVideoById(CreateLesson.getVideoIdFromUrl(url), start_time);
+	};
+	$(document).ready(function(){
+		CreateLesson.init();
+	})
+</script>

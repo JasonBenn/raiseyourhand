@@ -9,38 +9,38 @@
 			duration: '<%= content.duration %>',
 			title: '<%= content.title %>'
 		}
-	addContentToTimeline(new_content);
+	CreateLesson.addContentToTimeline(new_content);
 </script>
-<div class="indi-video-shell indi-video-shell-<%= content.position %>" data-content-id="<%= content.id %>" data-index-id="<%= content.position %>">
-	<input type="hidden" class="youtubeId-player<%= content.position %>" value='<%= content.url %>'>
-	<div id="videoDiv-<%= content.position %>"></div>
+<div class="indi-video-shell indi-video-shell-<%= content.id %>" data-content-id="<%= content.id %>" data-index-id="<%= content.id %>">
+	<input type="hidden" class="youtubeId-player<%= content.id %>" value='<%= content.url %>'>
+	<div id="videoDiv-<%= content.id %>"></div>
 
-	<div class="create-progress-bar progress-bar-<%= content.position %>" data-index-id="<%= content.position %>">
+	<div class="create-progress-bar progress-bar-<%= content.id %>" data-index-id="<%= content.id %>">
 
 	  <div class="progress"></div>
-	  <div class="create-draggable-progress create-draggable-progress-id-<%= content.position %> create-draggable-splicer-1-<%= content.position %>" data-timestamp="<%= content.start_time %>">
+	  <div class="create-draggable-progress create-draggable-progress-id-<%= content.id %> create-draggable-splicer-1-<%= content.id %>" data-timestamp="<%= content.start_time %>">
 			<div class="tab-for-progress-bar"></div>
 	  </div>
 
-	  <div class="progress-span progress-span-id-<%= content.position %>"></div>
+	  <div class="progress-span progress-span-id-<%= content.id %>"></div>
 
-	  <div class="create-draggable-progress create-draggable-progress-end create-draggable-splicer-2-<%= content.position %> create-draggable-progress-end-id-<%= content.position %>" data-timestamp="<%= content.finish_time %>">
+	  <div class="create-draggable-progress create-draggable-progress-end create-draggable-splicer-2-<%= content.id %> create-draggable-progress-end-id-<%= content.id %>" data-timestamp="<%= content.finish_time %>">
 			<div class="tab-for-progress-bar"></div>
 	  </div>
 	</div>
 	<!-- <button class="add-clip-to-lesson">Add clip to lesson</button> -->
 
 	<script type="text/javascript">
-		_run('<%= content.position %>');		
+		CreateLesson._run('<%= content.id %>');		
 	</script>
 
 	<script type="text/javascript">
-	placeSlidersByTime(<%= content.start_time %>, <%= content.duration %>, <%= content.position %>, 'start_time');
-	placeSlidersByTime(<%= content.finish_time %>, <%= content.duration %>, <%= content.position %>, 'end_time');
+	CreateLesson.placeSlidersByTime(<%= content.start_time %>, <%= content.duration %>, <%= content.id %>, 'start_time');
+	CreateLesson.placeSlidersByTime(<%= content.finish_time %>, <%= content.duration %>, <%= content.id %>, 'end_time');
 
-	makeDraggable($('.create-draggable-splicer-1-<%= content.position %>'), <%= content.position %>);
-	makeDraggable($('.create-draggable-splicer-2-<%= content.position %>'), <%= content.position %>);
-	updateProgressSpan(<%= content.position %>);
+	CreateLesson.makeDraggable($('.create-draggable-splicer-1-<%= content.id %>'), <%= content.id %>);
+	CreateLesson.makeDraggable($('.create-draggable-splicer-2-<%= content.id %>'), <%= content.id %>);
+	CreateLesson.updateProgressSpan(<%= content.id %>);
 	</script>
 
 </div><br><br>

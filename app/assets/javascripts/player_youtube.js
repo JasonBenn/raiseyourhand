@@ -1,160 +1,212 @@
-var videoCount = 0;
-var currentVideoID = "";
-var checker = false;
+  var Player = {
+      videoCount: 0,
+      currentVideoID: null,
+      checker: false,
+      id: null,
+      ytplayer: document.getElementById("ytPlayer"),
+      contents: [],
+      cID: null,
 
-function updateProgressBar(currentTime, duration) {
-  if (currentTime !== 0 && duration !== 0) {
-    var progressRatio = currentTime / duration;
-    var progressUpdate = 800 * progressRatio;
-}
-$('.progress').css('width', progressUpdate);
-}
+      init: function () {
+          $('#tabs').tabs();
 
-function updateHTML(elmId, value) {
-  document.getElementById(elmId).innerHTML = value;
-}
+          $("form").mouseenter(function () {
+              Player.pauseVideo();
+              $('input[id$="_time_in_content"]').val(Player.ytplayer.getCurrentTime());
+              // TODO: replace 5 with ytplayer.getContentId();
+              $('input[id$="_content_id"]').val(5);
+          });
 
-// function updateValue(elmId, value) {
-//     document.getElementById(elmId).value = value;
-// }
+          $("form").mouseleave(function () {
+              Player.playVideo();
+          });
 
-function onPlayerError(errorCode) {
-  alert("An error occured of type:" + errorCode);
-}
+          // TODO: reduce duplication in two functions below
+          $('form#new_question').submit(function (event) {
+              event.preventDefault();
+              $(this).ajaxSubmit(function (response) {
+                  // TODO: insert response into question feed
+                  // will be much easier after feed is reorganized.
+              });
+              $(this).clearForm();
+              return false;
+          });
 
-function getContentId() {
-  return cID;
-}
+          $('form#new_flashcard').submit(function (event) {
+              event.preventDefault();
+              $(this).ajaxSubmit(function (response) {
+                  $('span[data-content-id="' + getContentId() + '"]').html(response);
+              });
+              $(this).clearForm();
+              return false;
+          });
 
-function onPlayerStateChange(newState) {
-  updateHTML("playerState", newState);
-}
+          $(".chapter").on('click', function (e) {
+              var location = e.pageX;
+              var currentChapter = $(this).index('.chapter');
 
-function updatePlayerInfo() {
-  if (ytplayer && ytplayer.getDuration) {
-    updateHTML("videoDuration", ytplayer.getDuration());
-    updateHTML("videoCurrentTime", ytplayer.getCurrentTime());
-    updateProgressBar(ytplayer.getCurrentTime(), ytplayer.getDuration());
+              if (currentChapter == 0) {
+                  var width = 0;
+              } else {
+                  var width = $(this).parent().children(".chapter").eq(currentChapter - 1).data("end");
+              };
 
-}
+              var currentWidth = $(this).data("end") - $(this).data("start")
+              var parentOffsetX = $(this).parent().offset().left;
+              var valueSubstract = location - width - parentOffsetX;
+              var percentage = valueSubstract / currentWidth
+              Player.seekToPercentage(currentChapter, percentage);
+          });
 
+          $("#ask_question").mouseenter(function () {
+              Player.pauseVideo();
+          });
 
-if (ytplayer.getCurrentTime() >= parseInt(contents[videoCount][2])-1 && checker == false) {
- console.log("here");
- checker = true;
- newVid();
-}
+          $("#questions-answers").mouseenter(function () {
+              Player.pauseVideo();
+          });
 
-$("#"+Math.round(ytplayer.getCurrentTime())).show("display", "inline");
-}
+          $(".qcontainer").mouseenter(function () {
+              $(this).children(".triangle-border").css("heigth", "auto");
+              $(this).children(".triangle-border").children(".question_body").slideDown();
+              $(this).siblings(".repective-answers").children(".acontainer").slideDown();
+              $(this).siblings(".repective-answers").css("margin-top", "150px");
+          });
 
-function setVideoVolume() {
-  var volume = parseInt(document.getElementById("volumeSetting").value);
-  if (isNaN(volume) || volume < 0 || volume > 100) {
-    alert("Please enter a valid volume between 0 and 100.");
-} else if (ytplayer) {
-    ytplayer.setVolume(volume);
-}
-}
+          $(".qcontainer").mouseleave(function () {
+              $(this).children(".triangle-border").css("heigth", "50px");
+              $(this).children(".triangle-border").children(".question_body").hide();
+              $(this).siblings(".repective-answers").children(".acontainer").hide();
+              $(this).siblings(".repective-answers").css("margin-top", "0px");
+          });
 
-function seekTo(time) {
-  if (ytplayer) {
-    ytplayer.seekTo(time, true);
-}
-}
+          $("#questions-answers").mouseleave(function () {
+              Player.playVideo();
+          });
+      },
 
-function seekToPercentage(videoID, percentage) {    
-  var totalTime = contents[videoID][2] - contents[videoID][1];
-  var timeInUncut = totalTime * percentage;
-  var timeinCut = timeInUncut + contents[videoID][1];
+      updateHTML: function (elmId, value) {
+          document.getElementById(elmId).innerHTML = value;
+      },
 
+      onPlayerError: function (errorCode) {
+          alert("An error occured of type:" + errorCode);
+      },
 
-  if (currentVideoID !== contents[videoID][0]) {
+      getContentId: function () {
+          return Player.cID;
+      },
 
+      onPlayerStateChange: function (newState) {
+          Player.updateHTML("playerState", newState);
+      },
 
-    ytplayer = document.getElementById("ytPlayer");
-    setInterval(updatePlayerInfo, 250);
-    updatePlayerInfo();
-    ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
-    ytplayer.addEventListener("onError", "onPlayerError");
-    ytplayer.loadVideoById({'videoId':contents[videoID][0], 'startSeconds':timeinCut, 'endSeconds':contents[videoID][2], 'suggestedQuality':"default"});
-    currentVideoID = contents[videoID][0];
-    cID = contents[videoID][3];
-    videoCount = videoID;
-}  
-seekTo(timeinCut);
-}
+      updatePlayerInfo: function () {
+          if (Player.ytplayer && Player.ytplayer.getDuration) {
+              Player.updateHTML("videoDuration", Player.ytplayer.getDuration());
+              Player.updateHTML("videoCurrentTime", Player.ytplayer.getCurrentTime());
+          };
 
-var id;
+          if (Player.ytplayer.getCurrentTime() >= parseInt(Player.contents[Player.videoCount][2]) && Player.checker == false) {
+              Player.checker = true;
+              Player.newVid();
+          };
 
-var Test = function () {
-  return window.setInterval(function () {
-    changeCss();
-}, 0);
-};
+          $("#" + Math.round(Player.ytplayer.getCurrentTime())).show("display", "inline");
+      },
 
-var changeCss = function () {
+      seekTo: function (time) {
+          if (Player.ytplayer) {
+              Player.ytplayer.seekTo(time, true);
+          };
+      },
 
-  $("#questions-answers").scrollTop(ytplayer.getCurrentTime()*149);
-};
+      seekToPercentage: function (videoID, percentage) {
+          var totalTime = Player.contents[videoID][2] - Player.contents[videoID][1];
+          var timeInUncut = totalTime * percentage;
+          var timeinCut = timeInUncut + Player.contents[videoID][1];
 
-function playVideo() {
-  if (ytplayer) {
-    ytplayer.playVideo();
-}
-id = Test();
-}
+          if (Player.currentVideoID !== Player.contents[videoID][0]) {
+              Player.ytplayer = document.getElementById("ytPlayer");
+              setInterval(Player.updatePlayerInfo, 250);
+              Player.updatePlayerInfo();
+              Player.ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
+              Player.ytplayer.addEventListener("onError", "onPlayerError");
+              Player.ytplayer.loadVideoById({
+                  'videoId': Player.contents[videoID][0],
+                      'startSeconds': timeinCut,
+                      'endSeconds': Player.contents[videoID][2],
+                      'suggestedQuality': "default"
+              });
+              Player.currentVideoID = Player.contents[videoID][0];
+              Player.cID = Player.contents[videoID][3];
+              Player.videoCount = videoID;
+          };
+          Player.seekTo(timeinCut);
+      },
 
-function pauseVideo() {
-  if (ytplayer) {
-    ytplayer.pauseVideo();
-}
-window.clearInterval(id);
-}
+      Test: function () {
+          return window.setInterval(function () {
+              Player.changeCss();
+          }, 0);
+      },
 
-function onYouTubePlayerReady(playerId) {
-  ytplayer = document.getElementById("ytPlayer");
-  setInterval(updatePlayerInfo, 250);
-  updatePlayerInfo(playerId);
-  ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
-  ytplayer.addEventListener("onError", "onPlayerError");
-    // This loads the video based on the predefined start and endtime set when creating the course
-    ytplayer.cueVideoById({videoId:video_link, startSeconds:start_time, endSeconds:end_time, suggestedQuality:"default"});
-    videoCount = 0;
-    cID = id;
-    currentVideoID = video_link;
-}
+      changeCss: function () {
+          $("#questions-answers").scrollTop(Player.ytplayer.getCurrentTime() * 149);
+      },
 
-function newVid(playerId) {
-    ytplayer = document.getElementById("ytPlayer");
-    setInterval(updatePlayerInfo, 250);
-    updatePlayerInfo();
-    ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
-    ytplayer.addEventListener("onError", "onPlayerError");
-    videoCount ++;
-    console.log(videoCount);
-    ytplayer.loadVideoById({'videoId':contents[videoCount][0], 'startSeconds':contents[videoCount][1], 'endSeconds':contents[videoCount][2], 'suggestedQuality':"default"});
-    currentVideoID = contents[videoCount][0];
-    cID = contents[videoCount][3];
-    checker = false;
-}
+      playVideo: function () {
 
-function loadPlayer() {
-    var params = {
-      allowScriptAccess: "always"
+          if (Player.ytplayer) {
+              Player.ytplayer.playVideo();
+          };
+          Player.id = Player.Test();
+      },
+
+      pauseVideo: function () {
+          if (Player.ytplayer) {
+              Player.ytplayer.pauseVideo();
+          };
+          window.clearInterval(Player.id);
+      },
+
+      playerSubMethod: function (playerId) {
+          Player.ytplayer = document.getElementById("ytPlayer");
+          setInterval(Player.updatePlayerInfo, 250);
+          Player.updatePlayerInfo(playerId);
+          Player.ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
+          Player.ytplayer.addEventListener("onError", "onPlayerError");
+      },
+
+      newVid: function (playerId) {
+          Player.playerSubMethod(playerId);
+          Player.videoCount++;
+          Player.ytplayer.loadVideoById({
+              'videoId': Player.contents[Player.videoCount][0],
+                  'startSeconds': Player.contents[Player.videoCount][1],
+                  'endSeconds': Player.contents[Player.videoCount][2],
+                  'suggestedQuality': "default"
+          });
+          Player.currentVideoID = Player.contents[Player.videoCount][0];
+          Player.cID = Player.contents[Player.videoCount][3];
+          Player.checker = false;
+      },
+
+      loadPlayer: function () {
+          var params = {
+              allowScriptAccess: "always"
+          };
+          var atts = {
+              id: "ytPlayer"
+          };
+
+          swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
+              "version=3&enablejsapi=1&playerapiid=player1",
+              "videoDiv", "900", "500", "9", null, null, params, atts);
+      },
+
+      _run: function () {
+          Player.loadPlayer();
+      }
   };
-  var atts = {
-      id: "ytPlayer"
-  };
-
-  swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
-      "version=3&enablejsapi=1&playerapiid=player1",
-      "videoDiv", "900", "500", "9", null, null, params, atts);
-}
-
-function _run() {
-    loadPlayer();
-
-}
-
-google.setOnLoadCallback(_run);
+  google.setOnLoadCallback(Player._run);

@@ -13,4 +13,5 @@ Raiseyourhand::Application.routes.draw do
   match 'auth/failure', to: redirect('/')
   match 'signout', to: 'sessions#destroy', as: 'signout'
   match 'search' => 'lessons#search'
+  put 'sortorder', to: 'contents#sortorder'
 end

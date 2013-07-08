@@ -1,19 +1,23 @@
-<!-- Required Stylesheets -->
-<%= stylesheet_link_tag    "player_main_css.css", :media => "all" %>
-
-<!-- Required Javascript -->
-<script src="http://www.google.com/jsapi" type="text/javascript"></script>
-<script src="http://malsup.github.com/jquery.form.js"></script> 
+<!-- Required Javascript - need to be here bc we use it twice in the document with diff meaning. Cant be renamed as part of YT API-->
 <script type="text/javascript">
-google.load("swfobject", "2.1");
-var contents = [];
-var ytplayer;
+      function onYouTubePlayerReady(playerId) {
+      Player.ytplayer = document.getElementById("ytPlayer");
+      console.log(Player.ytplayer);
+          Player.playerSubMethod(playerId);
+          Player.ytplayer.cueVideoById({
+              'videoId': Player.contents[0][0],
+              'startSeconds': Player.contents[0][1],
+              'endSeconds': Player.contents[0][2],
+              'suggestedQuality': "default"
+          });
+          Player.videoCount = 0;
+          Player.cID = Player.contents[0][3];
+          Player.currentVideoID = Player.contents[0][0];
+      };
+ $(document).ready(function(){
+  Player.init();
+ });
 </script>
-
-<!-- TODO: JS files are loaded twice, here and in the layout!! -->
-<!-- Removing them here breaks any functions that rely on 9 and 10 -->
-<%= javascript_include_tag "player_youtube" %>
-<%= javascript_include_tag "player_jquery" %>
 
 <!-- Page HTML -->
 <%= render partial: 'shared/voting', locals: { votable: @lesson } %>
@@ -47,7 +51,7 @@ var ytplayer;
 
 <!-- Pushing the contents to javascript. Needed for switching bewteen lesson contents -->
 <script type="text/javascript">
-contents.push(["<%= url%>", <%= start_time%>, <%= end_time%>, <%= id%>]);
+Player.contents.push(["<%= url%>", <%= start_time%>, <%= end_time%>, <%= id%>]);
 </script>
 <% end%>  
 
@@ -57,18 +61,12 @@ contents.push(["<%= url%>", <%= start_time%>, <%= end_time%>, <%= id%>]);
 </div>
 
 <div id='questions-answers'>
+
 <!-- gets first content of lesson (equal to one video) -->
 <% video_one = @lesson.contents.first %>
-<% ee = video_one.url.match(/(=)(\w+)/) %>
 <% video_length = video_one.length %>
 
 <!-- set video link to content-link, start-time and end-time via script tag -->
-<script type="text/javascript">
-  var video_link = "<%= ee[2] %>";
-  var start_time = "<%= video_one.start_time.to_f %>";
-  var end_time = "<%= video_one.finish_time.to_f %>";
-  var id = <%= video_one.id %>;
-</script>
 
 <!-- creates the question flow -->
 <% times = get_question_timing(video_one) %>
@@ -107,31 +105,6 @@ contents.push(["<%= url%>", <%= start_time%>, <%= end_time%>, <%= id%>]);
   <% end %>
 </div>
 
-<!-- Alternate version of Questions/Answers, uses DB data and has voting -->
-<!-- Use for reference when replacing above. -->
-<!-- <div id='questions-answers'>
-  <ul>
-    < @lesson.questions.each do |question| %>
-      <li class='question'>
-        <= render partial: 'shared/voting', locals: { votable: question } %>
-        <= question.text %>
-      </li>
-      < question.answers.each do |answer| %>
-        <ul>
-          <li class='answer'>
-            <= render partial: 'shared/voting', locals: { votable: answer } %>
-            <= answer.text %>
-          </li>
-        </ul>
-      <span>
-        <= content.flashcards.count %>
-      </span>
-      < end %>
-    </td>
-    < end %>
-  </tr>
-</table> -->
-
 <!-- refactor to inject method -->
 <% total_length = 0 %>
 <% @lesson.contents.each {|content| total_length += content.length}%>
@@ -167,10 +140,10 @@ contents.push(["<%= url%>", <%= start_time%>, <%= end_time%>, <%= id%>]);
 
 <!-- Navigation bar. Play and pause for now. Will be replaced with nicer one later -->
 <div id="navigation_bar">
-  <button id="play" onclick="playVideo();">
+  <button id="play" onclick="Player.playVideo();">
     Play
   </button>
-  <button id="pause" onclick="pauseVideo();">
+  <button id="pause" onclick="Player.pauseVideo();">
     Pause
   </button>
 </div>
