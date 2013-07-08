@@ -271,11 +271,23 @@ function update_full_lesson_timeline_bar(){
 }
 
 function sendOrderToDB(){
+  dispayUpdateLoader()
   var position_array = []
   timeline.forEach(function(content){
     position_array.push(content.id);
   })
-  // position array is ready to be sent to db
+  $.ajax({
+    url:'/sortorder',
+    type: 'put',
+    data: {
+      lesson_id: lesson_id, 
+      sortorder: position_array 
+    }
+  }).success(function(result){
+    hideUpdateLoader();
+  }).fail(function(result){
+    alert(result)
+  });
 }
 
 function updateContentInDatabase(content){
