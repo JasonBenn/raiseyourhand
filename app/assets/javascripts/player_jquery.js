@@ -2,15 +2,6 @@ $(document).ready(function(){
 
 $('#tabs').tabs();
 
-$('body').unbind('keyup').keyup(function (e) {
-  e.preventDefault();
-    if (e.keyCode == 32) {
-      newVid();
-      return false; 
-    }
-    return false; 
-  });
-
   $("form").mouseenter(function(){
     pauseVideo();
     $('input[id$="_time_in_content"]').val(ytplayer.getCurrentTime());
@@ -85,22 +76,6 @@ $('body').unbind('keyup').keyup(function (e) {
 
   $("#questions-answers").mouseleave(function(){
     playVideo();
-  });
-
-  var $progressBarContainer = $('.progress-bar');
-  var $progressBarStatus = $('.progress')
-
-  function getProgressTimeRequest(e){
-    var parentOffsetX = $progressBarContainer.offset().left;
-    var mouseX = e.pageX;
-    var relativeX =  mouseX - parentOffsetX;
-    var mousePercentage = relativeX / $progressBarContainer.width();
-    return ytplayer.getDuration() * mousePercentage;
-  }
-
-  $('.progress-bar').click(function(e){
-    newTime = getProgressTimeRequest(e)
-    seekTo(newTime);
   });
 });
 
