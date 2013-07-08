@@ -103,7 +103,7 @@
 
       updatePlayerInfo: function () {
           if (Player.ytplayer && Player.ytplayer.getDuration) {
-            Player.updateProgressBar(Player.getCurrentTime(), Player.getTotalTime());
+              Player.updateProgressBar(Player.getCurrentTime(), Player.getTotalTime());
           };
 
           if (Player.ytplayer.getCurrentTime() >= parseInt(Player.contents[Player.videoCount][2]) && Player.checker == false) {
@@ -151,39 +151,37 @@
       },
 
       changeCss: function () {
-          $("#questions-answers").scrollTop(Player.getCurrentTime()* 149);
+          $("#questions-answers").scrollTop(Player.getCurrentTime() * 149);
           Player.getCurrentTime();
       },
 
-    getTotalTime: function() {
-    var time = 0;
+      getTotalTime: function () {
+          var time = 0;
 
-    for (var i=0;i<Player.contents.length;i++)
-{ 
-  time = time + (Player.contents[i][2] - Player.contents[i][1]); 
-};
-return time;
-    },  
+          for (var i = 0; i < Player.contents.length; i++) {
+              time = time + (Player.contents[i][2] - Player.contents[i][1]);
+          };
+          return time;
+      },
 
-    getCurrentTime: function() {
-  var currentT = Player.ytplayer.getCurrentTime() - Player.contents[Player.videoCount][1];
-  var timePassed = 0;
-var i = Player.videoCount-1;
-while (i>=0)
-  {
-  timePassed = timePassed + (Player.contents[i][2] - Player.contents[i][1]);
-  i--;
-  };
-return currentT + timePassed;
-    },
+      getCurrentTime: function () {
+          var currentT = Player.ytplayer.getCurrentTime() - Player.contents[Player.videoCount][1];
+          var timePassed = 0;
+          var i = Player.videoCount - 1;
+          while (i >= 0) {
+              timePassed = timePassed + (Player.contents[i][2] - Player.contents[i][1]);
+              i--;
+          };
+          return currentT + timePassed;
+      },
 
-    updateProgressBar: function(currentTime, duration, playerId){
-    if (currentTime != 0 && duration != 0){
-      var progressRatio = currentTime / duration;
-      var progressUpdate = 900 * progressRatio;
-    };
-    $('.progress').css('width', progressUpdate);
-  },
+      updateProgressBar: function (currentTime, duration, playerId) {
+          if (currentTime != 0 && duration != 0) {
+              var progressRatio = currentTime / duration;
+              var progressUpdate = 900 * progressRatio;
+          };
+          $('.progress').css('width', progressUpdate);
+      },
 
       playVideo: function () {
 
@@ -191,7 +189,7 @@ return currentT + timePassed;
               Player.ytplayer.playVideo();
               Player.id = Player.Test();
           };
-          
+
       },
 
       pauseVideo: function () {
