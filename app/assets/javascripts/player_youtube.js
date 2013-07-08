@@ -22,6 +22,10 @@ function onPlayerError(errorCode) {
     alert("An error occured of type:" + errorCode);
 }
 
+function getContentId() {
+    // to come
+}
+
 function onPlayerStateChange(newState) {
     updateHTML("playerState", newState);
 }
