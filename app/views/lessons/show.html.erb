@@ -3,10 +3,15 @@
 
 <!-- Required Javascript -->
 <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script> 
 <script type="text/javascript">
 google.load("swfobject", "2.1");
-var contents = []
+var contents = [];
+var ytplayer;
 </script>
+
+<!-- TODO: JS files are loaded twice, here and in the layout!! -->
+<!-- Removing them here breaks any functions that rely on 9 and 10 -->
 <%= javascript_include_tag "player_youtube" %>
 <%= javascript_include_tag "player_jquery" %>
 
@@ -170,7 +175,24 @@ contents.push(["<%= url%>", <%= start_time%>, <%= end_time%>, <%= id%>]);
   </button>
 </div>
 
-<!-- disregard for now. Needed for now though. Please dont delete -->
+<div id='tabs'>
+  <ul>
+    <li><a href="#tabs-1">Ask question</a></li>
+    <li><a href="#tabs-2">Write note</a></li>
+    <li><a href="#tabs-3">Create flashcard</a></li>
+  </ul>
+  <div id='tabs-1'>
+    <%= render 'questions/new', question: @question %>
+  </div>
+  <div id='tabs-2'>
+    <%= render 'notes/new', note: @note %>
+  </div>
+  <div id='tabs-3'>
+    <%= render 'flashcards/new', flashcard: @flashcard %>
+  </div>
+</div>
+
+<!-- diregard for now. Needed for now though. Please dont delete -->
 <div id="videoInfo">
   <p>Player state: <span id="playerState">--</span></p>
   <p>Current Time: <span id="videoCurrentTime">--:--</span> | Duration: <span id="videoDuration">--:--</span></p>
