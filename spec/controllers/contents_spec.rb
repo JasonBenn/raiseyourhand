@@ -2,31 +2,24 @@ require 'spec_helper'
 
 
 describe ContentsController do
+  let(:user) { FactoryGirl.create(:user) } 
+  before do
+    @controller.stub(:current_user).and_return(:user)
+  end    
   describe "#create" do
-    let(:lesson) { FactoryGirl.create(:lesson) }    
+    
+  let(:lesson) { FactoryGirl.create(:lesson) }
     it "new content given valid params" do
-      expect{ post(:create, {content: { lesson_id: lesson.id,
-                             url: "http://www.youtube.com/watch?v=2YYF0j-FV3c",
-                             start_time: "0",
-                             finish_time: "600",
-                             position: 1}})}.to change{Content.count}.by(1)
+      expect{ post_new_content_request }.to change{Content.count}.by(1)
     end
 
     it "renders the _new_content template" do
-      post(:create, {content: { lesson_id: lesson.id,
-                             url: "http://www.youtube.com/watch?v=2YYF0j-FV3c",
-                             start_time: "0",
-                             finish_time: "600",
-                             position: 1}})
+     post_new_content_request
      response.should render_template('contents/_new_content')
     end      
 
     it "returns a 201 status code when creating a new record" do
-      post(:create, {content: { lesson_id: lesson.id,
-                             url: "http://www.youtube.com/watch?v=2YYF0j-FV3c",
-                             start_time: "0",
-                             finish_time: "600",
-                             position: 1}})
+      post_new_content_request
       response.code.should eq("201")
 
     end
@@ -36,8 +29,20 @@ describe ContentsController do
     end
   end
 
+    # context "when not logged in" do
+    #   response.should redirect_to root_url
+    # end
 
-  describe '#post' do
+  def post_new_content_request
+    post(:create, {content: { lesson_id: lesson.id,
+                             url: "http://www.youtube.com/watch?v=2YYF0j-FV3c",
+                             start_time: "0",
+                             finish_time: "600",
+                             position: 1}})
+  end
+
+
+  describe '#update' do
     let(:lesson) { FactoryGirl.create(:lesson_with_content) }
 
     it "update content given valid params" do
@@ -60,6 +65,11 @@ describe ContentsController do
                              finish_time: "400",
                              position: 2}})
       response.should render_template('contents/_new_content')
+
+      # post_params = {:content => }
+      # Content.create(params[:content])
+      # Content.should_receive(:create).with(post_params[:content])
+
     end
 
     it "returns a 201 status code when editing a record" do
@@ -106,7 +116,6 @@ describe ContentsController do
     end
 
   end
-
 
 end
 

@@ -3,10 +3,11 @@ class Content < ActiveRecord::Base
   belongs_to :lesson, inverse_of: :contents
   has_many :questions
   has_many :flashcards
- 	validates_presence_of :lesson
+  validates_presence_of :lesson, :url, :start_time, :finish_time
 	validates_associated :lesson
- 	validates :position, numericality: true
- 	before_create :generate_parameter
+	validates :position, numericality: true
+
+	before_create :generate_parameter
 
   def length
     finish_time.to_f - start_time.to_f
