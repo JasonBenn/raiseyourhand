@@ -1,195 +1,138 @@
-var videoCount = 0;
-var currentVideoID = "";
-var checker = false;
+  var Player = {
+      videoCount: 0,
+      currentVideoID: null,
+      checker: false,
+      id: null,
+      ytplayer: document.getElementById("ytPlayer"),
+      contents: [],
+      cID: null,
 
-function updateProgressBar(currentTime, duration) {
-  if (currentTime !== 0 && duration !== 0) {
-    var progressRatio = currentTime / duration;
-    var progressUpdate = 800 * progressRatio;
-};
-$('.progress').css('width', progressUpdate);
-};
+      init: function () {
+          // Maybe move all the document ready in here
+      },
 
-function updateHTML(elmId, value) {
-  document.getElementById(elmId).innerHTML = value;
-};
+      updateHTML: function (elmId, value) {
+          document.getElementById(elmId).innerHTML = value;
+      },
 
-// function updateValue(elmId, value) {
-//     document.getElementById(elmId).value = value;
-// }
+      onPlayerError: function (errorCode) {
+          alert("An error occured of type:" + errorCode);
+      },
 
-function onPlayerError(errorCode) {
-  alert("An error occured of type:" + errorCode);
-};
+      getContentId: function () {
+          return Player.cID;
+      },
 
-function getContentId() {
-  return cID;
-};
+      onPlayerStateChange: function (newState) {
+          Player.updateHTML("playerState", newState);
+      },
 
-function onPlayerStateChange(newState) {
-  updateHTML("playerState", newState);
-};
+      updatePlayerInfo: function () {
+          if (Player.ytplayer && Player.ytplayer.getDuration) {
+              Player.updateHTML("videoDuration", Player.ytplayer.getDuration());
+              Player.updateHTML("videoCurrentTime", Player.ytplayer.getCurrentTime());
+          };
 
-function updatePlayerInfo() {
-  if (ytplayer && ytplayer.getDuration) {
-    updateHTML("videoDuration", ytplayer.getDuration());
-    updateHTML("videoCurrentTime", ytplayer.getCurrentTime());
-    updateProgressBar(ytplayer.getCurrentTime(), ytplayer.getDuration());
-};
+          if (Player.ytplayer.getCurrentTime() >= parseInt(Player.contents[Player.videoCount][2]) && Player.checker == false) {
+              Player.checker = true;
+              Player.newVid();
+          };
 
-if (ytplayer.getCurrentTime() >= parseInt(contents[videoCount][2])-1 && checker == false) {
- console.log("here");
- checker = true;
- newVid();
-};
+          $("#" + Math.round(Player.ytplayer.getCurrentTime())).show("display", "inline");
+      },
 
-$("#"+Math.round(ytplayer.getCurrentTime())).show("display", "inline");
-};
+      seekTo: function (time) {
+          if (Player.ytplayer) {
+              Player.ytplayer.seekTo(time, true);
+          };
+      },
 
-function setVideoVolume() {
-  var volume = parseInt(document.getElementById("volumeSetting").value);
-  if (isNaN(volume) || volume < 0 || volume > 100) {
-    alert("Please enter a valid volume between 0 and 100.");
-} else if (ytplayer) {
-    ytplayer.setVolume(volume);
-};
-};
+      seekToPercentage: function (videoID, percentage) {
+          var totalTime = Player.contents[videoID][2] - Player.contents[videoID][1];
+          var timeInUncut = totalTime * percentage;
+          var timeinCut = timeInUncut + Player.contents[videoID][1];
 
-function seekTo(time) {
-  if (ytplayer) {
-    ytplayer.seekTo(time, true);
-};
-};
+          if (Player.currentVideoID !== Player.contents[videoID][0]) {
+              Player.ytplayer = document.getElementById("ytPlayer");
+              setInterval(Player.updatePlayerInfo, 250);
+              Player.updatePlayerInfo();
+              Player.ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
+              Player.ytplayer.addEventListener("onError", "onPlayerError");
+              Player.ytplayer.loadVideoById({
+                  'videoId': Player.contents[videoID][0],
+                      'startSeconds': timeinCut,
+                      'endSeconds': Player.contents[videoID][2],
+                      'suggestedQuality': "default"
+              });
+              Player.currentVideoID = Player.contents[videoID][0];
+              Player.cID = Player.contents[videoID][3];
+              Player.videoCount = videoID;
+          };
+          Player.seekTo(timeinCut);
+      },
 
-function seekToPercentage(videoID, percentage) {    
-  var totalTime = contents[videoID][2] - contents[videoID][1];
-  var timeInUncut = totalTime * percentage;
-  var timeinCut = timeInUncut + contents[videoID][1];
+      Test: function () {
+          return window.setInterval(function () {
+              Player.changeCss();
+          }, 0);
+      },
 
+      changeCss: function () {
+          $("#questions-answers").scrollTop(Player.ytplayer.getCurrentTime() * 149);
+      },
 
-  if (currentVideoID !== contents[videoID][0]) {
+      playVideo: function () {
 
+          if (Player.ytplayer) {
+              Player.ytplayer.playVideo();
+          };
+          Player.id = Player.Test();
+      },
 
-    ytplayer = document.getElementById("ytPlayer");
-    setInterval(updatePlayerInfo, 250);
-    updatePlayerInfo();
-    ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
-    ytplayer.addEventListener("onError", "onPlayerError");
-    ytplayer.loadVideoById({'videoId':contents[videoID][0], 'startSeconds':timeinCut, 'endSeconds':contents[videoID][2], 'suggestedQuality':"default"});
-    currentVideoID = contents[videoID][0];
-    cID = contents[videoID][3];
-    videoCount = videoID;
-};
-seekTo(timeinCut);
-};
+      pauseVideo: function () {
+          if (Player.ytplayer) {
+              Player.ytplayer.pauseVideo();
+          };
+          window.clearInterval(Player.id);
+      },
 
-var id;
+      playerSubMethod: function (playerId) {
+          Player.ytplayer = document.getElementById("ytPlayer");
+          setInterval(Player.updatePlayerInfo, 250);
+          Player.updatePlayerInfo(playerId);
+          Player.ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
+          Player.ytplayer.addEventListener("onError", "onPlayerError");
+      },
 
-var Test = function () {
-  return window.setInterval(function () {
-    changeCss();
-}, 0);
-};
+      newVid: function (playerId) {
+          Player.playerSubMethod(playerId);
+          Player.videoCount++;
+          Player.ytplayer.loadVideoById({
+              'videoId': Player.contents[Player.videoCount][0],
+                  'startSeconds': Player.contents[Player.videoCount][1],
+                  'endSeconds': Player.contents[Player.videoCount][2],
+                  'suggestedQuality': "default"
+          });
+          Player.currentVideoID = Player.contents[Player.videoCount][0];
+          Player.cID = Player.contents[Player.videoCount][3];
+          Player.checker = false;
+      },
 
-var changeCss = function () {
+      loadPlayer: function () {
+          var params = {
+              allowScriptAccess: "always"
+          };
+          var atts = {
+              id: "ytPlayer"
+          };
 
-  $("#questions-answers").scrollTop(ytplayer.getCurrentTime()*149);
-};
+          swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
+              "version=3&enablejsapi=1&playerapiid=player1",
+              "videoDiv", "900", "500", "9", null, null, params, atts);
+      },
 
-function playVideo() {
-  if (ytplayer) {
-    ytplayer.playVideo();
-};
-id = Test();
-};
-
-function pauseVideo() {
-  if (ytplayer) {
-    ytplayer.pauseVideo();
-};
-window.clearInterval(id);
-};
-
-function onYouTubePlayerReady(playerId) {
-  ytplayer = document.getElementById("ytPlayer");
-  setInterval(updatePlayerInfo, 250);
-  updatePlayerInfo(playerId);
-  ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
-  ytplayer.addEventListener("onError", "onPlayerError");
-    // This loads the video based on the predefined start and endtime set when creating the course
-    ytplayer.cueVideoById({videoId:video_link, startSeconds:start_time, endSeconds:end_time, suggestedQuality:"default"});
-    videoCount = 0;
-    cID = id;
-    currentVideoID = video_link;
-};
-
-function newVid(playerId) {
-    ytplayer = document.getElementById("ytPlayer");
-    setInterval(updatePlayerInfo, 250);
-    updatePlayerInfo();
-    ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
-    ytplayer.addEventListener("onError", "onPlayerError");
-    videoCount ++;
-    console.log(videoCount);
-    ytplayer.loadVideoById({'videoId':contents[videoCount][0], 'startSeconds':contents[videoCount][1], 'endSeconds':contents[videoCount][2], 'suggestedQuality':"default"});
-    currentVideoID = contents[videoCount][0];
-    cID = contents[videoCount][3];
-    checker = false;
-}
-
-function loadPlayer() {
-    var params = {
-      allowScriptAccess: "always"
+      _run: function () {
+          Player.loadPlayer();
+      }
   };
-  var atts = {
-      id: "ytPlayer"
-  };
-
-  swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
-      "version=3&enablejsapi=1&playerapiid=player1",
-      "videoDiv", "900", "500", "9", null, null, params, atts);
-};
-
-function _run() {
-    loadPlayer();
-
-};
-
-google.setOnLoadCallback(_run);
-
-// var Globals = {
-//     contents: [],
-//     vtplayer: null,
-//   }
-
-//   Globals.contents
-//   Globals.vtplayer
-
-
-//   var Player = {
-//     init: function() {
-
-//       this.openVideo()
-
-//       $("form").submit(function() {
-//         this.start();
-//       });
-
-
-//     },
-//     start: function () {
-
-//     },
-//     openVideo: function(){
-
-//     }
-//   }
-
-//   document.on("ready") {
-//         Player.init()
-
-//   }
-
-//   var contents = [];
-//   var ytplayer;
-
+  google.setOnLoadCallback(Player._run);

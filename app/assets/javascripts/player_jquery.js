@@ -3,14 +3,14 @@ $(document).ready(function(){
 $('#tabs').tabs();
 
   $("form").mouseenter(function(){
-    pauseVideo();
-    $('input[id$="_time_in_content"]').val(ytplayer.getCurrentTime());
+    Player.pauseVideo();
+    $('input[id$="_time_in_content"]').val(Player.ytplayer.getCurrentTime());
     // TODO: replace 5 with ytplayer.getContentId();
     $('input[id$="_content_id"]').val(5);
   });
 
   $("form").mouseleave(function(){
-    playVideo();
+    Player.playVideo();
   });
 
   // TODO: reduce duplication in two functions below
@@ -19,7 +19,6 @@ $('#tabs').tabs();
     $(this).ajaxSubmit(function(response) {
       // TODO: insert response into question feed
       // will be much easier after feed is reorganized.
-      console.log(response);
     });
     $(this).clearForm();
     return false;
@@ -28,7 +27,6 @@ $('#tabs').tabs();
   $('form#new_flashcard').submit(function(event) {
     event.preventDefault();
     $(this).ajaxSubmit(function(response) {
-      console.log(response);
       $('span[data-content-id="'+getContentId()+'"]').html(response);
     });
     $(this).clearForm();
@@ -49,17 +47,15 @@ $('#tabs').tabs();
   var parentOffsetX = $(this).parent().offset().left;
   var valueSubstract = location - width - parentOffsetX;
   var percentage = valueSubstract/currentWidth
-  alert(currentChapter);
-  alert(percentage);
-  seekToPercentage(currentChapter, percentage);
+  Player.seekToPercentage(currentChapter, percentage);
 });
 
  $("#ask_question").mouseenter(function(){
-    pauseVideo();
+    Player.pauseVideo();
  });
 
   $("#questions-answers").mouseenter(function(){
-    pauseVideo();
+    Player.pauseVideo();
  });
 
   $(".qcontainer").mouseenter(function(){
@@ -77,7 +73,7 @@ $('#tabs').tabs();
   });
 
   $("#questions-answers").mouseleave(function(){
-    playVideo();
+    Player.playVideo();
   });
 });
 
