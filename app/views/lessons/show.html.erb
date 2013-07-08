@@ -64,9 +64,10 @@ contents.push(["<%= url%>", <%= start_time%>, <%= end_time%>, <%= id%>]);
 
 <!-- set video link to content-link, start-time and end-time via script tag -->
 <script type="text/javascript">
-  var video_link = "<%= ee[2] %>"
-  var start_time = "<%= video_one.start_time.to_f %>"
-  var end_time = "<%= video_one.finish_time.to_f %>"
+  var video_link = "<%= ee[2] %>";
+  var start_time = "<%= video_one.start_time.to_f %>";
+  var end_time = "<%= video_one.finish_time.to_f %>";
+  var id = <%= video_one.id %>;
 </script>
 
 <!-- creates the question flow -->
