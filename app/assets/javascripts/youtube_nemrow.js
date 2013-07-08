@@ -18,7 +18,8 @@ var CreateLesson = {
     $('.playlist-container').sortable({
       stop: function(){
         that.readPlaylistOder();
-      }
+      },
+      cursor: 'move'
     });
     $('.playlist-container').disableSelection();
 
