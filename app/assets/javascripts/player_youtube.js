@@ -155,4 +155,4 @@ function _run() {
 
 };
 
-google.setOnLoadCallback(_run);
+//google.setOnLoadCallback(_run);
