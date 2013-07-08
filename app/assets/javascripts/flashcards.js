@@ -7,7 +7,7 @@ $(document).ready(function() {
 });
 
 function loadQuiz(contentId) {
-  $.get('/contents/'+contentId+'/flashcards', function(response) {
+  $.get('/flashcards?content_id='+contentId, function(response) {
     $('#flashcards-data').remove();
     $('body').append(response);
     quizGame(contentId);
@@ -15,6 +15,7 @@ function loadQuiz(contentId) {
 };
 
 function quizGame(contentId) {
+  pauseVideo();
   var cards = $('#flashcards-data').data('flashcards');
   var counter = 0;
   $('#card').html(getCard(counter));
@@ -39,6 +40,7 @@ function quizGame(contentId) {
 
   $('#done').click(function() {
     $('.flashcards').css({'display':'none'});
+    playVideo();
   });
 
   function getCard(i) {

@@ -1,0 +1,7 @@
+<%= form_for flashcard do |f| %>
+  <%= f.text_field :front, placeholder: 'Question' %>
+  <%= f.text_field :back, placeholder: 'Answer' %>
+  <%= f.text_field :content_id, hidden: true %>
+  <%= f.text_field :time_in_content, hidden: true %>
+  <%= f.submit %>
+<% end %>

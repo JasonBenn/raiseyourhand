@@ -9,6 +9,11 @@ class LessonsController < ApplicationController
 
 	def show
 		@lesson = Lesson.find(params[:id])
+		@question = Question.new
+		@flashcard = Flashcard.new
+		# TODO: notes model for personal notes.
+		# @note = Note.new
+		# TODO: possibly add references model for deep dives>
 	end
 	
 	def new

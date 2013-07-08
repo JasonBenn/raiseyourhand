@@ -3,9 +3,10 @@ Raiseyourhand::Application.routes.draw do
 
   resources :lessons
   resources :votes
-  resources :contents do
-    resources :flashcards
-  end
+  resources :flashcards
+  resources :contents
+  resources :questions
+  resources :answers
 
   get '/test' => 'test#index'
   match 'auth/:provider/callback', to: 'sessions#create'
