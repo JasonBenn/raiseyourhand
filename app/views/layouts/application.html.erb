@@ -14,7 +14,9 @@
       <h3 id='title'><%= link_to 'raiseyourhand', root_path %></h3>
     <% end %>
 
-    <ul id='login-logout'>
+
+    <ul id='top-right-nav'>
+      <li><%= link_to 'Create new lesson', 'lessons/new' %></li>
     	<% if is_logged_in? %>
     		<li>Welcome <%= current_user.name %></li>
     		<li><%= link_to "sign out", signout_path %></li>
