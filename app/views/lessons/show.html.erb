@@ -125,14 +125,9 @@ contents.push(["<%= url%>", <%= start_time%>, <%= end_time%>]);
   </tr>
 </table> -->
 
-
-
 <!-- refactor to inject method -->
 <% total_length = 0 %>
 <% @lesson.contents.each {|content| total_length += content.length}%>
-
-<%= total_length%>
-
 
 <!-- Progress bar parent (wrapper) -->
 <div class="progress-bar">
