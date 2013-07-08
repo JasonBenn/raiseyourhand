@@ -24,20 +24,20 @@
           // TODO: reduce duplication in two functions below
           $('form#new_question').submit(function (event) {
               event.preventDefault();
-              $(this).ajaxSubmit(function (response) {
+              var data = $(this).serialize();
+              $.post('/questions', data, function (response) {
                   // TODO: insert response into question feed
                   // will be much easier after feed is reorganized.
               });
-              $(this).clearForm();
               return false;
           });
 
           $('form#new_flashcard').submit(function (event) {
               event.preventDefault();
-              $(this).ajaxSubmit(function (response) {
-                  $('span[data-content-id="' + getContentId() + '"]').html(response);
+              var data = $(this).serialize();
+              $.post('/flashcards', data, function (response) {
+                  $('span[data-content-id="' + Player.getContentId() + '"]').html(response);
               });
-              $(this).clearForm();
               return false;
           });
 
