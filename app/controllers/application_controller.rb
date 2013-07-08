@@ -9,7 +9,9 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def is_logged_in?
-  	!current_user.nil?
+  	if current_user.nil?
+      redirect_to :root
+    end
   end
   helper_method :is_logged_in?
 
