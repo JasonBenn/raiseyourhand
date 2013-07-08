@@ -1,7 +1,9 @@
+<%= javascript_include_tag 'youtube_nemrow' %>
 <script src="http://www.google.com/jsapi" type="text/javascript"></script>
 <script type="text/javascript">
 	google.load("swfobject", "2.1");
-  lesson_id = <%= @lesson.id %>
+  lesson_id = <%= @lesson.id %>;
+  active_edit_video = <%= @lesson.contents.first.id %>;
 </script>
 <h1><%= @lesson.title %></h1>
 
