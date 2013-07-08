@@ -1,0 +1,20 @@
+#search {
+	margin: 50px auto;
+	display: block;
+	border: 5px solid steelblue;
+  box-shadow: 0 0 15px steelblue;
+  text-align: center;
+  font-size: 20px;
+  border-radius: 10px;
+  text-shadow: 0 0 3px gray;
+}
+
+.search-big-mode {
+	width: 600px;
+	height: 3em;
+}
+
+.search-small-mode {
+	width: 400px;
+	height: 2em;
+}
