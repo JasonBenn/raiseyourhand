@@ -2,6 +2,13 @@ class LessonsController < ApplicationController
 	def show
 	end
 
+	def search
+		search = Lesson.search do 
+			fulltext params[:search]
+		end		
+		render partial: 'list', locals: { lessons: search.results }
+	end
+
 	def index
 		@home = true
 		@lessons = Lesson.all
