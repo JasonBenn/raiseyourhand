@@ -2,15 +2,6 @@ $(document).ready(function(){
 
 $('#tabs').tabs();
 
-$('body').unbind('keyup').keyup(function (e) {
-  e.preventDefault();
-    if (e.keyCode == 32) {
-      newVid();
-      return false; 
-    }
-    return false; 
-  });
-
   $("form").mouseenter(function(){
     pauseVideo();
     $('input[id$="_time_in_content"]').val(ytplayer.getCurrentTime());
