@@ -83,7 +83,7 @@ ytplayer = document.getElementById("ytPlayer");
     updatePlayerInfo();
     ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
     ytplayer.addEventListener("onError", "onPlayerError");
-    ytplayer.loadVideoById({'videoId':contents[videoID][0], 'startSeconds':timeinCut, 'endSeconds':contents[videoID][2], 'suggestedQuality':"highres"});
+    ytplayer.loadVideoById({'videoId':contents[videoID][0], 'startSeconds':timeinCut, 'endSeconds':contents[videoID][2], 'suggestedQuality':"default"});
     currentVideoID = contents[videoID][0];
     videoCount = videoID;
   }  
@@ -134,7 +134,7 @@ function onYouTubePlayerReady(playerId) {
     ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
     ytplayer.addEventListener("onError", "onPlayerError");
     // This loads the video based on the predefined start and endtime set when creating the course
-    ytplayer.cueVideoById({videoId:video_link, startSeconds:start_time, endSeconds:end_time, suggestedQuality:"highres"});
+    ytplayer.cueVideoById({videoId:video_link, startSeconds:start_time, endSeconds:end_time, suggestedQuality:"default"});
     videoCount = 0;
     currentVideoID = video_link;
 }
@@ -149,7 +149,7 @@ function newVid(playerId) {
     videoCount ++;
     console.log(videoCount);
     // alert(videoCount);
-    ytplayer.loadVideoById({'videoId':contents[videoCount][0], 'startSeconds':contents[videoCount][1], 'endSeconds':contents[videoCount][2], 'suggestedQuality':"highres"});
+    ytplayer.loadVideoById({'videoId':contents[videoCount][0], 'startSeconds':contents[videoCount][1], 'endSeconds':contents[videoCount][2], 'suggestedQuality':"default"});
     currentVideoID = contents[videoCount][0];
     checker = false;
 }
