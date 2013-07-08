@@ -50,14 +50,14 @@ var CreateLesson = {
     // Also check that at least one function exists since when IE unloads the
     // page, it will destroy the SWF before clearing the interval.
     if(ytplayer && ytplayer.getDuration) {
-      this.updateProgressBar(ytplayer.getCurrentTime(), ytplayer.getDuration(), playerId);
+      CreateLesson.updateProgressBar(ytplayer.getCurrentTime(), ytplayer.getDuration(), playerId);
       CreateLesson.detectClipEndTime(ytplayer.getCurrentTime());
     };
   },
 
   detectClipEndTime: function(current_time){
     if (current_time >= this.getFinishTimeFromId(active_edit_video)){
-      this.seekTo(getStartTimeFromId(active_edit_video));
+      CreateLesson.seekTo(CreateLesson.getStartTimeFromId(active_edit_video));
     };
   },
 
