@@ -86,22 +86,6 @@ $('body').unbind('keyup').keyup(function (e) {
   $("#questions-answers").mouseleave(function(){
     playVideo();
   });
-
-  var $progressBarContainer = $('.progress-bar');
-  var $progressBarStatus = $('.progress')
-
-  function getProgressTimeRequest(e){
-    var parentOffsetX = $progressBarContainer.offset().left;
-    var mouseX = e.pageX;
-    var relativeX =  mouseX - parentOffsetX;
-    var mousePercentage = relativeX / $progressBarContainer.width();
-    return ytplayer.getDuration() * mousePercentage;
-  }
-
-  $('.progress-bar').click(function(e){
-    newTime = getProgressTimeRequest(e)
-    seekTo(newTime);
-  });
 });
 
 var stopTimer = function(){
