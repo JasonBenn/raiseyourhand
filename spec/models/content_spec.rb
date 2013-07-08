@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Content do
+
   context 'testing associations' do
     it { should belong_to(:lesson) }
     it { should have_many(:questions) }
@@ -19,15 +20,40 @@ describe Content do
 
 
   describe 'Validates' do
+    content = Content.new
+    #content.stub(:getVideoIdFromUrl).and_return("2zNSgSzhBfM")
     it { should validate_presence_of(:lesson) }
     it { should validate_presence_of(:url) }
     it { should validate_presence_of(:start_time) }
     it { should validate_presence_of(:finish_time) } 
     it { should validate_numericality_of(:position) }
     it "should validate associated lesson"
-
   end
 
-  pending 'had lesson id'
-  pending 'lesson for that Id exisits'
+  describe '#length' do
+    let(:lesson) { FactoryGirl.create(:lesson_with_content) }
+    it 'calculates the length of a clip' do
+      content = lesson.contents.first
+      expect(content.length).to eq(235.0)
+    end
+  end
+
+  describe '#getVideoIdFromUrl' do
+    it 'should parse our the video id from url' do
+      content = Content.new
+      url = "http://www.youtube.com/watch?v=2zNSgSzhBfM"
+      expect(content.getVideoIdFromUrl(url)).to eq("2zNSgSzhBfM")
+    end 
+  end 
+
+  describe '#getMetaDataFromYoutubeWithId' do
+    it 'should parse the meta data from the URL' do
+      pending
+      content = Content.new
+      id = "2zNSgSzhBfM"
+      expect(content.getMetaDataFromYoutubeWithId(id)).to eq("")
+    end
+  end
+
+
 end
