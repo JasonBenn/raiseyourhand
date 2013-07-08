@@ -6,13 +6,13 @@ function updateProgressBar(currentTime, duration) {
   if (currentTime !== 0 && duration !== 0) {
     var progressRatio = currentTime / duration;
     var progressUpdate = 800 * progressRatio;
-}
+};
 $('.progress').css('width', progressUpdate);
-}
+};
 
 function updateHTML(elmId, value) {
   document.getElementById(elmId).innerHTML = value;
-}
+};
 
 // function updateValue(elmId, value) {
 //     document.getElementById(elmId).value = value;
@@ -20,32 +20,31 @@ function updateHTML(elmId, value) {
 
 function onPlayerError(errorCode) {
   alert("An error occured of type:" + errorCode);
-}
+};
 
 function getContentId() {
   return cID;
-}
+};
 
 function onPlayerStateChange(newState) {
   updateHTML("playerState", newState);
-}
+};
 
 function updatePlayerInfo() {
   if (ytplayer && ytplayer.getDuration) {
     updateHTML("videoDuration", ytplayer.getDuration());
     updateHTML("videoCurrentTime", ytplayer.getCurrentTime());
     updateProgressBar(ytplayer.getCurrentTime(), ytplayer.getDuration());
-
-}
+};
 
 if (ytplayer.getCurrentTime() >= parseInt(contents[videoCount][2])-1 && checker == false) {
  console.log("here");
  checker = true;
  newVid();
-}
+};
 
 $("#"+Math.round(ytplayer.getCurrentTime())).show("display", "inline");
-}
+};
 
 function setVideoVolume() {
   var volume = parseInt(document.getElementById("volumeSetting").value);
@@ -53,14 +52,14 @@ function setVideoVolume() {
     alert("Please enter a valid volume between 0 and 100.");
 } else if (ytplayer) {
     ytplayer.setVolume(volume);
-}
-}
+};
+};
 
 function seekTo(time) {
   if (ytplayer) {
     ytplayer.seekTo(time, true);
-}
-}
+};
+};
 
 function seekToPercentage(videoID, percentage) {    
   var totalTime = contents[videoID][2] - contents[videoID][1];
@@ -80,9 +79,9 @@ function seekToPercentage(videoID, percentage) {
     currentVideoID = contents[videoID][0];
     cID = contents[videoID][3];
     videoCount = videoID;
-}  
+};
 seekTo(timeinCut);
-}
+};
 
 var id;
 
@@ -100,16 +99,16 @@ var changeCss = function () {
 function playVideo() {
   if (ytplayer) {
     ytplayer.playVideo();
-}
+};
 id = Test();
-}
+};
 
 function pauseVideo() {
   if (ytplayer) {
     ytplayer.pauseVideo();
-}
+};
 window.clearInterval(id);
-}
+};
 
 function onYouTubePlayerReady(playerId) {
   ytplayer = document.getElementById("ytPlayer");
@@ -122,7 +121,7 @@ function onYouTubePlayerReady(playerId) {
     videoCount = 0;
     cID = id;
     currentVideoID = video_link;
-}
+};
 
 function newVid(playerId) {
     ytplayer = document.getElementById("ytPlayer");
@@ -149,11 +148,11 @@ function loadPlayer() {
   swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
       "version=3&enablejsapi=1&playerapiid=player1",
       "videoDiv", "900", "500", "9", null, null, params, atts);
-}
+};
 
 function _run() {
     loadPlayer();
 
-}
+};
 
 google.setOnLoadCallback(_run);

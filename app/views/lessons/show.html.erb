@@ -100,31 +100,6 @@ contents.push(["<%= url%>", <%= start_time%>, <%= end_time%>, <%= id%>]);
   <% end %>
 </div>
 
-<!-- Alternate version of Questions/Answers, uses DB data and has voting -->
-<!-- Use for reference when replacing above. -->
-<!-- <div id='questions-answers'>
-  <ul>
-    < @lesson.questions.each do |question| %>
-      <li class='question'>
-        <= render partial: 'shared/voting', locals: { votable: question } %>
-        <= question.text %>
-      </li>
-      < question.answers.each do |answer| %>
-        <ul>
-          <li class='answer'>
-            <= render partial: 'shared/voting', locals: { votable: answer } %>
-            <= answer.text %>
-          </li>
-        </ul>
-      <span>
-        <= content.flashcards.count %>
-      </span>
-      < end %>
-    </td>
-    < end %>
-  </tr>
-</table> -->
-
 <!-- refactor to inject method -->
 <% total_length = 0 %>
 <% @lesson.contents.each {|content| total_length += content.length}%>
