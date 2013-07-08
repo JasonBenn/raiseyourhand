@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(:version => 20130707015421) do
 
   create_table "answers", :force => true do |t|
     t.integer  "question_id"
-    t.string   "text"
+    t.text     "text"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(:version => 20130707015421) do
 
   create_table "flashcards", :force => true do |t|
     t.integer  "content_id"
-    t.string   "front"
-    t.string   "back"
+    t.text     "front"
+    t.text     "back"
     t.string   "time_in_content"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(:version => 20130707015421) do
   end
 
   create_table "questions", :force => true do |t|
-    t.string   "text"
+    t.text     "text"
     t.integer  "content_id"
     t.string   "time_in_content"
     t.datetime "created_at",      :null => false
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(:version => 20130707015421) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email"
+    t.text     "email"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
     t.string   "provider"
