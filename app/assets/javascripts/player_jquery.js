@@ -49,6 +49,8 @@ $('#tabs').tabs();
   var parentOffsetX = $(this).parent().offset().left;
   var valueSubstract = location - width - parentOffsetX;
   var percentage = valueSubstract/currentWidth
+  alert(currentChapter);
+  alert(percentage);
   seekToPercentage(currentChapter, percentage);
 });
 

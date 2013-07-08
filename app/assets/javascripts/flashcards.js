@@ -6,13 +6,13 @@ $(document).ready(function() {
   });
 });
 
-function loadQuiz(contentId) {
-  $.get('/flashcards?content_id='+contentId, function(response) {
-    $('#flashcards-data').remove();
-    $('body').append(response);
-    quizGame(contentId);
-  });
-};
+// function loadQuiz(contentId) {
+//   $.get('/flashcards?content_id='+contentId, function(response) {
+//     $('#flashcards-data').remove();
+//     $('body').append(response);
+//     quizGame(contentId);
+//   });
+// };
 
 function quizGame(contentId) {
   pauseVideo();
