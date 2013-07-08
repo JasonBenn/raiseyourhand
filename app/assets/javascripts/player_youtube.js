@@ -155,4 +155,41 @@ function _run() {
 
 };
 
-//google.setOnLoadCallback(_run);
+google.setOnLoadCallback(_run);
+
+// var Globals = {
+//     contents: [],
+//     vtplayer: null,
+//   }
+
+//   Globals.contents
+//   Globals.vtplayer
+
+
+//   var Player = {
+//     init: function() {
+
+//       this.openVideo()
+
+//       $("form").submit(function() {
+//         this.start();
+//       });
+
+
+//     },
+//     start: function () {
+
+//     },
+//     openVideo: function(){
+
+//     }
+//   }
+
+//   document.on("ready") {
+//         Player.init()
+
+//   }
+
+//   var contents = [];
+//   var ytplayer;
+

@@ -1,12 +1,6 @@
 <!-- Required Javascript -->
-<script src="http://www.google.com/jsapi" type="text/javascript"></script>
-<script type="text/javascript">
-  google.load("swfobject", "2.1");
-  var contents = [];
-  var ytplayer;
-</script>
 
-<%= javascript_include_tag "player_youtube" %>
+
 
 <!-- Page HTML -->
 <%= render partial: 'shared/voting', locals: { votable: @lesson } %>
