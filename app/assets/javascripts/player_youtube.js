@@ -38,7 +38,6 @@ function updatePlayerInfo() {
 
 }
 
-
 if (ytplayer.getCurrentTime() >= parseInt(contents[videoCount][2])-1 && checker == false) {
  console.log("here");
  checker = true;
