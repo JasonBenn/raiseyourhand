@@ -1,3 +1,6 @@
+.test-container{
+	overflow: auto;
+}
 .create-progress-bar{
 	width: 800px;
 	height: 50px;
@@ -12,6 +15,22 @@
 	top: 0px;
 	background-color: blue;
 	z-index: 2;
+}
+.progress{
+	height: 100%;
+	background-color: green;
+	position: absolute;
+}
+ul.playlist-container{
+	width: 300px;
+	left: 850px;
+	top: 196px;
+	position: absolute;
+}
+.playlist-content{
+	border-radius: 5px;
+	padding: 5px 0 23px 0;
+	margin: 0 3px 3px 3px;
 }
 .create-draggable-progress{
 	width: 2px;
@@ -73,7 +92,7 @@
 	margin: 10px 0;
 }
 .full-lesson-timeline{
-	width: 1000px;
+	width: 800px;
 	height: 50px;
 	background-image: url('honey_im_subtle.png');
 	position: relative;
@@ -83,5 +102,5 @@
 }
 .timeline-portion{
 	height: 100%;
-	float: left;
+	display: inline-table;
 }
