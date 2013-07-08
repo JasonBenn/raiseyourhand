@@ -1,19 +1,12 @@
-<!-- Required Stylesheets -->
-<%= stylesheet_link_tag    "player_main_css.css", :media => "all" %>
-
 <!-- Required Javascript -->
 <script src="http://www.google.com/jsapi" type="text/javascript"></script>
-<script src="http://malsup.github.com/jquery.form.js"></script> 
 <script type="text/javascript">
-google.load("swfobject", "2.1");
-var contents = [];
-var ytplayer;
+  google.load("swfobject", "2.1");
+  var contents = [];
+  var ytplayer;
 </script>
 
-<!-- TODO: JS files are loaded twice, here and in the layout!! -->
-<!-- Removing them here breaks any functions that rely on 9 and 10 -->
 <%= javascript_include_tag "player_youtube" %>
-<%= javascript_include_tag "player_jquery" %>
 
 <!-- Page HTML -->
 <%= render partial: 'shared/voting', locals: { votable: @lesson } %>

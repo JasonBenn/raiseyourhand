@@ -3,6 +3,11 @@
 <head>
   <title>Raiseyourhand</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
+
+
+
+
+
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
   <%= javascript_include_tag "application" %>
   <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
@@ -23,6 +28,12 @@
     	<% end %>
     </ul>
   </nav>
+  <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+<script type="text/javascript">
+  google.load("swfobject", "2.1");
+  var contents = [];
+  var ytplayer;
+</script>
 	<%= yield %>
 </body>
 </html>
