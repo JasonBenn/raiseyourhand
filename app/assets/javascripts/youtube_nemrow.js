@@ -18,10 +18,6 @@ var CreateLesson = {
     $('.playlist-container').sortable({
       stop: function(){
         that.readPlaylistOder();
-        
-      },
-      sort: function(){
-        
       },
       cursor: 'move'
     });
@@ -37,6 +33,7 @@ var CreateLesson = {
     $('.playlist-container').on('click', '.delete-content', function(){
       that.deleteContentById($(this).attr('data-contentId'));
       $(this).parent().remove();
+      that.update_full_lesson_timeline_bar();
     })
   },
 
@@ -312,6 +309,8 @@ var CreateLesson = {
   },
 
   deleteContentFromDataBase: function(contentId){
+    var that = this;
+    that.dispayUpdateLoader();
     $.ajax({
       url:'/contents/'+contentId,
       type: 'delete',
@@ -320,15 +319,15 @@ var CreateLesson = {
         id: contentId 
       }
     }).success(function(result){
-      alert('success')
+      that.hideUpdateLoader();
     }).fail(function(result){
       alert(result);
     });
   },
 
   sendOrderToDB: function(){
-    this.dispayUpdateLoader();
     var that = this;
+    that.dispayUpdateLoader();
     var position_array = [];
     timeline.forEach(function(content){
       position_array.push(content.id);
@@ -348,8 +347,8 @@ var CreateLesson = {
   },
 
   updateContentInDatabase: function(content){
-    this.dispayUpdateLoader();
     var that = this;
+    that.dispayUpdateLoader();
     $.ajax({
       url:'/contents/'+content.id,
       type: 'put',
@@ -380,6 +379,7 @@ var CreateLesson = {
 
   createNewContent: function(url){
     var that = this;
+    that.dispayUpdateLoader();
     $.ajax({
       url:'/contents',
       type: 'post',
@@ -393,6 +393,7 @@ var CreateLesson = {
     }).success(function(result){
       $('.video-window').append(result);
       that.reOrganizeTimeline();
+      that.hideUpdateLoader();
     }).fail(function(result){
       alert('could not add video to lesson.');
     });
