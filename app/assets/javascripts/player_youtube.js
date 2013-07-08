@@ -151,7 +151,7 @@
       },
 
       changeCss: function () {
-          $("#questions-answers").scrollTop((Player.ytplayer.getCurrentTime() - Player.contents[Player.videoCount][1])* 149);
+          $("#questions-answers").scrollTop(Player.getCurrentTime()* 149);
           Player.getCurrentTime();
       },
 
