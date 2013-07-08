@@ -50,8 +50,7 @@ class ContentsController < ApplicationController
 	end
 
 	def bad_request
-		render text: "Invalid Request", status: "400"
-		return false
+		render text: "Invalid Request", status: "400" and return
 	end
 
 end

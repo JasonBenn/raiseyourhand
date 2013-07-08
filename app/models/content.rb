@@ -3,6 +3,7 @@ class Content < ActiveRecord::Base
   belongs_to :lesson, inverse_of: :contents
   has_many :questions
   has_many :flashcards
+  # get rid of unnecessary comments unless accompanied by a TODO or FIXME
  #  validates_presence_of :lesson, :url, :start_time, :finish_time
 	# validates_associated :lesson
 	# validates :position, numericality: true
@@ -38,7 +39,7 @@ class Content < ActiveRecord::Base
 	end
 
 	def getVideoIdFromUrl(url)
-		url_params = CGI.parse(URI.parse(url).query) 
+		url_params = CGI.parse(URI.parse(url).query)
 		url_params['v'][0]
 	end
 end
