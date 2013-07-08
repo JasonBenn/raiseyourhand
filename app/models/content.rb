@@ -1,5 +1,5 @@
 class Content < ActiveRecord::Base
-  attr_accessible :lesson_id, :url, :position, :start_time, :finish_time, :duration
+  attr_accessible :lesson_id, :url, :position, :start_time, :finish_time, :duration, :title
   belongs_to :lesson, inverse_of: :contents
   has_many :questions
   has_many :flashcards
@@ -19,15 +19,14 @@ class Content < ActiveRecord::Base
   	self.start_time = 0
 		self.finish_time = get_duration
 		self.duration = get_duration
+		self.title = get_youtube_title(youtube_data)
   end
 
   def getMetaDataFromYoutubeWithId(youtube_id)
 		JSON.parse(open("http://gdata.youtube.com/feeds/api/videos/#{youtube_id}?v=2&alt=json&prettyprint=true").read)
 	end
 
-	def get_youtube_title(url)
-		id = getVideoIdFromUrl(url)
-		data = getMetaDataFromYoutube(id)
+	def get_youtube_title(data)
 		data['entry']['title']['$t']
 	end
 

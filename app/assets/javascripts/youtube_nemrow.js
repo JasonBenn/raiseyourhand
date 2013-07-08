@@ -1,6 +1,7 @@
 var current_youtube_id = 'CGr2pB7drss';
 var timeline = [];
 var active_edit_video = 0;
+var colors = ['CD853F', 'DAA520', 'B0E0E6', 'BC8F8F', '98FB98', 'DDA0DD', 'FF7F50'];
 // Update a particular HTML element with a new value
 function updateHTML(elmId, value) {
   document.getElementById(elmId).innerHTML = value;
@@ -220,6 +221,39 @@ function addClipToLesson(content){
   update_full_lesson_timeline_bar();
 }
 
+function reOrganizeTimeline(){
+  update_full_lesson_timeline_bar();
+  switchPlayerToNewContent();
+  addNewContentToPlaylist();
+}
+
+function readPlaylistOder(){
+  var new_timeline = []
+  $('.playlist-container li').each(function(index){
+    var content = getContentFromId($(this).attr('data-id'));
+    content.position = index;
+    new_timeline.push(content);
+  })
+  timeline = new_timeline;
+  update_full_lesson_timeline_bar();
+  sendOrderToDB();
+}
+
+function getContentFromId(id){
+  var content = timeline.filter(function(content){
+    return (content.id == id);
+  })
+  return content[0];
+}
+
+function addNewContentToPlaylist(){
+  content = timeline[timeline.length - 1];
+  console.log(content);
+  $('.playlist-container').append('<li class="playlist-content" data-id=' + content.id
+      + ' style="background-color:#' + colors[content.position] +'">' 
+      + '<span class="up-down-arrow"></span>'+ content.title +'</li>')
+}
+
 function getRandomColor(){
   return Math.floor(Math.random()*16777215).toString(16);
 }
@@ -228,24 +262,20 @@ function update_full_lesson_timeline_bar(){
   $('.full-lesson-timeline').html('');
   var total_time = getTotalLessonTime();
   timeline.forEach(function(element, index){
-    var percent_filled = (getVideoClipTime(element) / total_time) * 80;
+    var percent_filled = (getVideoClipTime(element) / total_time) * 100;
     $('.full-lesson-timeline').append('<li class="timeline-portion '
       + 'timeline-portion-id-'+element.position+'" style="width:'
       + percent_filled+'%; background-color:#'
-      + getRandomColor()+'" data-position-index='+element.position+'></li>');
+      + colors[index] +'" data-position-index='+element.position+'></li>');
   })
+}
 
-  $('.full-lesson-timeline').sortable({
-    axis: 'x',
-    containment: "parent",
-    cursor: "move",
-    forceHelperSize: true,
-    update: function(e) {
-      getNewPositionIndex();
-    }
-    // forcePlaceholderSize: true
-
-  });
+function sendOrderToDB(){
+  var position_array = []
+  timeline.forEach(function(content){
+    position_array.push(content.id);
+  })
+  // position array is ready to be sent to db
 }
 
 function updateContentInDatabase(content){
@@ -291,8 +321,7 @@ function createNewContent(url){
     }
   }).success(function(result){
     $('.video-window').append(result);
-    update_full_lesson_timeline_bar();
-    switchPlayerToNewContent();
+    reOrganizeTimeline();
   }).fail(function(result){
     alert('could not add video to lesson.')
   });
@@ -312,6 +341,18 @@ function placeSlidersByTime(time, duration, indexId, type){
   }
 }
 
+function initializePlaylist(){
+  var html = ''
+  $('.playlist-container').html('');
+  timeline.forEach(function(content, index){
+    var title = content.title;
+    html += ('<li class="playlist-content" data-id=' + content.id
+      + ' style="background-color:#' + colors[index] +'">' 
+      + '<span class="up-down-arrow"></span>'+title+'</li>');
+  });
+  $('.playlist-container').append(html)
+};
+
 function validateDragTime(content, time){
   if (time > content.duration){
     time = content.duration;
@@ -324,7 +365,6 @@ function validateDragTime(content, time){
 }
 
 function makeDraggable($element, indexId){
-  // var content = getContentFromIndexId(indexId);
   $element.draggable({
     axis: 'x',
     containment: "parent",
@@ -383,7 +423,6 @@ function switchVideoVisibilies(contentId){
   $('.indi-video-shell').css('visibility','hidden');
   $('.indi-video-shell-'+contentId).css('visibility','visible');
   activateContent(contentId);
-  playVideo();
 }
 
 $(document).ready(function(){
@@ -396,13 +435,14 @@ $(document).ready(function(){
     switchVideoVisibilies(clicked_video);
   })
 
-  // not needed. server updates in real time when clip changes
-  // $('.video-window').on('click', '.add-clip-to-lesson', function(){
-  //   var indexId = getIndexIdFromParent($(this));
-  //   var content = getContentFromIndexId(indexId);
-  //   updateContentTime(indexId, content);
-  //   addClipToLesson(content);
-  // })
+  initializePlaylist();
+
+  $('.playlist-container').sortable({
+    stop: function(){
+      readPlaylistOder();
+    }
+  });
+  $('.playlist-container').disableSelection();
 
   initiatePlayer();
   update_full_lesson_timeline_bar()
