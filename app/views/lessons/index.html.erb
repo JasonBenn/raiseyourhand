@@ -4,9 +4,7 @@
   <h3>Become an expert in anything through free, interactive, user-generated courses.</h3>
 </div>
 
-<label for="search"></label>
-<input id="search">
-<div id='results'></div>
+<input id="search" class='search-big-mode' placeholder='What do you want to learn?'>
 <div id='results'>
   <%= render partial: 'list', locals: { lessons: @lessons } %>
 </div>
