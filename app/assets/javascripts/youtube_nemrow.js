@@ -1,6 +1,5 @@
 var current_youtube_id = 'CGr2pB7drss';
 var timeline = [];
-var active_edit_video = 0;
 var colors = ['CD853F', 'DAA520', 'B0E0E6', 'BC8F8F', '98FB98', 'DDA0DD', 'FF7F50'];
 // Update a particular HTML element with a new value
 function updateHTML(elmId, value) {
@@ -111,13 +110,13 @@ function getIdFromPlayerString(playerString){
   return playerString.match(/\d+/);
 }
 
-function getStartTimeFromId(playerId){
-  content = getContentFromIndexId(playerId);
+function getStartTimeFromId(contentId){
+  content = getContentFromContentId(contentId);
   return content.start_time;
 }
 
-function getFinishTimeFromId(playerId){
-  content = getContentFromIndexId(playerId);
+function getFinishTimeFromId(contentId){
+  content = getContentFromContentId(contentId);
   return content.finish_time;
 }
 
@@ -171,6 +170,13 @@ function getIndexIdFromParent(element){
 function getContentFromIndexId(index){
   content = timeline.filter(function(content){
     return (content.position == index);
+  });
+  return content[0]
+}
+
+function getContentFromContentId(contentId){
+  content = timeline.filter(function(content){
+    return (content.id == contentId);
   });
   return content[0]
 }
@@ -266,7 +272,7 @@ function update_full_lesson_timeline_bar(){
     $('.full-lesson-timeline').append('<li class="timeline-portion '
       + 'timeline-portion-id-'+element.position+'" style="width:'
       + percent_filled+'%; background-color:#'
-      + colors[index] +'" data-position-index='+element.position+'></li>');
+      + colors[index] +'" data-position-index='+element.id+'></li>');
   })
 }
 
@@ -376,25 +382,25 @@ function validateDragTime(content, time){
   return time
 }
 
-function makeDraggable($element, indexId){
+function makeDraggable($element, contentId){
   $element.draggable({
     axis: 'x',
     containment: "parent",
     cursor: "crosshair",
     zIndex: 9999, 
     drag: function(e){
-      activateContent(indexId);
-      updateProgressSpan(indexId);
-      var content = getContentFromIndexId(indexId);
-      var time = validateDragTime(content, getProgressTimeRequest(e, indexId));
+      activateContent(contentId);
+      updateProgressSpan(contentId);
+      var content = getContentFromContentId(contentId);
+      var time = validateDragTime(content, getProgressTimeRequest(e, contentId));
       seekTo(time);
     },
     stop: function(e){
-      activateContent(indexId);
-      var content = getContentFromIndexId(indexId);
-      var time = validateDragTime(content, getProgressTimeRequest(e, indexId));
+      activateContent(contentId);
+      var content = getContentFromContentId(contentId);
+      var time = validateDragTime(content, getProgressTimeRequest(e, contentId));
       $element.attr('data-timestamp', time);
-      updateClipInTimeline(indexId, content);
+      updateClipInTimeline(contentId, content);
     }
   })
 }
@@ -413,7 +419,7 @@ function updateClipInTimeline(indexId, content){
 }
 
 function initiatePlayer(){
-  $('.indi-video-shell-0').css('visibility','visible');
+  $('.indi-video-shell-'+active_edit_video).css('visibility','visible');
 }
 
 function playActiveVideo(){
@@ -439,12 +445,12 @@ function switchVideoVisibilies(contentId){
 
 $(document).ready(function(){
   $progressBarContainer = $('.create-progress-bar');
-  $progressBarStatus = $('.create-progress')
+  $progressBarStatus = $('.create-progress');
   $progressSlide = $('.create-draggable-progress');
 
   $(document).on('click', '.timeline-portion', function(){
-    var clicked_video = $(this).attr('data-position-index');
-    switchVideoVisibilies(clicked_video);
+    var clicked_video_id = $(this).attr('data-position-index');
+    switchVideoVisibilies(clicked_video_id);
   })
 
   initializePlaylist();
@@ -457,7 +463,7 @@ $(document).ready(function(){
   $('.playlist-container').disableSelection();
 
   initiatePlayer();
-  update_full_lesson_timeline_bar()
+  update_full_lesson_timeline_bar();
 
   $('.add-new_youtube-clip').click(function(){
     createNewContent($('.add-youtube-movie-input').val());
