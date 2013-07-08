@@ -103,8 +103,7 @@
 
       updatePlayerInfo: function () {
           if (Player.ytplayer && Player.ytplayer.getDuration) {
-              Player.updateHTML("videoDuration", Player.ytplayer.getDuration());
-              Player.updateHTML("videoCurrentTime", Player.ytplayer.getCurrentTime());
+            Player.updateProgressBar(Player.getCurrentTime(), Player.getTotalTime());
           };
 
           if (Player.ytplayer.getCurrentTime() >= parseInt(Player.contents[Player.videoCount][2]) && Player.checker == false) {
@@ -136,7 +135,7 @@
                   'videoId': Player.contents[videoID][0],
                       'startSeconds': timeinCut,
                       'endSeconds': Player.contents[videoID][2],
-                      'suggestedQuality': "default"
+                      'suggestedQuality': "small"
               });
               Player.currentVideoID = Player.contents[videoID][0];
               Player.cID = Player.contents[videoID][3];
@@ -152,15 +151,47 @@
       },
 
       changeCss: function () {
-          $("#questions-answers").scrollTop(Player.ytplayer.getCurrentTime() * 149);
+          $("#questions-answers").scrollTop((Player.ytplayer.getCurrentTime() - Player.contents[Player.videoCount][1])* 149);
+          Player.getCurrentTime();
       },
+
+    getTotalTime: function() {
+    var time = 0;
+
+    for (var i=0;i<Player.contents.length;i++)
+{ 
+  time = time + (Player.contents[i][2] - Player.contents[i][1]); 
+};
+return time;
+    },  
+
+    getCurrentTime: function() {
+  var currentT = Player.ytplayer.getCurrentTime() - Player.contents[Player.videoCount][1];
+  var timePassed = 0;
+var i = Player.videoCount-1;
+while (i>=0)
+  {
+  timePassed = timePassed + (Player.contents[i][2] - Player.contents[i][1]);
+  i--;
+  };
+return currentT + timePassed;
+    },
+
+    updateProgressBar: function(currentTime, duration, playerId){
+    if (currentTime != 0 && duration != 0){
+      var progressRatio = currentTime / duration;
+      var progressUpdate = 900 * progressRatio;
+    };
+    $('.progress').css('width', progressUpdate);
+  },
 
       playVideo: function () {
 
           if (Player.ytplayer) {
               Player.ytplayer.playVideo();
+              Player.id = Player.Test();
           };
-          Player.id = Player.Test();
+          
       },
 
       pauseVideo: function () {
@@ -185,7 +216,7 @@
               'videoId': Player.contents[Player.videoCount][0],
                   'startSeconds': Player.contents[Player.videoCount][1],
                   'endSeconds': Player.contents[Player.videoCount][2],
-                  'suggestedQuality': "default"
+                  'suggestedQuality': "small"
           });
           Player.currentVideoID = Player.contents[Player.videoCount][0];
           Player.cID = Player.contents[Player.videoCount][3];
