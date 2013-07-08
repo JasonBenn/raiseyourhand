@@ -14,6 +14,12 @@
   z-index: 1;
   position: relative;
 }
+.progress{
+  height: 100%;
+  background-color: green;
+  position: absolute;
+   z-index: 2;
+}
 
 .draggable-progress{
   width: 20px;
