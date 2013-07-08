@@ -1,5 +1,5 @@
 class ContentsController < ApplicationController
-	before_filter :is_logged_in?
+	before_filter :authenticated
 	before_filter :valid_request, only: [ :update, :destroy, :sortorder]
 
 	def create
