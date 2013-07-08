@@ -1,4 +1,4 @@
-  * {
+* {
   font-family: 'Open Sans', sans-serif;
   padding-left: 0;
   text-indent: 0;
@@ -19,9 +19,6 @@ nav h5 {
 nav a {
   color: white;
   text-decoration: none;
-  position: absolute;
-  right: 5%;
-  top: 40%;
 }
 
 nav a:hover {
@@ -191,16 +188,26 @@ span {
 
 /*******NAV*******/
 
-#login-logout {
-  width: 25%;
-  float: right;
+#top-right-nav {
+  position: absolute;
+  right: 10%;
+  display: inline-block;
+  width: 300px;
+  margin: auto 0;
+  line-height: 40px;
+}
+
+#top-right-nav li {
+  display: inline;
+  margin: auto 5px;
 }
 
 #title {
   display: inline-block;
   position: absolute;
+  margin: 0;
+  line-height: 40px;
   left: 10%;
-
 }
 
 .triangle-border {
