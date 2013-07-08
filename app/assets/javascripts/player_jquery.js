@@ -38,12 +38,32 @@ $('body').unbind('keyup').keyup(function (e) {
     event.preventDefault();
     $(this).ajaxSubmit(function(response) {
       console.log(response);
-      // TODO: replace 5 with ytplayer.getContentId();
-      $('span[data-content-id="'+5+'"]').html(response);
+      $('span[data-content-id="'+getContentId()+'"]').html(response);
     });
     $(this).clearForm();
     return false;
   })
+
+ $(".chapter").on('click', function(e){
+  var location = e.pageX;
+  var currentChapter = $(this).index('.chapter');
+
+  if (currentChapter == 0) {
+    var width = 0;
+  } else {
+    var width = $(this).parent().children(".chapter").eq(currentChapter-1).data("end");
+  };
+
+  var currentWidth = $(this).data("end") - $(this).data("start")
+  var parentOffsetX = $(this).parent().offset().left;
+  var valueSubstract = location - width - parentOffsetX;
+  var percentage = valueSubstract/currentWidth
+  seekToPercentage(currentChapter, percentage);
+});
+
+ $("#ask_question").mouseenter(function(){
+    pauseVideo();
+ });
 
   $("#questions-answers").mouseenter(function(){
     pauseVideo();

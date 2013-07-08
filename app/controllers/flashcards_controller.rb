@@ -6,6 +6,6 @@ class FlashcardsController < ApplicationController
 
   def create
     flashcard = Flashcard.create(params[:flashcard])
-    render text: flashcard.content.flashcards.count
+    render text: flashcard.content.flashcards.count, status: 200
   end
 end

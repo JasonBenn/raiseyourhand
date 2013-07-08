@@ -42,11 +42,12 @@ var ytplayer;
 <% url = content.url.match(/(=)(\w+)/)[2] %>
 <% start_time = content.start_time.to_f %>
 <% end_time = content.finish_time.to_f %>
+<% id = content.id %>
 <% count += 1 %>
 
 <!-- Pushing the contents to javascript. Needed for switching bewteen lesson contents -->
 <script type="text/javascript">
-contents.push(["<%= url%>", <%= start_time%>, <%= end_time%>]);
+contents.push(["<%= url%>", <%= start_time%>, <%= end_time%>, <%= id%>]);
 </script>
 <% end%>  
 
@@ -130,14 +131,9 @@ contents.push(["<%= url%>", <%= start_time%>, <%= end_time%>]);
   </tr>
 </table> -->
 
-
-
 <!-- refactor to inject method -->
 <% total_length = 0 %>
 <% @lesson.contents.each {|content| total_length += content.length}%>
-
-<%= total_length%>
-
 
 <!-- Progress bar parent (wrapper) -->
 <div class="progress-bar">
