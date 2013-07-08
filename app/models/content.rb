@@ -17,7 +17,7 @@ class Content < ActiveRecord::Base
   	if self.new_record?
 			youtube_id = getVideoIdFromUrl(url)
 	  	youtube_data = getMetaDataFromYoutubeWithId(youtube_id)
-	  	get_duration = get_youtube_duration(youtube_id)
+	  	get_duration = get_youtube_duration(youtube_data)
 	  	self.start_time = 0
 			self.finish_time = get_duration
 			self.duration = get_duration
@@ -33,8 +33,7 @@ class Content < ActiveRecord::Base
 		data['entry']['title']['$t']
 	end
 
-	def get_youtube_duration(youtube_id)
-		data = getMetaDataFromYoutubeWithId(youtube_id)
+	def get_youtube_duration(data)
 		data['entry']['media$group']['yt$duration']['seconds']
 	end
 
