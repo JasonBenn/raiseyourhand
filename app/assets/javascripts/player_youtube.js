@@ -23,7 +23,7 @@ function onPlayerError(errorCode) {
 }
 
 function getContentId() {
-    // to come
+    return contents[currentVideoID][3];
 }
 
 function onPlayerStateChange(newState) {
