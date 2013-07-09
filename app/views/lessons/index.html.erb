@@ -4,7 +4,7 @@
   <h3>Become an expert in anything through free, interactive, user-generated courses.</h3>
 </div>
 
-<input id="search" class='search-big-mode' placeholder='What do you want to learn?'>
+<input autofocus id="search" class='search-big-mode' placeholder='What do you want to learn?'>
 <div id='results'>
   <%= render partial: 'list', locals: { lessons: @lessons } %>
 </div>

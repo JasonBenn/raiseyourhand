@@ -1,4 +1,4 @@
-module Utilties
+module Utilities
 	def self.nested_hash_value(obj,key)
 	  if obj.respond_to?(:key?) && obj.key?(key)
 	    obj[key]
