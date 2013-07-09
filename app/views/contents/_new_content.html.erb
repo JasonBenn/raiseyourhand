@@ -14,21 +14,24 @@
 <div class="indi-video-shell indi-video-shell-<%= content.id %>" data-content-id="<%= content.id %>" data-index-id="<%= content.id %>">
 	<input type="hidden" class="youtubeId-player<%= content.id %>" value='<%= content.url %>'>
 	<div id="videoDiv-<%= content.id %>"></div>
+	<h2 class="indi-video-title"><%= content.title %></h2>
 
-	<div class="create-progress-bar progress-bar-<%= content.id %>" data-index-id="<%= content.id %>">
+	<div class="creat-lesson-controller-container">
+		<button class='button-play-pause-id-<%= content.id %> button1 button-play-pause left-floater' data-status="pause"><div class="play-pause-icon"></div></button>
+		<div class="create-progress-bar left-floater progress-bar-<%= content.id %>" data-index-id="<%= content.id %>">
 
-	  <div class="progress"></div>
-	  <div class="create-draggable-progress create-draggable-progress-id-<%= content.id %> create-draggable-splicer-1-<%= content.id %>" data-timestamp="<%= content.start_time %>">
-			<div class="tab-for-progress-bar"></div>
-	  </div>
+		  <div class="progress"></div>
+		  <div class="create-draggable-progress create-draggable-progress-id-<%= content.id %> create-draggable-splicer-1-<%= content.id %>" data-timestamp="<%= content.start_time %>">
+				<div class="tab-for-progress-bar"></div>
+		  </div>
 
-	  <div class="progress-span progress-span-id-<%= content.id %>"></div>
+		  <div class="progress-span progress-span-id-<%= content.id %>"></div>
 
-	  <div class="create-draggable-progress create-draggable-progress-end create-draggable-splicer-2-<%= content.id %> create-draggable-progress-end-id-<%= content.id %>" data-timestamp="<%= content.finish_time %>">
-			<div class="tab-for-progress-bar"></div>
-	  </div>
+		  <div class="create-draggable-progress create-draggable-progress-end create-draggable-splicer-2-<%= content.id %> create-draggable-progress-end-id-<%= content.id %>" data-timestamp="<%= content.finish_time %>">
+				<div class="tab-for-progress-bar"></div>
+		  </div>
+		</div>
 	</div>
-	<!-- <button class="add-clip-to-lesson">Add clip to lesson</button> -->
 
 	<script type="text/javascript">
 		CreateLesson._run('<%= content.id %>');		
@@ -41,6 +44,7 @@
 	CreateLesson.makeDraggable($('.create-draggable-splicer-1-<%= content.id %>'), <%= content.id %>);
 	CreateLesson.makeDraggable($('.create-draggable-splicer-2-<%= content.id %>'), <%= content.id %>);
 	CreateLesson.updateProgressSpan(<%= content.id %>);
+	CreateLesson.playOrPauseVideoByContentId(<%= content.id %>);
 	</script>
 
 </div><br><br>

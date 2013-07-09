@@ -1,5 +1,5 @@
 var timeline = [];
-var colors = ['CD853F', 'DAA520', 'B0E0E6', 'BC8F8F', '98FB98', 'DDA0DD', 'FF7F50'];
+var colors = ['f69679', '7accc8', 'fff799', 'a186be', 'c4df9b', 'c69c6d', 'f69679','7accc8', 'fff799', 'a186be'];
 
 var CreateLesson = {
   init: function(){
@@ -8,11 +8,12 @@ var CreateLesson = {
     $progressBarStatus = $('.create-progress');
     $progressSlide = $('.create-draggable-progress');
 
-    $(document).on('click', '.timeline-portion', function(){
-      var clicked_video_id = $(this).attr('data-position-index');
+    $(document).on('click', '.switch-video-content-clip', function(){
+      var clicked_video_id = $(this).attr('data-content-id');
       that.switchVideoVisibilies(clicked_video_id);
     });
 
+    this.initiatePlayer();
     that.initializePlaylist();
 
     $('.playlist-container').sortable({
@@ -23,17 +24,30 @@ var CreateLesson = {
     });
     $('.playlist-container').disableSelection();
 
-    that.initiatePlayer();
     that.update_full_lesson_timeline_bar();
 
     $('.add-new_youtube-clip').click(function(){
       that.createNewContent($('.add-youtube-movie-input').val());
+      $('.add-youtube-movie-input').val('');
     });
 
     $('.playlist-container').on('click', '.delete-content', function(){
       that.deleteContentById($(this).attr('data-contentId'));
       $(this).parent().remove();
       that.update_full_lesson_timeline_bar();
+    })
+  },
+
+  playOrPauseVideoByContentId: function(contentId){
+    $('.button-play-pause-id-'+contentId).click(function(){
+      CreateLesson.activateContent(contentId);
+      if ($(this).attr('data-status') == 'pause'){
+        playVideo();
+        $(this).attr('data-status', 'play').children('.play-pause-icon').css('background-position', '0px -16px');
+      } else {
+        pauseVideo();
+        $(this).attr('data-status', 'pause').children('.play-pause-icon').css('background-position', '0px 0px');
+      }
     })
   },
 
@@ -54,7 +68,11 @@ var CreateLesson = {
         timeline.splice(index, 1);
       }
     })
-    that.deleteContentFromDataBase(contentId)
+    that.deleteContentFromDataBase(contentId);
+    stopVideo();
+    this.activateContent(timeline[0].id);
+    $('.indi-video-shell-'+contentId).remove();
+    this.switchVideoVisibilies(timeline[0].id)
   },
 
 
@@ -69,21 +87,21 @@ var CreateLesson = {
     // Also check that at least one function exists since when IE unloads the
     // page, it will destroy the SWF before clearing the interval.
     if(ytplayer && ytplayer.getDuration) {
-      CreateLesson.updateProgressBar(ytplayer.getCurrentTime(), ytplayer.getDuration(), playerId);
+      CreateLesson.updateProgressBar(ytplayer.getCurrentTime(), ytplayer.getDuration(), active_edit_video);
       CreateLesson.detectClipEndTime(ytplayer.getCurrentTime());
     };
   },
 
   detectClipEndTime: function(current_time){
-    if (current_time >= this.getFinishTimeFromId(active_edit_video)){
-      CreateLesson.seekTo(CreateLesson.getStartTimeFromId(active_edit_video));
+    if (current_time > this.getFinishTimeFromId(active_edit_video)){
+      seekTo(CreateLesson.getStartTimeFromId(active_edit_video));
     };
   },
 
   updateProgressBar: function(currentTime, duration, playerId){
     if (currentTime != 0 && duration != 0){
       var progressRatio = currentTime / duration;
-      var progressUpdate = 800 * progressRatio;
+      var progressUpdate = 575 * progressRatio;
     };
     $('.progress-bar-'+active_edit_video+' .progress').css('width', progressUpdate);
   },
@@ -95,48 +113,6 @@ var CreateLesson = {
       alert("Please enter a valid volume between 0 and 100.");
     } else if(ytplayer) {
       ytplayer.setVolume(volume);
-    };
-  },
-
-  playVideo: function() {
-    if (ytplayer) {
-      ytplayer.playVideo();
-    };
-  },
-
-  pauseVideo: function() {
-    if (ytplayer) {
-      ytplayer.pauseVideo();
-    };
-  },
-
-  muteVideo: function() {
-    if(ytplayer) {
-      ytplayer.mute();
-    };
-  },
-
-  unMuteVideo: function() {
-    if(ytplayer) {
-      ytplayer.unMute();
-    };
-  },
-
-  seekTo: function(time){
-    if(ytplayer) {
-      ytplayer.seekTo(time, true);
-    };
-  },
-
-  stopVideo: function(){
-    if(ytplayer) {
-      ytplayer.stopVideo();
-    };
-  },
-
-  getDuration: function(){
-    if(ytplayer) {
-      return ytplayer.getDuration();
     };
   },
 
@@ -158,7 +134,7 @@ var CreateLesson = {
   },
 
   getStartTimeFromId: function(contentId){
-    content = this.getContentFromContentId(contentId);
+    content = CreateLesson.getContentFromContentId(contentId);
     return content.start_time;
   },
 
@@ -173,7 +149,7 @@ var CreateLesson = {
 
   activateContent: function(contentId){
     ytplayer = document.getElementById('player'+contentId);
-    this.active_edit_video = contentId;
+    active_edit_video = contentId;
   },
 
   // The "main method" of this sample. Called when someone clicks "Run".
@@ -185,7 +161,7 @@ var CreateLesson = {
     // All of the magic handled by SWFObject (http://code.google.com/p/swfobject/)
     swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
                        "version=3&enablejsapi=1&playerapiid=player"+contentId, 
-                       "videoDiv-"+contentId, "800", "410", "9", null, null, params, atts);
+                       "videoDiv-"+contentId, "640", "360", "9", null, null, params, atts);
   },
 
   _run: function(contentId) {
@@ -246,7 +222,7 @@ var CreateLesson = {
 
   getNewPositionIndex: function(){
     $('.full-lesson-timeline li').each(function(index){
-      var content = getContentFromIndexId($(this).attr('data-position-index'));
+      var content = getContentFromIndexId($(this).attr('data-content-id'));
       content.position = index;
       this.updateContentInDatabase(content);
     });
@@ -267,7 +243,8 @@ var CreateLesson = {
     var new_timeline = [];
     var that = this;
     $('.playlist-container li').each(function(index){
-      var content = that.getContentFromId($(this).attr('data-id'));
+      var content = that.getContentFromId($(this).attr('data-content-id'));
+      $(this).css('background-color','#'+colors[index]);
       content.position = index;
       new_timeline.push(content);
     });
@@ -285,10 +262,10 @@ var CreateLesson = {
 
   addNewContentToPlaylist: function(){
     content = timeline[timeline.length - 1];
-    $('.playlist-container').append('<li class="playlist-content" data-id=' + content.id
+    $('.playlist-container').append('<li class="playlist-content switch-video-content-clip" data-content-id=' + content.id
         + ' style="background-color:#' + colors[content.position] +'">' 
         + content.title + '<div class="delete-content" data-contentId="' 
-        + content.id +'">Delete</div></li>');
+        + content.id +'"></div></li>');
   },
 
   getRandomColor: function(){
@@ -301,10 +278,10 @@ var CreateLesson = {
     var that = this;
     timeline.forEach(function(element, index){
       var percent_filled = (that.getVideoClipTime(element) / total_time) * 100;
-      $('.full-lesson-timeline').append('<li class="timeline-portion '
+      $('.full-lesson-timeline').append('<li class="timeline-portion switch-video-content-clip '
         + 'timeline-portion-id-'+element.position+'" style="width:'
         + percent_filled+'%; background-color:#'
-        + colors[index] +'" data-position-index='+element.id+'></li>');
+        + colors[index] +'" data-content-id='+element.id+'></li>');
     });
   },
 
@@ -370,11 +347,11 @@ var CreateLesson = {
   },
 
   dispayUpdateLoader: function(){
-    $('.updating-data').css('visibility', 'visible');
+    $('.saving-data-shell').text('Saving changes...');
   },
 
   hideUpdateLoader: function(){
-    $('.updating-data').css('visibility', 'hidden');
+    $('.saving-data-shell').text('All changes Saved');
   },
 
   createNewContent: function(url){
@@ -407,9 +384,9 @@ var CreateLesson = {
   placeSlidersByTime: function(time, duration, indexId, type){
     percent = parseFloat(parseFloat(time) / parseFloat(duration)).toFixed(2);
     if (type == 'start_time'){
-      $('.create-draggable-progress-id-'+indexId).css('left', 800 * percent);
+      $('.create-draggable-progress-id-'+indexId).css('left', 575 * percent);
     } else {
-      $('.create-draggable-progress-end-id-'+indexId).css('left', 800 * percent);
+      $('.create-draggable-progress-end-id-'+indexId).css('left', 575 * percent);
     };
   },
 
@@ -418,10 +395,10 @@ var CreateLesson = {
     $('.playlist-container').html('');
     timeline.forEach(function(content, index){
       var title = content.title;
-      html += ('<li class="playlist-content" data-id=' + content.id
+      html += ('<li class="playlist-content switch-video-content-clip" data-content-id=' + content.id
         + ' style="background-color:#' + colors[index] +'">' 
         + title +'<div class="delete-content" data-contentId="'
-        + content.id + '">Delete</div></li>');
+        + content.id + '"></div></li>');
     });
     $('.playlist-container').append(html);
   },
@@ -448,7 +425,7 @@ var CreateLesson = {
         that.updateProgressSpan(contentId);
         var content = that.getContentFromContentId(contentId);
         var time = that.validateDragTime(content, that.getProgressTimeRequest(e, contentId));
-        that.seekTo(time);
+        seekTo(time);
       },
       stop: function(e){
         that.activateContent(contentId);
@@ -465,7 +442,7 @@ var CreateLesson = {
     var mouseX = e.pageX;
     var relativeX =  mouseX - parentOffsetX;
     var mousePercentage = relativeX / $progressBarContainer.width();
-    return this.getDuration() * mousePercentage;
+    return getDuration() * mousePercentage;
   },
 
   updateClipInTimeline: function(contentId, content){
@@ -475,26 +452,71 @@ var CreateLesson = {
 
   initiatePlayer: function(){
     $('.indi-video-shell-'+active_edit_video).css('visibility','visible');
+    this.activateContent(timeline[0].id);
   },
 
   playActiveVideo: function(){
-    seekTo(200);
+    seekTo();
   },
 
-  updateProgressSpan: function(indexId){
-    var point_a = $('.create-draggable-progress-id-'+indexId).css('left');
-    var point_b = $('.create-draggable-progress-end-id-'+indexId).css('left');
+  updateProgressSpan: function(contentId){
+    var point_a = $('.create-draggable-progress-id-'+contentId).css('left');
+    var point_b = $('.create-draggable-progress-end-id-'+contentId).css('left');
     var length = Math.abs(parseFloat(point_b) - parseFloat(point_a)); 
-    $('.progress-span-id-'+ indexId).css({
+    $('.progress-span-id-'+ contentId).css({
       left: point_a,
       width: length
     });
   },
 
   switchVideoVisibilies: function(contentId){
-    this.stopVideo();
+    stopVideo();
     $('.indi-video-shell').css('visibility','hidden');
     $('.indi-video-shell-'+contentId).css('visibility','visible');
     this.activateContent(contentId);
   }
 };
+
+function playVideo() {
+  if (ytplayer) {
+    ytplayer.playVideo();
+  };
+};
+
+function pauseVideo() {
+  if (ytplayer) {
+    ytplayer.pauseVideo();
+  };
+};
+
+function muteVideo() {
+  if(ytplayer) {
+    ytplayer.mute();
+  };
+};
+
+function unMuteVideo() {
+  if(ytplayer) {
+    ytplayer.unMute();
+  };
+};
+
+function seekTo(time){
+  if(ytplayer) {
+    ytplayer.seekTo(time, true);
+  };
+};
+
+function stopVideo(){
+  if(ytplayer) {
+    ytplayer.stopVideo();
+  };
+};
+
+function getDuration(){
+  if(ytplayer) {
+    return ytplayer.getDuration();
+  };
+};
+
+

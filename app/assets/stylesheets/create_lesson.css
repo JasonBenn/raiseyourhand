@@ -1,12 +1,11 @@
-.test-container{
-	overflow: auto;
-}
 .create-progress-bar{
-	width: 800px;
-	height: 50px;
-	background-color: red;
+	width: 575px;
+	height: 30px;
+	background-color: #72b24e;
 	z-index: 1;
+	border-radius: 5px;
 	position: relative;
+	margin: 2px auto 5px 5px;
 }
 .create-progress{
 	width:0px;
@@ -18,67 +17,147 @@
 }
 .progress{
 	height: 100%;
-	background-color: green;
-	position: absolute;
-}
-.playlist-shell{
-	width: 300px;
-	left: 850px;
-	top: 196px;
-	position: absolute;
-}
-ul.playlist-container{
-	width: 300px;
-}
-.playlist-content{
+	background-color: #9ed77e;
 	border-radius: 5px;
-	padding: 24px 0 23px 0;
-	margin: 0 3px 3px 3px;
-	cursor: pointer;
+	position: absolute;
+}
+.play-pause-icon{
+	width: 14px;
+	height: 16px;
+	background-image: url('play_pause_SPRITE.png');
+	margin: 0px 5px;
+}
+.creat-lesson-controller-container{
+	width: 640px;
+	height: 30px;
 	position: relative;
 }
+.sub-header{
+	overflow: auto;
+	margin: 40px 0 25px 0;
+	width: 100%;
+}
+.saving-data-shell{
+	color: #aaaaaa;
+	font-size: 12px;
+	margin: 8px;
+}
+.button1{
+	padding: 5px 10px;
+	background-color: #72b24e;
+	border-radius: 5px;
+	border: 2px solid #9ed77e;
+	color: #fff;
+	font-size: 12px;
+	cursor: pointer;
+}
+.button2{
+	padding: 5px 10px;
+	background-color: #b260b2;
+	border-radius: 5px;
+	border: 2px solid #db8adb;
+	color: #fff;
+	font-size: 12px;
+}
+.left-floater{
+	float: left;
+}
+.right-floater{
+	float: right;
+}
+.playlist-shell{
+	float: left;
+	margin: 0 0 20px 10px;
+}
+.url-input-container{
+	margin-top: 20px;
+	height: 40px;
+}
+.submit-url-btn{
+	height: 44px;
+	width:30%;
+}
+.url-input-container input{
+	height: 40px;
+	padding-left: 8px;
+	border: 2px solid #db8adb;
+	border-radius: 5px;
+	width:65%;
+}
+ul.playlist-container{
+	list-style: none;
+	overflow: scroll;
+	max-height: 320px;
+}
+.playlist-content{
+	cursor: pointer;
+	position: relative;
+	width: 430px;
+	height: 40px;
+	line-height: 40px;
+	padding-left: 20px;
+	color: #fff;
+	text-shadow:1px 1px 2px #000;
+}
 .delete-content{
-	right: -53px;
-	top: 24px;
+	right: 20px;
+	top: 16px;
+	width: 13px;
+	height: 13px;
+	background-image: url('small_x.png');
 	position: absolute;
 }
 .create-draggable-progress{
 	width: 2px;
-	background-color: black;
+	background-color: #b260b2;
 	height: 100%;
 	position: absolute;
 	z-index: 3;
 }
 .tab-for-progress-bar{
 	position: absolute;
-	bottom: -20px;
-	height: 20px;
-	width: 20px;
-	left: -10px;
+	top: -8px;
+	height: 8px;
+	width: 8px;
+	left: -3px;
 	border-radius: 10px;
-	background-color: black;
+	background-color: #b260b2;
 }
 .progress-span{
 	height: 100%;
-	background-color: pink;
+	background-color: #fff;
 	position: absolute;
-	opacity: 0.5;
+	opacity: 0.4;
 	z-index: 2;
 }
 .create-draggable-progress-end{
 	right: 0px;
 }
+h1.lesson-title{
+	font-size: 32px;
+	float: left;
+}
+.indi-video-title{
+	margin: 20px 0 15px 0;
+}
+.full-time-line-header-text{
+	clear: both;
+	margin-left: 10px;
+}
 .video-window{
-	height:500px;
+	width: 660px;
+	height: 470px;
 	overflow: hidden;
-	position: relative; 
+	position: relative;
+	float: left; 
 }
 .indi-video-shell{
 	position: absolute;
 	top: 0px;
 	left: 0px;
+	margin-bottom: 10px;
+	padding-left: 10px;
 	visibility: hidden;
-	margin: 10px;
 }
 .update-save-container{
 	position: relative;
@@ -96,19 +175,20 @@ ul.playlist-container{
 	left: 0px;
 }
 .full-timeline-window{
-	width: 800px;
-	height: 50px;
+	width: 100%;
+	height: 30px;
 	overflow: hidden;
 	margin: 10px 0;
 }
 .full-lesson-timeline{
-	width: 800px;
-	height: 50px;
+	width: 100%;
+	height: 30px;
 	background-image: url('honey_im_subtle.png');
 	position: relative;
 	overflow: hidden;
 	margin: 0px;
 	padding: 0px;
+	border-radius: 10px;
 }
 .timeline-portion{
 	height: 100%;
