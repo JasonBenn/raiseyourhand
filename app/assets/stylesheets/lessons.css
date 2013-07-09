@@ -68,7 +68,7 @@ span {
 
 /*******SHOW LESSON*******/
 
-.questions-answers {
+/*.questions-answers {
   clear: both;
   margin-left: 950px;
   top:200px;
@@ -135,14 +135,13 @@ span {
 }
 
 .question, .answer {
-  /*display: none;*/
   margin: 15px;
   text-align: left;
   padding: 5px;
   border-radius: 3px;
-}
+}*/
 
-.question {
+/*.question {
   background-color: #db8adb;
   margin-right: 80px;
   height: 50px;
@@ -184,7 +183,7 @@ span {
   border-radius: 16px;
   border: 1px solid gray;
   color: gray;
-}
+}*/
 
 /*******NAV*******/
 /*

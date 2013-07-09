@@ -21,9 +21,6 @@
 
 <!-- Page HTML -->
 <%= render partial: 'shared/voting', locals: { votable: @lesson } %>
-<h1 id='show-lesson-title'>
-  Lesson <%= @lesson.id %>
-</h1>
 <table class='content-nav'>
   <tr>
     <% @lesson.contents.each do |content| %>
@@ -35,32 +32,100 @@
   <% end %>
 </tr></table>
 
+<section class="sub-header">
+  <h1 class="lesson-title"><%= @lesson.title %></h1>
+</section>
+
+
 <div class='flashcards'>
   <%= render partial: 'flashcards/card' %>
 </div>
 <% count = 0 %>
-<div class="top">
+<div class="video-window-watch-lesson">
+  <% @lesson.contents.each do |content| %>
+    <% url = content.url.match(/(=)(\w+)/)[2] %>
+    <% start_time = content.start_time.to_f %>
+    <% end_time = content.finish_time.to_f %>
+    <% id = content.id %>
+    <% count += 1 %>
 
-<!-- Refactor to helper method -->
-<% @lesson.contents.each do |content| %>
-<% url = content.url.match(/(=)(\w+)/)[2] %>
-<% start_time = content.start_time.to_f %>
-<% end_time = content.finish_time.to_f %>
-<% id = content.id %>
-<% count += 1 %>
-
-<!-- Pushing the contents to javascript. Needed for switching bewteen lesson contents -->
-<script type="text/javascript">
-Player.contents.push(["<%= url%>", <%= start_time%>, <%= end_time%>, <%= id%>]);
-</script>
-<% end%>  
+  <!-- Pushing the contents to javascript. Needed for switching bewteen lesson contents -->
+    <script type="text/javascript">
+    Player.contents.push(["<%= url%>", <%= start_time%>, <%= end_time%>, <%= id%>]);
+    </script>
+  <% end%>  
 
 <!-- video player -->
   <div id="videoDiv">
   </div>
+
+<% total_length = 0 %>
+<% @lesson.contents.each {|content| total_length += content.length}%>
+
+<button class='button2 button-play-pause left-floater' data-status="pause"><div class="play-pause-icon"></div></button>
+
+<script type="text/javascript">
+  function activatePlayPauseButton(){
+    $('.button-play-pause').click(function(){
+      if ($(this).attr('data-status') == 'play'){
+        Player.pauseVideo();
+        $(this).attr('data-status', 'pause').children('.play-pause-icon').css('background-position', '0px 0px');
+      } else {
+        Player.playVideo();
+        $(this).attr('data-status', 'play').children('.play-pause-icon').css('background-position', '0px -16px');
+      }
+    })
+  }
+  activatePlayPauseButton();
+
+</script>
+
+<!-- Progress bar parent (wrapper) -->
+<div class="progress-bar watch-progress-bar">
+  <div class="progress"></div>
+  <div class="dragger"></div>
+
+  <% current_width = 0 %>
+  <% @lesson.contents.each_with_index do |content, index| %>
+
+  <% width = ((content.length/total_length)* 575)%>
+
+  <!-- Creates a progress bar div for each chapter in lesson (incl style) -->
+  <div class="chapter progress<%=index%>" data-start="<%=current_width%>" data-end="<%=current_width + width%>">  
+  </div>
+  <script type="text/javascript">
+  $('.progress<%=index%>').css('background-color', '#'+CreateLesson.getColor(<%= index %>));
+  if (<%= index %> == 0){
+    $('.progress<%=index%>').css({
+      'border-top-left-radius' : 10,
+      'border-bottom-left-radius' : 10
+    });    
+  }
+  if (<%= index %> == <%= @lesson.contents.count.to_i - 1 %>){
+    $('.progress<%=index%>').css({
+      'border-top-right-radius' : 10,
+      'border-bottom-right-radius' : 10
+    });    
+  }
+  </script>
+  <style type="text/css">
+    .progress<%=index%>{
+    /* Based on percentage of whole video*/
+    width: <%= width %>px;
+    height: 100%;
+    position: absolute;
+    /* Based on end of prior video of whole video*/
+    left: <%= current_width %>px;
+    <% current_width += (content.length/total_length)* 575 %>
+    top: 0px;
+    /*random hex color ruby*/
+  }
+  </style>
+  <% end %>
+  </div>
 </div>
 
-<div id='questions-answers'>
+<div id='questions-answers' class="live-questions-feed-container">
 
 <!-- gets first content of lesson (equal to one video) -->
 
@@ -106,67 +171,20 @@ Player.contents.push(["<%= url%>", <%= start_time%>, <%= end_time%>, <%= id%>]);
   <% end %>
 <% end %>
 </div>
-<!-- refactor to inject method -->
-<% total_length = 0 %>
-<% @lesson.contents.each {|content| total_length += content.length}%>
 
-<!-- Progress bar parent (wrapper) -->
-<div class="progress-bar">
-  <div class="progress"></div>
-  <div class="dragger"></div>
-
-  <% current_width = 0 %>
-<% @lesson.contents.each_with_index do |content, index| %>
-
-<% width = ((content.length/total_length)* 575)%>
-
-<!-- Creates a progress bar div for each chapter in lesson (incl style) -->
-<div class="chapter progress<%=index%>" data-start="<%=current_width%>" data-end="<%=current_width + width%>">  
-</div>
-
-<style type="text/css">
-  .progress<%=index%>{
-  /* Based on percentage of whole video*/
-  width: <%= width %>px;
-  height: 100%;
-  position: absolute;
-  /* Based on end of prior video of whole video*/
-  left: <%= current_width %>px;
-  <% current_width += (content.length/total_length)* 575 %>
-  top: 0px;
-  /*random hex color ruby*/
-  background-color: #<%= rand(0xffffff).to_s(16)%>;
-}
-</style>
-<% end %>
-</div>
-
-<!-- Navigation bar. Play and pause for now. Will be replaced with nicer one later -->
-<div id="navigation_bar">
-  <button id="play" onclick="Player.playVideo();">
-    Play
-  </button>
-  <button id="pause" onclick="Player.pauseVideo();">
-    Pause
-  </button>
-</div>
-
-<div id='tabs'>
-  <ul>
-    <li><a href="#tabs-1">Ask question</a></li>
-    <li><a href="#tabs-2">Write note</a></li>
-    <li><a href="#tabs-3">Create flashcard</a></li>
-  </ul>
-  <div id='tabs-1'>
+<div class="lesson-user-input-shell">
+  <div class="tabs-container">
+    <p class="user-input-tab user-input-tab-quesiton user-input-tab-active" data-tab-content="question">Question</p>
+    <p class="user-input-tab user-input-tab-card" data-tab-content="card">Flash Card</p>
+  </div>
+  <div class="user-input-indi-section user-input-questions-section user-input-indi-section-active">
     <%= render 'questions/new', question: @question %>
   </div>
-  <div id='tabs-2'>
-    <%= render 'notes/new', note: @note %>
-  </div>
-  <div id='tabs-3'>
+  <div class="user-input-indi-section user-input-cards-section">
     <%= render 'flashcards/new', flashcard: @flashcard %>
   </div>
 </div>
+
 
 <!-- diregard for now. Needed for now though. Please dont delete -->
 <div id="videoInfo">
