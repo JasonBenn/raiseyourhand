@@ -21,6 +21,11 @@
 
 <!-- Page HTML -->
 <%= render partial: 'shared/voting', locals: { votable: @lesson } %>
+
+<section class="sub-header">
+  <h1 class="lesson-title"><%= @lesson.title %></h1>
+</section>
+
 <table class='content-nav'>
   <tr>
     <% @lesson.contents.each do |content| %>
@@ -31,11 +36,6 @@
     </td>
   <% end %>
 </tr></table>
-
-<section class="sub-header">
-  <h1 class="lesson-title"><%= @lesson.title %></h1>
-</section>
-
 
 <div class='flashcards'>
   <%= render partial: 'flashcards/card' %>
