@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   has_many :created_lessons, class_name: 'Lesson', foreign_key: 'creator_id'
   has_many :votes
 
- validates_presence_of :oauth_token, :uid
+ validates_presence_of :oauth_token, :uid, :name
 
   def self.from_omniauth(auth)
     where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
