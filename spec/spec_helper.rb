@@ -7,6 +7,7 @@ require 'database_cleaner'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 FakeWeb.allow_net_connect = false
+OmniAuth.config.test_mode = true
 
 
 RSpec.configure do |config|
