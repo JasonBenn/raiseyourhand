@@ -1,6 +1,14 @@
 require 'spec_helper'
 
 describe Content do
+  def json_response
+   @json_response ||= JSON.parse(File.new("#{Rails.root}/spec/fixtures/youtube_response.json").read)
+  end
+
+  before(:each) do
+    Content.any_instance.stub(:getVideoIdFromUrl).and_return("2zNSgSzhBfM")
+    FakeWeb.register_uri(:get, "http://gdata.youtube.com/feeds/api/videos/2zNSgSzhBfM?v=2&alt=json&prettyprint=true", body: File.new("#{Rails.root}/spec/fixtures/youtube_response.json").read )
+  end
 
   context 'testing associations' do
     it { should belong_to(:lesson) }
@@ -20,8 +28,11 @@ describe Content do
 
 
   describe 'Validates' do
-    content = Content.new
-    #content.stub(:getVideoIdFromUrl).and_return("2zNSgSzhBfM")
+    before(:each) do
+      Content.any_instance.stub(:generate_parameter).and_return(nil)
+      # Content.any_instance.stub(:get_youtube_duration).and_return(424.0)
+
+    end
     it { should validate_presence_of(:lesson) }
     it { should validate_presence_of(:url) }
     it { should validate_presence_of(:start_time) }
@@ -34,7 +45,7 @@ describe Content do
     let(:lesson) { FactoryGirl.create(:lesson_with_content) }
     it 'calculates the length of a clip' do
       content = lesson.contents.first
-      expect(content.length).to eq(235.0)
+      expect(content.length).to eq(424.0)
     end
   end
 
@@ -49,11 +60,22 @@ describe Content do
   describe '#getMetaDataFromYoutubeWithId' do
     it 'should parse the meta data from the URL' do
       pending
-      content = Content.new
-      id = "2zNSgSzhBfM"
-      expect(content.getMetaDataFromYoutubeWithId(id)).to eq("")
+      # id = "2zNSgSzhBfM"
+      # json_reponse = JSON.parse(File.new("#{Rails.root}/spec/fixtures/youtube_response.json").read)
+      # FakeWeb.register_uri(:get, "http://gdata.youtube.com/feeds/api/videos/#{id}?v=2&alt=json&prettyprint=true", string: json_reponse )
+      # json_reponse = JSON.parse(open("http://gdata.youtube.com/feeds/api/videos/#{id}?v=2&alt=json&prettyprint=true").read)
+      # content = Content.new
+      # expect(content.getMetaDataFromYoutubeWithId(id)).to eq(json_reponse)
     end
   end
+
+  describe '#get_youtube_title' do
+    it 'should return the title of the video' do
+
+      pending
+    end
+  end
+
 
 
 end
