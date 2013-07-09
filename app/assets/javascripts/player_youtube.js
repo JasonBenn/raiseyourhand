@@ -55,6 +55,8 @@
               var parentOffsetX = $(this).parent().offset().left;
               var valueSubstract = location - width - parentOffsetX;
               var percentage = valueSubstract / currentWidth
+              // alert(percentage);
+              // alert(currentChapter);
               Player.seekToPercentage(currentChapter, percentage);
           });
 
@@ -125,7 +127,7 @@
           var timeInUncut = totalTime * percentage;
           var timeinCut = timeInUncut + Player.contents[videoID][1];
 
-          if (Player.currentVideoID !== Player.contents[videoID][0]) {
+          if (videoID !== Player.videoCount) {
               Player.ytplayer = document.getElementById("ytPlayer");
               setInterval(Player.updatePlayerInfo, 250);
               Player.updatePlayerInfo();
@@ -172,6 +174,7 @@
               timePassed = timePassed + (Player.contents[i][2] - Player.contents[i][1]);
               i--;
           };
+          // console.log(currentT + timePassed);
           return currentT + timePassed;
       },
 
