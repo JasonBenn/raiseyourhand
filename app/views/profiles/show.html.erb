@@ -2,7 +2,7 @@
 	<h2>My Lessons</h2>
 	<div id='accordion'>
 		<%= @lessons.each do |lesson| %>
-			<%= render partial: 'lesson', locals: { lesson: lesson } %>
+			<%= render partial: 'lesson', locals: { lesson: lesson, owned: false } %>
 		<% end %>
 	</div>
 <% else %>
