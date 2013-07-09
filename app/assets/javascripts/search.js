@@ -7,6 +7,7 @@ $(document).ready(function() {
     $.get('/search', { 'search': search }, function(response) {
       $('#results').empty()
       $('#results').html(response)
+      $('#tabs').tabs();
     })
   })
 })

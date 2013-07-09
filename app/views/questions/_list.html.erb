@@ -1,13 +1,18 @@
-<% questions.each_slice(4).each do |question_slice| %>
+<% questions.each do |question| %>
   <ul>
-    <% question_slice.each do |question| %>
       <%= link_to question_path(question) do %>
         <li class='question-preview'>
-          <img class='question-preview-thumbnail'></img>
-          <span><%= question.title %></span>
-          <span><%= question.text %></span>
+          <ul>
+            <li><%= question.answers.size %></li>
+            <li><%= question.votes.size %></li>
+            <li>
+              <div>
+                <%= question.title %>
+                <%= question.text %>
+              </div>
+            </li>
+          </ul>
         </li>
       <% end %>
-    <% end %>
   </ul>
 <% end %>

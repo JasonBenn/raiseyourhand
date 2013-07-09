@@ -1,9 +1,12 @@
-<div>
-	<h2>Lessons</h2>
-	<%= render partial: 'lessons/list', locals: { lessons: records.select { |record| record.is_a? Lesson } } %>
-</div>
-<br>
-<div>
-	<h2>Questions</h2>
-	<%= render partial: 'questions/list', locals: { questions: records.select { |record| record.is_a? Question } } %>
+<div id="tabs">
+  <ul>
+    <li><a href="#tabs-1">Lessons</a></li>
+    <li><a href="#tabs-2">Questions</a></li>
+  </ul>
+  <div id="tabs-1">
+		<%= render partial: 'lessons/list', locals: { lessons: records.select { |record| record.is_a? Lesson } } %>
+  </div>
+  <div id="tabs-2">
+  	<%= render partial: 'questions/list', locals: { questions: records.select { |record| record.is_a? Question } } %>
+  </div>
 </div>
