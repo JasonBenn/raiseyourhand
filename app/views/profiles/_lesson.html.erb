@@ -1,1 +1,32 @@
-<%= lesson.title %>
+<div class='lesson-group'>
+	<div class='lesson-group-top'>
+		<h3><%= lesson.title %></h3>
+		<p>with <%= lesson.contents.size %> pieces of content.</p>
+	</div>
+	<div class='lesson-group-bottom'>
+		<table>
+			<thead>
+				<td>Content Title</td>
+				<td>Length</td>
+				<td>Flashcards</td>
+				<td>Questions</td>
+				<td>Answers</td>
+				<td>Flashcards contributed</td>
+				<td>Questions asked</td>
+				<td>Questions answered</td>
+			</thead>
+			<% lesson.contents.each do |content| %>
+				<tr>
+					<td><%= content.title %></td>
+					<td><%= content.length %></td>
+					<td><%= content.flashcards.size %></td>
+					<td><%= content.questions.size %></td>
+					<td><%= content.answers.size %></td>
+					<td><%= 5 %></td>
+					<td><%= 5 %></td>
+					<td><%= 5 %></td>
+				</tr>
+			<% end %>
+		</table>
+	</div>
+</div>
