@@ -8,7 +8,7 @@ $('.lquestion-body').on('click', function(e){
 $(this).parent().parent().parent().siblings('.lanswer-container').slideToggle(500);
 });
 
-$('form').submit(function(e){
+$('.chapter-view').submit(function(e){
 	e.preventDefault();
 	// alert("here");
 
