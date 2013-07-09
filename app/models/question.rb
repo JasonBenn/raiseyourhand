@@ -4,4 +4,5 @@ class Question < ActiveRecord::Base
   belongs_to :content
   has_many :answers
   has_many :votes, as: :votable
+  belongs_to :searchable, polymorphic: true
 end
