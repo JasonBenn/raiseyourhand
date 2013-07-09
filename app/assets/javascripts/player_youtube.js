@@ -8,6 +8,13 @@
       cID: null,
 
       init: function () {
+var myClientX;
+
+        window.document.addEventListener("mousemove", function(event) {
+    myClientX = event.clientX;
+    myClientY = event.clientY;
+    // console.log(myClientX);
+}, false);
 
           $(".dragger").draggable({
               axis: 'x',
@@ -15,6 +22,9 @@
               cursor: "crosshair",
               zIndex: 9999,
               drag: function (e) {
+                // Player.pauseVideo();
+                // console.log(myClientX-$('.progress-bar').offset().left);
+                // $('.dragger').css('margin-left', myClientX-$('.progress-bar').offset().left+'px');
                   // Player.updateProgressSpan();
                   // var content = this.getContentFromContentId(contentId);
                   // var time = this.validateDragTime(content, this.getProgressTimeRequest(e, contentId));
@@ -45,6 +55,33 @@
                   });
               }
           });
+
+  $('.progress-bar').click(function(e){
+                  var location = e.pageX;
+                  var parentOffsetX = $(".progress-bar").offset().left;
+                  var children = $(this).children(".chapter");
+                  var lookedFor;
+                  children.each(function () {
+                      var start = $(this).data("start");
+                      var end = $(this).data("end");
+
+                      if (location - parentOffsetX >= start && location - parentOffsetX <= end) {
+                          lookedFor = $(this).index('.chapter');
+                          var currentWidth = end - start;
+                          // alert(parentOffsetX);
+                          if (lookedFor == 0) {
+                              var width = 0;
+                          } else {
+                              var width = $(this).parent().children(".chapter").eq(lookedFor - 1).data("end");
+                          };
+                          var valueSubstract = location - width - parentOffsetX;
+                          var percentage = valueSubstract / currentWidth
+                          Player.seekToPercentage(lookedFor, percentage);
+                      }
+                  });
+              });
+
+
 
           $('#tabs').tabs();
 
@@ -213,6 +250,10 @@
           };
 
       },
+
+
+      // disable progress when dragging 
+      // play shouldnt play the vid again
 
       pauseVideo: function () {
           if (Player.ytplayer) {
