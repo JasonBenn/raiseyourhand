@@ -58,6 +58,7 @@
 	border: 2px solid #db8adb;
 	color: #fff;
 	font-size: 12px;
+	cursor: pointer;
 }
 .left-floater{
 	float: left;
