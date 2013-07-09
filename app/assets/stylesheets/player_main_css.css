@@ -182,5 +182,6 @@ float: left;
   background-color: black;
   height: 100%;
   position: absolute;
+  left: 0px;
   z-index: 3;
 }
