@@ -1,6 +1,6 @@
 <% questions.each do |question| %>
   <ul>
-      <%= link_to question_path(question) do %>
+      <%= link_to lesson_path(question.lesson_id) do %>
         <li class='question-preview'>
           <ul>
             <li><%= question.answers.size %></li>
