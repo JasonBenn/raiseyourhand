@@ -19,11 +19,7 @@
   <div class="side-decor side-decor-right"></div>
   <header class="basic-header">
     <div class="basic-container">
-      <% unless @home %>
       <%= link_to image_tag('logo.png', :class => 'logo-in-header'), root_path %>
-      <% end %>
-
-
       <ul class='header-nav'>
         <% if is_logged_in? %>
           <li>Welcome <%= current_user.name %></li>
