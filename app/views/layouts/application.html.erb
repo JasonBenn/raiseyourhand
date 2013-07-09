@@ -21,12 +21,12 @@
 
     <ul id='top-right-nav'>
       <li><%= link_to 'Create new lesson', '/lessons/new' %></li>
-    	<% if is_logged_in? %>
-    		<li>Welcome <%= current_user.name %></li>
-    		<li><%= link_to "sign out", signout_path %></li>
-    	<% else %>
-    		<li><%= link_to "sign in", "/auth/facebook" %></li>
-    	<% end %>
+      <% if is_logged_in? %>
+        <li>Welcome <%= current_user.name %></li>
+        <li><%= link_to "sign out", signout_path %></li>
+      <% else %>
+        <li><%= link_to "sign in", "/auth/facebook" %></li>
+      <% end %>
     </ul>
   </nav>
   
