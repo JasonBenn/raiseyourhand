@@ -13,7 +13,7 @@
 	<h2>Created Lessons</h2>
 	<div id='accordion'>
 		<%= current_user.created_lessons.each do |lesson| %>
-			<%= render partial: 'lesson', locals: { lesson: lesson } %>
+			<%= render partial: 'lesson', locals: { lesson: lesson, owned: true } %>
 		<% end %>
 	</div>
 <% end %>
