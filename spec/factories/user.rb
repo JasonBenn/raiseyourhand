@@ -1,8 +1,11 @@
 FactoryGirl.define do
   factory :user do
-    provider "facbook"
-    sequence(:uid) { |n| "#{n}" }
-    sequence(:name) { |n| "Person_#{n}" }
-    sequence(:email) { |n| "person_#{n}@example.com" }
+    provider 'facbook'
+    uid '12345'
+    name 'Mario Brothers'
+    email 'dpsk@email.ru'
+    oauth_token 'token'
+    oauth_expires_at Time.at(1378566562)
   end
 end
+
