@@ -2,6 +2,7 @@ class Content < ActiveRecord::Base
   attr_accessible :lesson_id, :url, :position, :start_time, :finish_time, :duration, :title
   belongs_to :lesson, inverse_of: :contents
   has_many :questions
+  has_many :answers, through: :questions
   has_many :flashcards
   validates_presence_of :lesson, :url, :start_time, :finish_time
 	validates_associated :lesson
