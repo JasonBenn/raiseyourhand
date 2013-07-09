@@ -63,17 +63,19 @@ Player.contents.push(["<%= url%>", <%= start_time%>, <%= end_time%>, <%= id%>]);
 <div id='questions-answers'>
 
 <!-- gets first content of lesson (equal to one video) -->
-<% video_one = @lesson.contents.first %>
-<% video_length = video_one.length %>
+
+<% @lesson.contents.each_with_index do |video, index| %>
+
+<% video_length = video.length %>
 
 <!-- set video link to content-link, start-time and end-time via script tag -->
 
 <!-- creates the question flow -->
-<% times = get_question_timing(video_one) %>
+<% times = get_question_timing(video) %>
 
 <% video_length.ceil.times do |question| %>
 <% if times.has_key?(question) %>
-<div>
+
     <div class="qcontainer">
       <div class="triangle-border">
         <strong>
@@ -94,7 +96,6 @@ Player.contents.push(["<%= url%>", <%= start_time%>, <%= end_time%>, <%= id%>]);
       </div>
       <% end %>
     </div>  
-  </div>
 <% else %>
 <div>
 <div class="qcontainer">
@@ -103,14 +104,16 @@ Player.contents.push(["<%= url%>", <%= start_time%>, <%= end_time%>, <%= id%>]);
 </div>
 <% end %>
   <% end %>
+<% end %>
 </div>
-
 <!-- refactor to inject method -->
 <% total_length = 0 %>
 <% @lesson.contents.each {|content| total_length += content.length}%>
 
 <!-- Progress bar parent (wrapper) -->
 <div class="progress-bar">
+  <div class="progress"></div>
+  <div class="dragger"></div>
 
   <% current_width = 0 %>
 <% @lesson.contents.each_with_index do |content, index| %>

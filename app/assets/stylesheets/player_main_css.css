@@ -14,6 +14,12 @@
   z-index: 1;
   position: relative;
 }
+.progress{
+  height: 100%;
+  background-color: green;
+  position: absolute;
+   z-index: 2;
+}
 
 .draggable-progress{
   width: 20px;
@@ -170,4 +176,12 @@ float: left;
 
 #navigation_bar{
   margin-left: 60px;
+}
+.dragger{
+   width: 10px;
+  background-color: black;
+  height: 100%;
+  position: absolute;
+  left: 0px;
+  z-index: 3;
 }
