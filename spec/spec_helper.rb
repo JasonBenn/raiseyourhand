@@ -6,6 +6,8 @@ require 'capybara/rspec'
 require 'database_cleaner'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+FakeWeb.allow_net_connect = false
+
 
 RSpec.configure do |config|
   config.before(:suite) do
@@ -19,6 +21,7 @@ RSpec.configure do |config|
 
   config.before(:each) do
     DatabaseCleaner.start
+    FakeWeb.clean_registry
   end
 
   config.after(:each) do
