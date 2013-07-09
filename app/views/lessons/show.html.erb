@@ -118,7 +118,7 @@ Player.contents.push(["<%= url%>", <%= start_time%>, <%= end_time%>, <%= id%>]);
   <% current_width = 0 %>
 <% @lesson.contents.each_with_index do |content, index| %>
 
-<% width = ((content.length/total_length)* 900)%>
+<% width = ((content.length/total_length)* 575)%>
 
 <!-- Creates a progress bar div for each chapter in lesson (incl style) -->
 <div class="chapter progress<%=index%>" data-start="<%=current_width%>" data-end="<%=current_width + width%>">  
@@ -132,7 +132,7 @@ Player.contents.push(["<%= url%>", <%= start_time%>, <%= end_time%>, <%= id%>]);
   position: absolute;
   /* Based on end of prior video of whole video*/
   left: <%= current_width %>px;
-  <% current_width += (content.length/total_length)* 900 %>
+  <% current_width += (content.length/total_length)* 575 %>
   top: 0px;
   /*random hex color ruby*/
   background-color: #<%= rand(0xffffff).to_s(16)%>;
