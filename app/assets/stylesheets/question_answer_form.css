@@ -1,17 +1,17 @@
-#tabs {
+/*#tabs {
   width: 890px;
   margin: 50px 0 50px 60px;
-}
+}*/
 
-#tabs input {
+/*#tabs input {
   width: 810px;
   margin: 15px;
   padding: 5px;
-}
+}*/
 
-#question_text {
+/*#question_text {
   height: 4em;
-}
+}*/
 
 .ui-helper-hidden {
   display: none;

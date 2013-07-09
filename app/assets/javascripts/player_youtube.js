@@ -141,6 +141,24 @@ var myClientX;
           $("#questions-answers").mouseleave(function () {
               Player.playVideo();
           });
+
+          $('.user-input-tab').click(function(){
+            Player.changeUserInputTabs($(this).attr('data-tab-content'));
+          })
+      },
+
+      changeUserInputTabs: function(contentType){
+        if (contentType == 'question'){
+          $('.user-input-tab').removeClass('user-input-tab-active');
+          $('.user-input-tab-quesiton').addClass('user-input-tab-active');
+          $('.user-input-indi-section').hide();
+          $('.user-input-questions-section').show();
+        } else if (contentType == 'card') {
+          $('.user-input-tab').removeClass('user-input-tab-active');
+          $('.user-input-tab-card').addClass('user-input-tab-active');
+          $('.user-input-indi-section').hide();
+          $('.user-input-cards-section').show();
+        };
       },
 
       updateHTML: function (elmId, value) {
