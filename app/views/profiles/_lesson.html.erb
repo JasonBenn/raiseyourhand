@@ -29,7 +29,7 @@
 				</tr>
 			<% end %>
 		</table>
-		<%= link_to "Remove lesson from notebook", user_lesson_path(UserLesson.find_by_user_id_and_lesson_id(current_user.id, lesson.id)), method: :delete, confirm: "Are you sure?" %>
+		<%= link_to "Remove lesson from notebook", user_lesson_path(find_user_lesson(current_user.id, lesson.id)), method: :delete, confirm: "Are you sure?" %>
 		<% if owned %>
 			<%= link_to "Delete lesson", lesson_path(Lesson.find(lesson.id)), method: :delete, confirm: "Are you sure you want to delete?" %>
 		<% end %>
