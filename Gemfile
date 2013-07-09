@@ -33,6 +33,7 @@ group :development, :test do
   gem 'faker'
   gem 'better_errors'
   gem "binding_of_caller"
+  gem "fakeweb", "~> 1.3"
 end
 
 group :test do

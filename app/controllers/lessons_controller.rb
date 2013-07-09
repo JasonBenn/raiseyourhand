@@ -22,7 +22,7 @@ class LessonsController < ApplicationController
 	end
 
 	def create
-		@lesson = Lesson.new(params[:lesson])
+		@lesson = current_user.created_lessons.build(params[:lesson])
 		if @lesson.save
 			redirect_to edit_lesson_path(@lesson)
 		else
