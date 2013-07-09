@@ -1,0 +1,272 @@
+{
+    "version": "1.0",
+    "encoding": "UTF-8",
+    "entry": {
+        "xmlns": "http://www.w3.org/2005/Atom",
+        "xmlns$media": "http://search.yahoo.com/mrss/",
+        "xmlns$gd": "http://schemas.google.com/g/2005",
+        "xmlns$yt": "http://gdata.youtube.com/schemas/2007",
+        "gd$etag": "W/\"DEIAQH47eCp7I2A9WhFQE04.\"",
+        "id": {
+            "$t": "tag:youtube.com,2008:video:2zNSgSzhBfM"
+        },
+        "published": {
+            "$t": "2013-04-17T16:00:22.000Z"
+        },
+        "updated": {
+            "$t": "2013-07-09T02:22:21.000Z"
+        },
+        "category": [
+            {
+                "scheme": "http://schemas.google.com/g/2005#kind",
+                "term": "http://gdata.youtube.com/schemas/2007#video"
+            },
+            {
+                "scheme": "http://gdata.youtube.com/schemas/2007/categories.cat",
+                "term": "Music",
+                "label": "Music"
+            }
+        ],
+        "title": {
+            "$t": "MACKLEMORE & RYAN LEWIS - CAN'T HOLD US FEAT. RAY DALTON (OFFICIAL MUSIC VIDEO)"
+        },
+        "content": {
+            "type": "application/x-shockwave-flash",
+            "src": "http://www.youtube.com/v/2zNSgSzhBfM?version=3&f=videos&app=youtube_gdata"
+        },
+        "link": [
+            {
+                "rel": "alternate",
+                "type": "text/html",
+                "href": "http://www.youtube.com/watch?v=2zNSgSzhBfM&feature=youtube_gdata"
+            },
+            {
+                "rel": "http://gdata.youtube.com/schemas/2007#video.responses",
+                "type": "application/atom+xml",
+                "href": "http://gdata.youtube.com/feeds/api/videos/2zNSgSzhBfM/responses?v=2"
+            },
+            {
+                "rel": "http://gdata.youtube.com/schemas/2007#video.related",
+                "type": "application/atom+xml",
+                "href": "http://gdata.youtube.com/feeds/api/videos/2zNSgSzhBfM/related?v=2"
+            },
+            {
+                "rel": "http://gdata.youtube.com/schemas/2007#mobile",
+                "type": "text/html",
+                "href": "http://m.youtube.com/details?v=2zNSgSzhBfM"
+            },
+            {
+                "rel": "http://gdata.youtube.com/schemas/2007#uploader",
+                "type": "application/atom+xml",
+                "href": "http://gdata.youtube.com/feeds/api/users/XYRdIXDdeZIf816EWAr5zQ?v=2"
+            },
+            {
+                "rel": "self",
+                "type": "application/atom+xml",
+                "href": "http://gdata.youtube.com/feeds/api/videos/2zNSgSzhBfM?v=2"
+            }
+        ],
+        "author": [
+            {
+                "name": {
+                    "$t": "Ryan Lewis"
+                },
+                "uri": {
+                    "$t": "http://gdata.youtube.com/feeds/api/users/RyanLewisProductions"
+                },
+                "yt$userId": {
+                    "$t": "XYRdIXDdeZIf816EWAr5zQ"
+                }
+            }
+        ],
+        "yt$accessControl": [
+            {
+                "action": "comment",
+                "permission": "allowed"
+            },
+            {
+                "action": "commentVote",
+                "permission": "allowed"
+            },
+            {
+                "action": "videoRespond",
+                "permission": "moderated"
+            },
+            {
+                "action": "rate",
+                "permission": "allowed"
+            },
+            {
+                "action": "embed",
+                "permission": "allowed"
+            },
+            {
+                "action": "list",
+                "permission": "allowed"
+            },
+            {
+                "action": "autoPlay",
+                "permission": "allowed"
+            },
+            {
+                "action": "syndicate",
+                "permission": "allowed"
+            }
+        ],
+        "gd$comments": {
+            "gd$feedLink": {
+                "rel": "http://gdata.youtube.com/schemas/2007#comments",
+                "href": "http://gdata.youtube.com/feeds/api/videos/2zNSgSzhBfM/comments?v=2",
+                "countHint": 106441
+            }
+        },
+        "yt$hd": {},
+        "media$group": {
+            "media$category": [
+                {
+                    "$t": "Music",
+                    "label": "Music",
+                    "scheme": "http://gdata.youtube.com/schemas/2007/categories.cat"
+                }
+            ],
+            "media$content": [
+                {
+                    "url": "http://www.youtube.com/v/2zNSgSzhBfM?version=3&f=videos&app=youtube_gdata",
+                    "type": "application/x-shockwave-flash",
+                    "medium": "video",
+                    "isDefault": "true",
+                    "expression": "full",
+                    "duration": 424,
+                    "yt$format": 5
+                },
+                {
+                    "url": "rtsp://r1---sn-p5q7ynek.c.youtube.com/CiILENy73wIaGQnzBeEsgVIz2xMYDSANFEgGUgZ2aWRlb3MM/0/0/0/video.3gp",
+                    "type": "video/3gpp",
+                    "medium": "video",
+                    "expression": "full",
+                    "duration": 424,
+                    "yt$format": 1
+                },
+                {
+                    "url": "rtsp://r1---sn-p5q7ynek.c.youtube.com/CiILENy73wIaGQnzBeEsgVIz2xMYESARFEgGUgZ2aWRlb3MM/0/0/0/video.3gp",
+                    "type": "video/3gpp",
+                    "medium": "video",
+                    "expression": "full",
+                    "duration": 424,
+                    "yt$format": 6
+                }
+            ],
+            "media$credit": [
+                {
+                    "$t": "ryanlewisproductions",
+                    "role": "uploader",
+                    "scheme": "urn:youtube",
+                    "yt$display": "Ryan Lewis",
+                    "yt$type": "partner"
+                }
+            ],
+            "media$description": {
+                "$t": "Macklemore & Ryan Lewis present the official music video for Can't Hold Us feat. Ray Dalton. \n\nCan't Hold Us on iTunes: https://itunes.apple.com/us/album/cant-hold-us-feat.-ray-dalton/id560097651?i=560097694\nThe Heist CD deluxe edition: http://www.macklemoremerch.com\nThe Heist digital deluxe on iTunes: https://itunes.apple.com/us/album/the-heist-deluxe-edition/id560097651\nThe Heist on Amazon: http://amzn.com/B00908DDZM\nThe Heist in-stores NOW!\n\nNote from Ryan Lewis:\n\nIt seems like when a music video comes out, the title that receives all of the credit and travels with a film is that of the director. It's as though the director is the \"artist\" or \"creator\" of the music video, when in reality a music video is first a written treatment, produced (putting together ingredients like actors and locations), shot and directed, cut on the editing board and finally color graded. The music might be fine tuned and scored specifically for that film. There are so many variables that are completely equal if not sometimes more complicated than directing, it's a shame that so much credit comes down to whoever fulfills that position. A director wouldn't have shit to direct without a producer. A producer would have nothing to produce without a writer, and so forth. \n\nFor our team, I think it's even more complicated because roles tend to cross over. We simply don't work within the conventional hierarchy of the film industry (director, producer, etc.) Sure, people have concrete pre-defined roles based on their expertise, but our team has the remarkable ability to wear multiple hats. Can't Hold Us was a video that showcased this well. \n\nAfter three months of shooting, finally getting to those last few frames where you reveal the credits, it's a tense moment. There isn't exactly a sensible way to do it, if we're trying to fit people into classic film roles. It leads me to the point that although we do our best to give people titles, this was a video fully created by seven individuals at the forefront. Take any of those people out of the equation, you'd be watching a very different video. I write this in hopes that you don't fall under the illusion that one person creates a music video, particularly at the Macklemore camp. We are constantly challenging and enhancing each others ideas and I take pride in believing that's the reason we make great videos. - Ryan Lewis\n\nMusic Video:\n\nWritten By\nBen Haggerty\nRyan Lewis\nTricia Davis\n\nDirected By\nRyan Lewis\nJason Koenig\nJon Jon Augustavo\n\nProduced By\nTricia Davis\nHonna Kimmerer\nJenny Koenig\n\nStarring\nBen Haggerty\nRyan Lewis\nRay Dalton\nOwuor Arunga\nDa Kadu Brown\n\nDirector of Photography\nJason Koenig\nRyan Lewis\nMego Lin\n\nStedicam Operators\nChris Duerkopp\nRhys Duncan\nAnt Ireland\nAlex Kornreich\n\nProduction Assistants\nLinda SImonsen\nJackie Ganger\nEdward Tran\nAdam Leeman\nNic Adenau\nJohnny Valencia\nBen Campofreda\nSeth McDonald\nMitchell Overton\nLei Tao\n\nEditing & Color Grading\nRyan Lewis\nJason Koenig\n\nPost Production Supervisor\nErik Hustad\n\nSpecial Thanks\nRED\nPanavision\nVictory Studios\nKoerner Camera\nSpace Needle\nRyan Sanson\nLady Washington\nLogan Neitzel\nSierra Blu Kennels\nUSC FIJI House\nNiche Camera\nKaren Stimwell & Co.\nHollywood Props, Auckland\nHelicopters Northwest\nNiche Camera\nOppenheimer\nAbsolute Technologies\nCourt in the Square\nFirst Scene Costume, Auckland\nPainted Camels Unlimited\nGraeme Menzies\nColin McKay\nDaniel Cooper\nMercury Bay Aero Club\nWhitianga Charters\nDylan Henderson\nJason Bosch\nKyle Bosch\nHollywood Animals\nMichael Barrett/United Reprographics\nPeter Pathe\n\nMusic:\n\nCan't Hold Us feat. Ray Dalton\n(B. Haggerty, R. Lewis, R. Dalton)\nMacklemore Publishing BMI, Ryan Lewis Publishing BMI\nProduced by Ryan Lewis for Macklemore DBA Ryan Lewis LLC\nWritten by Macklemore\nAdditional Vocals by Ray Dalton, Camila Recchi, Victoria Fuangaromya, Tyler Andrews\nTrumpet by Owuor Arunga\nTrombone by Greg Kramer\nViolin, Bells, and String Arrangement by Andrew Joslyn\nViolin by Caroline Faflak\nViolin by Jared MacFarlane\nViola by Elisa Clegg\nCello by Danah Olivetree\nCello by Natalie Mai Hall\nRecorded and Mixed by Ryan Lewis, Ben Haggerty\nMacklemore/RyanLewis Studios, Seattle, WA\nMastered by \"Big Bass\" Brian Gardner, Hollywood, CA\n\nUrl's:\nhttp://www.macklemore.com\nhttp://www.twitter.com/macklemore\nhttp://www.twitter.com/ryanlewis\nhttp://www.facebook.com/macklemore\nhttp://www.facebook.com/ryanlewisproductions\n\nSubscribe To The Channel: goo.gl/1UmcM\n\nMacklemore & Ryan Lewis managed by Zach Quillen\n\nCan we go back, this is the moment\nTonight is the night, we'll fight till it's over\nSo we put our hands up like the ceiling can't hold us\nLike the ceiling can't hold us",
+                "type": "plain"
+            },
+            "media$keywords": {},
+            "media$license": {
+                "$t": "youtube",
+                "type": "text/html",
+                "href": "http://www.youtube.com/t/terms"
+            },
+            "media$player": {
+                "url": "http://www.youtube.com/watch?v=2zNSgSzhBfM&feature=youtube_gdata_player"
+            },
+            "media$restriction": [
+                {
+                    "$t": "DE",
+                    "type": "country",
+                    "relationship": "deny"
+                }
+            ],
+            "media$thumbnail": [
+                {
+                    "url": "http://i1.ytimg.com/vi/2zNSgSzhBfM/default.jpg",
+                    "height": 90,
+                    "width": 120,
+                    "time": "00:03:32",
+                    "yt$name": "default"
+                },
+                {
+                    "url": "http://i1.ytimg.com/vi/2zNSgSzhBfM/mqdefault.jpg",
+                    "height": 180,
+                    "width": 320,
+                    "yt$name": "mqdefault"
+                },
+                {
+                    "url": "http://i1.ytimg.com/vi/2zNSgSzhBfM/hqdefault.jpg",
+                    "height": 360,
+                    "width": 480,
+                    "yt$name": "hqdefault"
+                },
+                {
+                    "url": "http://i1.ytimg.com/vi/2zNSgSzhBfM/sddefault.jpg",
+                    "height": 480,
+                    "width": 640,
+                    "yt$name": "sddefault"
+                },
+                {
+                    "url": "http://i1.ytimg.com/vi/2zNSgSzhBfM/1.jpg",
+                    "height": 90,
+                    "width": 120,
+                    "time": "00:01:46",
+                    "yt$name": "start"
+                },
+                {
+                    "url": "http://i1.ytimg.com/vi/2zNSgSzhBfM/2.jpg",
+                    "height": 90,
+                    "width": 120,
+                    "time": "00:03:32",
+                    "yt$name": "middle"
+                },
+                {
+                    "url": "http://i1.ytimg.com/vi/2zNSgSzhBfM/3.jpg",
+                    "height": 90,
+                    "width": 120,
+                    "time": "00:05:18",
+                    "yt$name": "end"
+                }
+            ],
+            "media$title": {
+                "$t": "MACKLEMORE & RYAN LEWIS - CAN'T HOLD US FEAT. RAY DALTON (OFFICIAL MUSIC VIDEO)",
+                "type": "plain"
+            },
+            "yt$aspectRatio": {
+                "$t": "widescreen"
+            },
+            "yt$duration": {
+                "seconds": "424"
+            },
+            "yt$uploaded": {
+                "$t": "2013-04-17T16:00:22.000Z"
+            },
+            "yt$uploaderId": {
+                "$t": "UCXYRdIXDdeZIf816EWAr5zQ"
+            },
+            "yt$videoid": {
+                "$t": "2zNSgSzhBfM"
+            }
+        },
+        "gd$rating": {
+            "average": 4.8936324,
+            "max": 5,
+            "min": 1,
+            "numRaters": 596648,
+            "rel": "http://schemas.google.com/g/2005#overall"
+        },
+        "yt$statistics": {
+            "favoriteCount": "0",
+            "viewCount": "80283419"
+        },
+        "yt$rating": {
+            "numDislikes": "15866",
+            "numLikes": "580782"
+        }
+    }
+}

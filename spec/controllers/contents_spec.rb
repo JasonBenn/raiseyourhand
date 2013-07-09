@@ -2,6 +2,15 @@ require 'spec_helper'
 
 
 describe ContentsController do
+  def json_response
+   @json_response ||= JSON.parse(File.new("#{Rails.root}/spec/fixtures/youtube_response.json").read)
+  end
+
+  before(:each) do
+    Content.any_instance.stub(:getVideoIdFromUrl).and_return("2zNSgSzhBfM")
+    FakeWeb.register_uri(:get, "http://gdata.youtube.com/feeds/api/videos/2zNSgSzhBfM?v=2&alt=json&prettyprint=true", body: File.new("#{Rails.root}/spec/fixtures/youtube_response.json").read )
+  end
+  
   let(:user) { FactoryGirl.create(:user) } 
   before do
     @controller.stub(:current_user).and_return(:user)

@@ -24,11 +24,18 @@ class ContentsController < ApplicationController
 
 	def sortorder
 		#TODO find way to branch reponse based on validations
-		contents = params[:sortorder].each_with_index do |id, index|
-			content = @lesson.contents.find_by_id(id.to_i)
-			content.update_attributes(position: index)
+		Content.transaction do
+			begin
+			contents = params[:sortorder].each_with_index do |id, index|
+				content = @lesson.contents.find_by_id(id.to_i)
+				content.update_attributes(position: index)
+			end
+				render text: "Success", status: "200"
+			rescue
+				render text: "Invalid Request", status: "400"
+			end
 		end
-		render text: "Success", status: "200"
+
 	end
 
 	def destroy

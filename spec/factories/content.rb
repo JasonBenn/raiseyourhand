@@ -15,7 +15,7 @@ FactoryGirl.define do
 	end
 
   factory :content do
-	  url "http://www.youtube.com/watch?v=2YYF0j-FV3c"
+	  url "http://www.youtube.com/watch?v=2zNSgSzhBfM"
 	  start_time "0"
 	  finish_time "600"
 	  sequence(:position) { |n| n }
