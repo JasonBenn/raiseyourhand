@@ -22,12 +22,18 @@ describe User do
 
 
   describe '::from_omniauth' do
+    
     before(:each) do
       @auth = OmniAuth.config.mock_auth[:facebook]
-      @user = FactoryGirl.create(:user) 
     end
-    it 'it finds or creates a new user' do
+
+    it 'it finds user' do
+      @user = FactoryGirl.create(:user) 
       expect(User.from_omniauth(@auth)).to eq(@user)
+    end
+
+    it "it creates a user if it doesn't already exist" do
+      expect{User.from_omniauth(@auth)}.to change{Content.count}.by(1)
     end
   end
 
