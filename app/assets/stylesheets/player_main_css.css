@@ -8,7 +8,7 @@
     position: relative;
   }
   .progress-bar{
-  width: 900px;
+  width: 575px;
   height: 50px;
   background-color: green;
   z-index: 1;
