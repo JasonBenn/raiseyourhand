@@ -28,16 +28,18 @@ class FuzzySearchIndexer
 		indexed_attribs = INDEXED[instance.class.to_s]
 		indexed_attribs.each do |attrib|
 			text = instance.send(attrib)
-			index_words(text, model, instance.id)
+			self.index_words(text, instance, instance.id)
 		end
 	end
 
 	def self.index_words(text, searchable_type, searchable_id)
-		text.split(' ').each do |word|
-			Search.create(
-				term: word,
-				searchable_type: searchable_type,
-				searchable_id: searchable_id )
+		unless text.nil?
+			text.split(' ').each do |word|
+				Search.create(
+					term: word,
+					searchable_type: searchable_type,
+					searchable_id: searchable_id )
+			end
 		end
 	end
 end
