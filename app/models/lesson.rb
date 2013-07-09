@@ -10,4 +10,9 @@ class Lesson < ActiveRecord::Base
 
   has_many :contents, inverse_of: :lesson, dependent: :destroy
   accepts_nested_attributes_for :contents, :reject_if => lambda { |a| a[:url].blank? }, :allow_destroy => true
+  after_save :index
+
+  def index
+    FuzzySearchIndexer.index_attributes(self)
+  end
 end
