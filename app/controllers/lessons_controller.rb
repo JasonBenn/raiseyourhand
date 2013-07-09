@@ -1,9 +1,6 @@
 class LessonsController < ApplicationController
 	before_filter :authenticated, only: [:new, :create, :edit]
 
-	def show
-	end
-
 	def index
 		@home = true
 		@lessons = Lesson.all
@@ -13,9 +10,6 @@ class LessonsController < ApplicationController
 		@lesson = Lesson.find(params[:id])
 		@question = Question.new
 		@flashcard = Flashcard.new
-		# TODO: notes model for personal notes.
-		# @note = Note.new
-		# TODO: possibly add references model for deep dives>
 	end
 	
 	def new
