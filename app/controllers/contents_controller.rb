@@ -42,8 +42,8 @@ class ContentsController < ApplicationController
 	private
 
 	def valid_request
-		if @lesson = Lesson.find_by_id(Utilties.nested_hash_value(params, :lesson_id))
-			bad_request unless @content = @lesson.contents.find_by_id(Utilties.nested_hash_value(params, :id)) || params[:sortorder].present?
+		if @lesson = Lesson.find_by_id(Utilities.nested_hash_value(params, :lesson_id))
+			bad_request unless @content = @lesson.contents.find_by_id(Utilities.nested_hash_value(params, :id)) || params[:sortorder].present?
 		else
 			bad_request
 		end
