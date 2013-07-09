@@ -28,5 +28,6 @@
 				</tr>
 			<% end %>
 		</table>
+		<%= link_to "Remove lesson from notebook", user_lesson_path(UserLesson.find_by_user_id_and_lesson_id(current_user.id, lesson.id)), method: :delete %>
 	</div>
 </div>
