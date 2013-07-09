@@ -15,9 +15,10 @@
 	margin: 2px auto 5px 5px;
 }
 .live-questions-feed-container{
-	float: left;
 	width: 430px;
-	height: 400px;
+	height: 627px;
+	position: absolute;
+	left: 740px;
 	overflow: hidden;
 }
 .lesson-user-input-shell{
@@ -32,9 +33,7 @@
 	margin: 0 5px;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
-	border-left: 1px solid #0e5366;
-	border-top: 1px solid #0e5366;
-	border-right: 1px solid #0e5366;
+	border: 1px solid #0e5366;
 	background-color: #fff;
 	display:  inline-block;
 	line-height: 30px;
@@ -76,7 +75,7 @@
 .tabs-container{
 	height: 30px;
 	width: 100%;
-	border-bottom: 2px solid #0e5366;
+	border-bottom: 3px solid #0e5366;
 }
 .user-input-indi-section{
 	width: 100%;
@@ -265,6 +264,7 @@ h1.lesson-title{
 .indi-video-title{
 	margin: 20px 0 15px 0;
 	height: 27px;
+	overflow: hidden;
 }
 .full-time-line-header-text{
 	clear: both;
