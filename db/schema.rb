@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130709031509) do
+ActiveRecord::Schema.define(:version => 20130709151428) do
 
   create_table "answers", :force => true do |t|
     t.integer  "question_id"
@@ -70,6 +70,10 @@ ActiveRecord::Schema.define(:version => 20130709031509) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
+
+  add_index "searches", ["searchable_id"], :name => "index_searches_on_searchable_id"
+  add_index "searches", ["searchable_type"], :name => "index_searches_on_searchable_type"
+  add_index "searches", ["term"], :name => "index_searches_on_term"
 
   create_table "user_lessons", :force => true do |t|
     t.integer  "user_id"
