@@ -9,8 +9,6 @@ class User < ActiveRecord::Base
 
   def self.from_omniauth(auth)
     where(uid: auth.uid).first_or_initialize.tap do |user|
-      puts "!!! IS USER A NEW RECORD?"
-      puts user.new_record?
       user.provider = auth.provider
       user.uid = auth.uid
       user.name = auth.info.name
