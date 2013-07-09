@@ -15,6 +15,11 @@
 	display: none;
 }
 
+.lesson-group-bottom table td {
+	padding: 5px;
+	border: 1px solid gray;
+}
+
 .toggle-button {
 	border: 1px solid gray;
 	background-color: gray;
