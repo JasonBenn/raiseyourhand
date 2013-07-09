@@ -18,3 +18,19 @@
 	width: 400px;
 	height: 2em;
 }
+
+/******QUESTION PREVIEW******/
+
+.question-preview {
+	border: 1px solid gray;
+	display: block;
+}
+
+.question-preview ul li {
+	display: inline;
+}
+
+.question-preview div {
+	display: inline-block;
+	width: 60%;
+}

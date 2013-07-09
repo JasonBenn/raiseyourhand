@@ -55,10 +55,11 @@ Content.all.each do |content|
   end
 end
 
-Question.count.times do
+count = Question.all.size
+count.times do
   rand(0..3).times do
     Answer.create(
-      question_id: rand(1..Question.all.length),
+      question_id: rand(1..count),
       text: Faker::Lorem.sentence(rand(15..150))
       )
   end

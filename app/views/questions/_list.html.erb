@@ -1,0 +1,18 @@
+<% questions.each do |question| %>
+  <ul>
+      <%= link_to lesson_path(question.lesson_id) do %>
+        <li class='question-preview'>
+          <ul>
+            <li><%= question.answers.size %></li>
+            <li><%= question.votes.size %></li>
+            <li>
+              <div>
+                <%= question.title %>
+                <%= question.text %>
+              </div>
+            </li>
+          </ul>
+        </li>
+      <% end %>
+  </ul>
+<% end %>
