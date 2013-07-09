@@ -30,15 +30,13 @@ describe Content do
   describe 'Validates' do
     before(:each) do
       Content.any_instance.stub(:generate_parameter).and_return(nil)
-      # Content.any_instance.stub(:get_youtube_duration).and_return(424.0)
-
     end
+
     it { should validate_presence_of(:lesson) }
     it { should validate_presence_of(:url) }
     it { should validate_presence_of(:start_time) }
     it { should validate_presence_of(:finish_time) } 
     it { should validate_numericality_of(:position) }
-    it "should validate associated lesson"
   end
 
   describe '#length' do
@@ -66,12 +64,19 @@ describe Content do
   end
 
   describe '#get_youtube_title' do
+    let(:lesson) { FactoryGirl.create(:lesson_with_content) }
     it 'should return the title of the video' do
-
-      pending
+       content = lesson.contents.first
+       expect(content.get_youtube_title(json_response)).to eq("MACKLEMORE & RYAN LEWIS - CAN'T HOLD US FEAT. RAY DALTON (OFFICIAL MUSIC VIDEO)")
     end
   end
 
-
+  describe '#get_youtube_duration' do
+    let(:lesson) { FactoryGirl.create(:lesson_with_content) }
+    it 'should return the duration of the video' do
+      content = lesson.contents.first
+      expect(content.get_youtube_duration(json_response)).to eq("424")
+    end
+  end
 
 end
