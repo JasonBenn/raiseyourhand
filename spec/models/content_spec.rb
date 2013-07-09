@@ -58,14 +58,10 @@ describe Content do
   end 
 
   describe '#getMetaDataFromYoutubeWithId' do
+    let(:lesson) { FactoryGirl.create(:lesson_with_content) }
     it 'should parse the meta data from the URL' do
-      pending
-      # id = "2zNSgSzhBfM"
-      # json_reponse = JSON.parse(File.new("#{Rails.root}/spec/fixtures/youtube_response.json").read)
-      # FakeWeb.register_uri(:get, "http://gdata.youtube.com/feeds/api/videos/#{id}?v=2&alt=json&prettyprint=true", string: json_reponse )
-      # json_reponse = JSON.parse(open("http://gdata.youtube.com/feeds/api/videos/#{id}?v=2&alt=json&prettyprint=true").read)
-      # content = Content.new
-      # expect(content.getMetaDataFromYoutubeWithId(id)).to eq(json_reponse)
+      content = lesson.contents.first
+      expect(content.getMetaDataFromYoutubeWithId("2zNSgSzhBfM")).to eq( json_response)
     end
   end
 
