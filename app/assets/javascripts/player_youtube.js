@@ -202,6 +202,7 @@
               var progressUpdate = 900 * progressRatio;
           };
           $('.progress').css('width', progressUpdate);
+          $('.dragger').css('left', progressUpdate);
       },
 
       playVideo: function () {
