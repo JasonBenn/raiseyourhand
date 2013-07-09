@@ -1,0 +1,9 @@
+<div>
+	<h2>Lessons</h2>
+	<%= render partial: 'lessons/list', locals: { lessons: records.select { |record| record.is_a? Lesson } } %>
+</div>
+<br>
+<div>
+	<h2>Questions</h2>
+	<%= render partial: 'questions/list', locals: { questions: records.select { |record| record.is_a? Question } } %>
+</div>
