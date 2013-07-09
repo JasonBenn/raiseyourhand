@@ -22,10 +22,10 @@
 
 .toggle-button {
 	border: 1px solid gray;
-	background-color: gray;
+	background-color: white;
 	position: absolute;
 	width: 100px;
 	height: 30px;
 	left: 45%;
-	bottom: -15%;
+	bottom: -15px;
 }
