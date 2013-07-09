@@ -1,11 +1,10 @@
 .flashcards {
-  height: 458px;
-  width: 858px;
+  height: 378px;
+  width: 613px;
   padding: 20px;
   border: 1px solid gray;
-  margin-left: 60px;
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   display: none;
   background: white;
 }

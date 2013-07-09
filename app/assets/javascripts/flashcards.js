@@ -38,7 +38,7 @@ function quizGame(contentId) {
     hideBack();
   });
 
-  $('#done').click(function() {
+  $('#flashcards-done').click(function() {
     $('.flashcards').css({'display':'none'});
     playVideo();
   });
