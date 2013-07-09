@@ -21,6 +21,10 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+group :development do
+  gem 'rack-mini-profiler'
+end
+
 group :development, :test do
   gem 'pry'
   gem "rspec-rails", "~> 2.0"
