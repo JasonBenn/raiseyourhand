@@ -1,15 +1,13 @@
-<%= form_for @lesson do |f| %>
+<%= form_for @lesson, :html => {:class => 'new-lesson-form'} do |f| %>
   <p>
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
+    <%= f.text_field :title, :class => 'new-lesson-input', :placeholder => 'Lesson Title' %>
   </p>
   <%= f.fields_for :contents do |builder| %>
   <p>
     <%= builder.hidden_field :position, value: "0" %>
     <%= builder.hidden_field :start_time, value: "0" %>
-    <%= builder.label :url, "Youtube url" %><br />
-    <%= builder.text_field :url %>
+    <%= builder.text_field :url, :class => 'new-lesson-input', :placeholder => 'Youtube URL' %>
   </p>
   <% end %>
-  <p><%= f.submit "Submit" %></p>
+  <p><%= f.submit "Submit", :class => 'new-lesson-submit' %></p>
 <% end %>

@@ -1,7 +1,7 @@
 .create-progress-bar{
 	width: 575px;
 	height: 30px;
-	background-color: #72b24e;
+	background-color: #668b39;
 	z-index: 1;
 	border-radius: 5px;
 	position: relative;
@@ -17,7 +17,7 @@
 }
 .progress{
 	height: 100%;
-	background-color: #9ed77e;
+	background-color: #8fc250;
 	border-radius: 5px;
 	position: absolute;
 }
@@ -42,20 +42,57 @@
 	font-size: 12px;
 	margin: 8px;
 }
-.button1{
+.new-lesson-form{
+	width: 600px;
+	margin: 50px auto 0 auto; 
+}
+.new-lesson-input{
+	width: 100%;
+	height: 60px;
+	font-size: 24px;
+	text-align: center;
+	border-radius: 10px;
+	border: 3px solid #8fc250;
+	margin: 20px 0;
+	outline: none;
+}
+.new-lesson-submit{
+	width: 100%;
+	height: 60px;
+	background-color: #668b39;
+	border: 3px solid #8fc250;
+	border-radius: 10px;
+	margin: 20px 0;
+	font-size: 24px;
+	color: #fff;
+	cursor: pointer;
+}
+.new-lesson-submit:hover{
+	background-color: #8fc250;
+	border: 3px solid #668b39;
+}
+.button2{
 	padding: 5px 10px;
-	background-color: #72b24e;
+	background-color: #668b39;
 	border-radius: 5px;
-	border: 2px solid #9ed77e;
+	border: 2px solid #8fc250;
 	color: #fff;
 	font-size: 12px;
 	cursor: pointer;
 }
-.button2{
+.button2:hover{
+	background-color: #8fc250;
+	border: 2px solid #668b39;
+}
+.button1:hover{
+	background-color: #f6b983;
+	border: 2px solid #fc9b46;
+}  
+.button1{
 	padding: 5px 10px;
-	background-color: #b260b2;
+	background-color: #fc9b46;
 	border-radius: 5px;
-	border: 2px solid #db8adb;
+	border: 2px solid #f6b983;
 	color: #fff;
 	font-size: 12px;
 	cursor: pointer;
@@ -81,9 +118,10 @@
 .url-input-container input{
 	height: 40px;
 	padding-left: 8px;
-	border: 2px solid #db8adb;
+	border: 2px solid #f6b983;
 	border-radius: 5px;
 	width:65%;
+	outline: none;
 }
 ul.playlist-container{
 	list-style: none;
@@ -110,7 +148,7 @@ ul.playlist-container{
 }
 .create-draggable-progress{
 	width: 2px;
-	background-color: #b260b2;
+	background-color: #fb5f61;
 	height: 100%;
 	position: absolute;
 	z-index: 3;
@@ -122,7 +160,7 @@ ul.playlist-container{
 	width: 8px;
 	left: -3px;
 	border-radius: 10px;
-	background-color: #b260b2;
+	background-color: #fb5f61;
 }
 .progress-span{
 	height: 100%;
@@ -140,6 +178,7 @@ h1.lesson-title{
 }
 .indi-video-title{
 	margin: 20px 0 15px 0;
+	height: 27px;
 }
 .full-time-line-header-text{
 	clear: both;
