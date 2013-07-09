@@ -33,6 +33,5 @@ Raiseyourhand::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
-  # Stub out oauth in testing
-  OmniAuth.config.test_mode = true
+
 end
