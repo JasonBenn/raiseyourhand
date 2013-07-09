@@ -1,5 +1,6 @@
 class LessonsController < ApplicationController
 	before_filter :authenticated, only: [:new, :create, :edit]
+	after_filter :add_lesson_to_profile, only: [:show]
 
 	def index
 		@home = true
@@ -11,7 +12,7 @@ class LessonsController < ApplicationController
 		@question = Question.new
 		@flashcard = Flashcard.new
 	end
-	
+
 	def new
 		@lesson = Lesson.new
 		@lesson.contents.build
@@ -34,6 +35,12 @@ class LessonsController < ApplicationController
 	end
 
 	private
+
+	def add_lesson_to_profile
+		if current_user
+			current_user.lessons << @lesson unless current_user.lessons.include? @lesson
+		end
+	end
 
 	def getMetaDataFromYoutubeWithId(youtube_id)
 		JSON.parse(open("http://gdata.youtube.com/feeds/api/videos/#{youtube_id}?v=2&alt=json&prettyprint=true").read)
@@ -60,4 +67,3 @@ class LessonsController < ApplicationController
 		url_params['v'][0]
 	end
 end
-
