@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130708230633) do
+ActiveRecord::Schema.define(:version => 20130709031509) do
 
   create_table "answers", :force => true do |t|
     t.integer  "question_id"
@@ -54,9 +54,11 @@ ActiveRecord::Schema.define(:version => 20130708230633) do
     t.text     "text"
     t.integer  "content_id"
     t.string   "time_in_content"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.string   "title"
+    t.integer  "answers_count",   :default => 0
+    t.integer  "votes_count",     :default => 0
   end
 
   add_index "questions", ["title"], :name => "index_questions_on_title"
@@ -68,17 +70,6 @@ ActiveRecord::Schema.define(:version => 20130708230633) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
-
-  create_table "trigrams", :force => true do |t|
-    t.string  "trigram",     :limit => 3
-    t.integer "score",       :limit => 2
-    t.integer "owner_id"
-    t.string  "owner_type"
-    t.string  "fuzzy_field"
-  end
-
-  add_index "trigrams", ["owner_id", "owner_type", "fuzzy_field", "trigram", "score"], :name => "index_for_match"
-  add_index "trigrams", ["owner_id", "owner_type"], :name => "index_by_owner"
 
   create_table "user_lessons", :force => true do |t|
     t.integer  "user_id"
