@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-	def index
-		@lessons = current_user.lessons
+	def show
+		@lessons = User.find(params[:id]).lessons
 	end
 end
