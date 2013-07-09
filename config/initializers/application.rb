@@ -1,1 +1,1 @@
-# require File.join(Rails.root, "lib/utilities")
+require File.join(Rails.root, "lib/utilities")
