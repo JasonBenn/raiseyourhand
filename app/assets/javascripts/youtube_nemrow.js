@@ -1,5 +1,5 @@
 var timeline = [];
-var colors = ['f69679', '7accc8', 'fff799', 'a186be', 'c4df9b', 'c69c6d', 'f69679','7accc8', 'fff799', 'a186be'];
+var colors = ['0e5366', '668b39', 'fc9b46', 'fb5f61'];
 
 var CreateLesson = {
   init: function(){
@@ -75,7 +75,9 @@ var CreateLesson = {
     this.switchVideoVisibilies(timeline[0].id)
   },
 
-
+  getColor: function(index){
+    return colors[index % colors.length]
+  },
 
   // This function is called when the player changes state
   onPlayerStateChange: function(newState) {
@@ -244,7 +246,7 @@ var CreateLesson = {
     var that = this;
     $('.playlist-container li').each(function(index){
       var content = that.getContentFromId($(this).attr('data-content-id'));
-      $(this).css('background-color','#'+colors[index]);
+      $(this).css('background-color','#'+ CreateLesson.getColor(index));
       content.position = index;
       new_timeline.push(content);
     });
@@ -263,7 +265,7 @@ var CreateLesson = {
   addNewContentToPlaylist: function(){
     content = timeline[timeline.length - 1];
     $('.playlist-container').append('<li class="playlist-content switch-video-content-clip" data-content-id=' + content.id
-        + ' style="background-color:#' + colors[content.position] +'">' 
+        + ' style="background-color:#' + CreateLesson.getColor(content.position) +'">' 
         + content.title + '<div class="delete-content" data-contentId="' 
         + content.id +'"></div></li>');
   },
@@ -281,7 +283,7 @@ var CreateLesson = {
       $('.full-lesson-timeline').append('<li class="timeline-portion switch-video-content-clip '
         + 'timeline-portion-id-'+element.position+'" style="width:'
         + percent_filled+'%; background-color:#'
-        + colors[index] +'" data-content-id='+element.id+'></li>');
+        + CreateLesson.getColor(index) +'" data-content-id='+element.id+'></li>');
     });
   },
 
@@ -396,7 +398,7 @@ var CreateLesson = {
     timeline.forEach(function(content, index){
       var title = content.title;
       html += ('<li class="playlist-content switch-video-content-clip" data-content-id=' + content.id
-        + ' style="background-color:#' + colors[index] +'">' 
+        + ' style="background-color:#' + CreateLesson.getColor(index) +'">' 
         + title +'<div class="delete-content" data-contentId="'
         + content.id + '"></div></li>');
     });
