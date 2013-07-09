@@ -11,11 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130708143354) do
+ActiveRecord::Schema.define(:version => 20130708230633) do
 
   create_table "answers", :force => true do |t|
     t.integer  "question_id"
-    t.string   "text"
+    t.text     "text"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
@@ -34,8 +34,8 @@ ActiveRecord::Schema.define(:version => 20130708143354) do
 
   create_table "flashcards", :force => true do |t|
     t.integer  "content_id"
-    t.string   "front"
-    t.string   "back"
+    t.text     "front"
+    t.text     "back"
     t.string   "time_in_content"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
@@ -48,14 +48,37 @@ ActiveRecord::Schema.define(:version => 20130708143354) do
     t.string   "title"
   end
 
+  add_index "lessons", ["title"], :name => "index_lessons_on_title"
+
   create_table "questions", :force => true do |t|
-    t.string   "text"
+    t.text     "text"
     t.integer  "content_id"
     t.string   "time_in_content"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.string   "title"
   end
+
+  add_index "questions", ["title"], :name => "index_questions_on_title"
+
+  create_table "searches", :force => true do |t|
+    t.string   "term"
+    t.integer  "searchable_id"
+    t.string   "searchable_type"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  create_table "trigrams", :force => true do |t|
+    t.string  "trigram",     :limit => 3
+    t.integer "score",       :limit => 2
+    t.integer "owner_id"
+    t.string  "owner_type"
+    t.string  "fuzzy_field"
+  end
+
+  add_index "trigrams", ["owner_id", "owner_type", "fuzzy_field", "trigram", "score"], :name => "index_for_match"
+  add_index "trigrams", ["owner_id", "owner_type"], :name => "index_by_owner"
 
   create_table "user_lessons", :force => true do |t|
     t.integer  "user_id"
@@ -65,7 +88,7 @@ ActiveRecord::Schema.define(:version => 20130708143354) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email"
+    t.text     "email"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
     t.string   "provider"
