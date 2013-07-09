@@ -34,6 +34,12 @@ class LessonsController < ApplicationController
 	def update
 	end
 
+	def destroy
+		Lesson.destroy(params[:id])
+		flash[:notice] = "Lesson deleted"
+		redirect_to profile_path current_user
+	end
+
 	private
 
 	def add_lesson_to_profile

@@ -1,0 +1,26 @@
+.lesson-group {
+	width: 900px;
+	margin: 0 auto;
+	padding: 30px;
+	margin: 20px;
+	border: 1px solid gray;
+	position: relative;
+}
+
+.lesson-group-top {
+
+}
+
+.lesson-group-bottom {
+	display: none;
+}
+
+.toggle-button {
+	border: 1px solid gray;
+	background-color: gray;
+	position: absolute;
+	width: 100px;
+	height: 30px;
+	left: 45%;
+	bottom: -15%;
+}
