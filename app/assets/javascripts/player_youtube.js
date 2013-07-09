@@ -236,7 +236,7 @@ var myClientX;
       updateProgressBar: function (currentTime, duration, playerId) {
           if (currentTime != 0 && duration != 0) {
               var progressRatio = currentTime / duration;
-              var progressUpdate = 900 * progressRatio;
+              var progressUpdate = 575 * progressRatio;
           };
           $('.progress').css('width', progressUpdate);
           $('.dragger').css('left', progressUpdate);
@@ -294,7 +294,7 @@ var myClientX;
 
           swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
               "version=3&enablejsapi=1&playerapiid=player1",
-              "videoDiv", "900", "500", "9", null, null, params, atts);
+              "videoDiv", "640", "360", "9", null, null, params, atts);
       },
 
       _run: function () {
