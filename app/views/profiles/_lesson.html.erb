@@ -23,10 +23,17 @@
 					<td><%= content.questions.size %></td>
 					<td><%= content.answers.size %></td>
 					<td><%= 5 %></td>
+					<!-- TODO: questions need user_id -->
 					<td><%= 5 %></td>
 					<td><%= 5 %></td>
 				</tr>
 			<% end %>
 		</table>
+		<%= link_to "Remove lesson from notebook", user_lesson_path(find_user_lesson(current_user.id, lesson.id)), method: :delete, confirm: "Are you sure?" %>
+		<% if owned %>
+			<%= link_to "Delete lesson", lesson_path(Lesson.find(lesson.id)), method: :delete, confirm: "Are you sure you want to delete?" %>
+		<% end %>
 	</div>
+
+	<div class="toggle-button"></div>
 </div>
