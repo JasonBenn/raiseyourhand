@@ -1,7 +1,7 @@
 <%= form_for question do |f| %>
-  <%= f.text_field :title, placeholder: 'Title for question' %>
-  <%= f.text_field :text, placeholder: 'What is your question?' %>
+  <%= f.text_field :title, :class => 'user-lesson-inputs user-lesson-inputs-slim', placeholder: 'Title for question' %>
+  <%= f.text_area :text, :class => 'text-area-sizing-medium', placeholder: 'What is your question?' %>
   <%= f.text_field :content_id, hidden: true %>
   <%= f.text_field :time_in_content, hidden: true %>
-  <%= f.submit %>
+  <%= f.submit :class => 'button1' %>
 <% end %>
