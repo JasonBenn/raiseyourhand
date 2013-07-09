@@ -8,6 +8,44 @@
       cID: null,
 
       init: function () {
+
+          $(".dragger").draggable({
+              axis: 'x',
+              containment: "parent",
+              cursor: "crosshair",
+              zIndex: 9999,
+              drag: function (e) {
+                  // Player.updateProgressSpan();
+                  // var content = this.getContentFromContentId(contentId);
+                  // var time = this.validateDragTime(content, this.getProgressTimeRequest(e, contentId));
+                  // this.seekTo(time);
+              },
+              stop: function (e) {
+                  var location = e.pageX;
+                  var children = $(".progress-bar").children(".chapter");
+                  var lookedFor;
+                  var count = 0;
+                  children.each(function () {
+                      count++;
+                      var start = $(this).data("start");
+                      var end = $(this).data("end");
+                      if (location >= start && location <= end) {
+                          lookedFor = $(this).index('.chapter');
+                          var currentWidth = end - start;
+                          var parentOffsetX = $(this).parent().offset().left;
+                          if (lookedFor == 0) {
+                              var width = 0;
+                          } else {
+                              var width = $(this).parent().children(".chapter").eq(lookedFor - 1).data("end");
+                          };
+                          var valueSubstract = location - width - parentOffsetX;
+                          var percentage = valueSubstract / currentWidth
+                          Player.seekToPercentage(lookedFor, percentage);
+                      }
+                  });
+              }
+          });
+
           $('#tabs').tabs();
 
           $("form").mouseenter(function () {
@@ -39,25 +77,6 @@
                   $('span[data-content-id="' + Player.getContentId() + '"]').html(response);
               });
               return false;
-          });
-
-          $(".chapter").on('click', function (e) {
-              var location = e.pageX;
-              var currentChapter = $(this).index('.chapter');
-
-              if (currentChapter == 0) {
-                  var width = 0;
-              } else {
-                  var width = $(this).parent().children(".chapter").eq(currentChapter - 1).data("end");
-              };
-
-              var currentWidth = $(this).data("end") - $(this).data("start")
-              var parentOffsetX = $(this).parent().offset().left;
-              var valueSubstract = location - width - parentOffsetX;
-              var percentage = valueSubstract / currentWidth
-              // alert(percentage);
-              // alert(currentChapter);
-              Player.seekToPercentage(currentChapter, percentage);
           });
 
           $("#ask_question").mouseenter(function () {
@@ -108,7 +127,7 @@
               Player.updateProgressBar(Player.getCurrentTime(), Player.getTotalTime());
           };
 
-          if (Player.ytplayer.getCurrentTime() >= parseInt(Player.contents[Player.videoCount][2]-0.01) && Player.checker == false && Player.contents.length-1 != Player.videoCount) {
+          if (Player.ytplayer.getCurrentTime() >= parseInt(Player.contents[Player.videoCount][2] - 0.01) && Player.checker == false && Player.contents.length - 1 != Player.videoCount) {
               Player.checker = true;
               Player.newVid();
           };
@@ -174,7 +193,6 @@
               timePassed = timePassed + (Player.contents[i][2] - Player.contents[i][1]);
               i--;
           };
-          // console.log(currentT + timePassed);
           return currentT + timePassed;
       },
 
@@ -213,7 +231,6 @@
       newVid: function (playerId) {
           Player.playerSubMethod(playerId);
           Player.videoCount++;
-          // alert(Player.videoCount);
           Player.ytplayer.loadVideoById({
               'videoId': Player.contents[Player.videoCount][0],
                   'startSeconds': Player.contents[Player.videoCount][1],
