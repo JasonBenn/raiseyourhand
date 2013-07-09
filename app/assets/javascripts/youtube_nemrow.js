@@ -1,5 +1,5 @@
 var timeline = [];
-var colors = ['CD853F', 'DAA520', 'B0E0E6', 'BC8F8F', '98FB98', 'DDA0DD', 'FF7F50'];
+var colors = ['f69679', '7accc8', 'fff799', 'a186be', 'c4df9b', 'c69c6d', 'f69679','7accc8', 'fff799', 'a186be'];
 
 var CreateLesson = {
   init: function(){
@@ -28,12 +28,26 @@ var CreateLesson = {
 
     $('.add-new_youtube-clip').click(function(){
       that.createNewContent($('.add-youtube-movie-input').val());
+      $('.add-youtube-movie-input').val('');
     });
 
     $('.playlist-container').on('click', '.delete-content', function(){
       that.deleteContentById($(this).attr('data-contentId'));
       $(this).parent().remove();
       that.update_full_lesson_timeline_bar();
+    })
+  },
+
+  playOrPauseVideoByContentId: function(contentId){
+    $('.button-play-pause-id-'+contentId).click(function(){
+      CreateLesson.activateContent(contentId);
+      if ($(this).attr('data-status') == 'pause'){
+        playVideo();
+        $(this).attr('data-status', 'play').children('.play-pause-icon').css('background-position', '0px -16px');
+      } else {
+        pauseVideo();
+        $(this).attr('data-status', 'pause').children('.play-pause-icon').css('background-position', '0px 0px');
+      }
     })
   },
 
@@ -230,6 +244,7 @@ var CreateLesson = {
     var that = this;
     $('.playlist-container li').each(function(index){
       var content = that.getContentFromId($(this).attr('data-content-id'));
+      $(this).css('background-color','#'+colors[index]);
       content.position = index;
       new_timeline.push(content);
     });

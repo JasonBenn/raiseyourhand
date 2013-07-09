@@ -6,7 +6,7 @@
 <div class="basic-container">
 	<section class="sub-header">
 		<h1 class="lesson-title"><%= @lesson.title %></h1>
-		<button class="button1 right-floater">View Lesson</button>
+		<%= button_to "View Lesson", lesson_path(@lesson.id), :class => 'button1 right-floater', :method => :get %>
 		<p class="saving-data-shell right-floater">All changes Saved</p>
 	</section>
 	<div class="update-save-container" style="display:none">
