@@ -4,6 +4,7 @@
   <title>Raiseyourhand</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
   <script src="http://www.google.com/jsapi" type="text/javascript"></script>
   <script type="text/javascript">
   google.load("swfobject", "2.1");
@@ -13,7 +14,9 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <nav>
+  <div class="side-decor side-decor-left"></div>
+  <div class="side-decor side-decor-right"></div>
+  <header class="basic-header">
     <% unless @home %>
       <h3 id='title'><%= link_to 'raiseyourhand', root_path %></h3>
     <% end %>
@@ -28,7 +31,7 @@
     		<li><%= link_to "sign in", "/auth/facebook" %></li>
     	<% end %>
     </ul>
-  </nav>
+  </header>
   
 	<%= yield %>
 </body>

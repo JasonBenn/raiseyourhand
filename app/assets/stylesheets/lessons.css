@@ -1,4 +1,4 @@
-* {
+/** {
   font-family: 'Open Sans', sans-serif;
   padding-left: 0;
   text-indent: 0;
@@ -28,7 +28,7 @@ nav a:hover {
 ul {
   list-style-type: none;
   text-align: center;
-}
+}*/
 
 .lesson-preview {
   padding: 10px;

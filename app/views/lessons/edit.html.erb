@@ -3,10 +3,13 @@
   lesson_id = <%= @lesson.id %>;
   active_edit_video = <%= @lesson.contents.first.id %>;
 </script>
-<h1><%= @lesson.title %></h1>
-
-<div class="test-container">
-	<div class="update-save-container">
+<div class="basic-container">
+	<section class="sub-header">
+		<h1 class="lesson-title"><%= @lesson.title %></h1>
+		<button class="button1 right-floater">View Lesson</button>
+		<p class="saving-data-shell right-floater">All changes Saved</p>
+	</section>
+	<div class="update-save-container" style="display:none">
 		<%= image_tag 'progress.gif', :class => 'updating-data' %>
 		<%= image_tag 'check_small.png', :class => 'data-saved' %>
 	</div>
@@ -17,19 +20,29 @@
 	</div>
 
 	<div class="playlist-shell">
-		<ul class="playlist-container">
-		</ul>
+		<h3>Lesson Clips:</h3>
+		<ul class="playlist-container"></ul>
+		
+		<div class="url-input-container">
+			<input type="text" placeholder="Youtube URL" class="left-floater add-youtube-movie-input">
+			<button class="button2 submit-url-btn right-floater add-new_youtube-clip">Add Clip</button>
+		</div>
 	</div>
 
-	<button class="play-current-editing-video" onClick='CreateLesson.playVideo()'>Play</button>
+	<!-- <div class="url-input-container left-floater">
+		<input type="text" placeholder="Youtube URL">
+		<button class="button2">Add Clip</button>
+	</div> -->
+
+
+	<!-- <button class="play-current-editing-video" onClick='CreateLesson.playVideo()'>Play</button>
 	<button class="pause-current-editing-video" onClick='CreateLesson.pauseVideo()'>Pause</button>
+ -->
+	<h3 class="full-time-line-header-text">Full Lesson Sequence</h3>
 
 	<div class="full-timeline-window">
 		<ul class="full-lesson-timeline"></ul>
 	</div>
-
-	<input type="text" class="add-youtube-movie-input" value="http://www.youtube.com/watch?v=k0BWlvnBmIE">
-	<button class="add-new_youtube-clip">Add Another Youtube Clip</button>
 </div>
 <script type="text/javascript">
 	function onYouTubePlayerReady(playerString) { 
@@ -45,6 +58,7 @@
 	  var url = CreateLesson.getYoutubeURLFromDiv(playerString);
 	  var start_time = CreateLesson.getStartTimeFromId(playerId);
 	  ytplayer.cueVideoById(CreateLesson.getVideoIdFromUrl(url), start_time);
+	  CreateLesson.activateContent(timeline[0].id);
 	};
 	$(document).ready(function(){
 		CreateLesson.init();
