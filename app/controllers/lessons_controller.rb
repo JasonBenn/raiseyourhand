@@ -1,4 +1,6 @@
 class LessonsController < ApplicationController
+	before_filter :authenticated, only: [:new, :create, :edit]
+
 	def show
 	end
 
@@ -38,7 +40,7 @@ class LessonsController < ApplicationController
 	end
 
 	def edit
-		@lesson = Lesson.find(params[:id])
+		@lesson = current_user.created_lessons.find(params[:id])
 	end
 
 	def update
