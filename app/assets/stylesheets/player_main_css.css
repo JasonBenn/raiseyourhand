@@ -177,3 +177,10 @@ float: left;
 #navigation_bar{
   margin-left: 60px;
 }
+.dragger{
+   width: 10px;
+  background-color: black;
+  height: 100%;
+  position: absolute;
+  z-index: 3;
+}
