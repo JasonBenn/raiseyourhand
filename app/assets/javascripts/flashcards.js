@@ -15,7 +15,7 @@ function loadQuiz(contentId) {
 };
 
 function quizGame(contentId) {
-  pauseVideo();
+  Player.pauseVideo();
   var cards = $('#flashcards-data').data('flashcards');
   var counter = 0;
   $('#card').html(getCard(counter));
@@ -40,7 +40,7 @@ function quizGame(contentId) {
 
   $('#done').click(function() {
     $('.flashcards').css({'display':'none'});
-    playVideo();
+    Player.playVideo();
   });
 
   function getCard(i) {
