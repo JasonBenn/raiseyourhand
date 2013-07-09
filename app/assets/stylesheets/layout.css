@@ -1,9 +1,20 @@
+/*
+blue: 0e5366
+
+green: 668b39
+green-boder: 8fc250
+
+orange: fc9b46
+orange-border: f6b983;
+
+pink: fb5f61
+*/
 h1, h2, h3, h4, h5, h6{
 	font-family: 'Lato', sans-serif;
 	font-weight: 700;
 	margin: 0px;
 	padding:0px;
-	color:#72b24e;
+	color:#0e5366;
 	margin-bottom: 10px;
 }
 p, li, textarea, input{
@@ -16,7 +27,7 @@ button{
 header.basic-header{
 	width: 100%;
 	min-height: 90px;
-	border-bottom: solid #b260b2;
+	border-bottom: solid #0e5366;
 	padding-bottom: 10px;
 }
 header .logo-in-header{
