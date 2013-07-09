@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  $('#search').keyup(function() {
     if ($('#search').val().length > 2) {
       $('.title').hide();
       $('#search').removeClass('search-big-mode')
@@ -13,5 +14,12 @@ $(document).ready(function() {
           $('#tabs').tabs();
         }
       });
+    };
+    if ($('#search').val().length === 0) {
+      $.get('/lessons', function(response) {
+        // TODO: this overwrites CSS. controller should return more specific piece of homepage.
+        $('body').html(response);
+      })
+    }
   })
 })
