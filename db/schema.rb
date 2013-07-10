@@ -36,8 +36,8 @@ ActiveRecord::Schema.define(:version => 20130710135343) do
 
   create_table "flashcards", :force => true do |t|
     t.integer  "content_id"
-    t.string   "front"
-    t.string   "back"
+    t.text     "front"
+    t.text     "back"
     t.string   "time_in_lesson"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false

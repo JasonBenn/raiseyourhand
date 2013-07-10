@@ -10,7 +10,7 @@ describe Question do
   context 'testing attr_accessible' do
     it { should allow_mass_assignment_of(:content_id) }
     it { should allow_mass_assignment_of(:text) }
-    it { should allow_mass_assignment_of(:time_in_content) }
+    it { should allow_mass_assignment_of(:time_in_lesson) }
   end
 
   pending 'testing validations'
