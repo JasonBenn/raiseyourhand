@@ -21,6 +21,10 @@
 
 /*******SEARCH RESULTS********/
 
+.highlight {
+	background-color: yellow;
+}
+
 .search-results {
 	width: 45%;
 	margin: 0 auto;
@@ -59,6 +63,10 @@
 .lesson-search-result-indi-title-link:visited{
 	text-decoration: none;
 	color: #0e5366;
+}
+.lesson-search-result-indi-title span{
+	display: inline;
+	padding: 0;
 }
 .lesson-search-result-indi-title{
 	font-size: 20px;
