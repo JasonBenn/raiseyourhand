@@ -203,6 +203,33 @@ that.children(".question-wrapper").children('.lquestion').children('.triangle-bo
 
       onPlayerStateChange: function (newState) {
           Player.updateHTML("playerState", newState);
+          Player.updatePlayerButtonStatus(newState);
+      },
+
+      updatePlayerButtonStatus: function(state){
+        if (state == 1 || state == 2){
+          Player.changePlayPauseButtonStatus(state);
+        };
+      },
+
+      changePlayPauseButtonStatus: function(state){
+        if (state == 1){
+          $('.button-play-pause').attr('data-status', 'play').children('.play-pause-icon').css('background-position', '0px -16px');
+        } else {
+          $('.button-play-pause').attr('data-status', 'pause').children('.play-pause-icon').css('background-position', '0px 0px');
+        };
+      },
+
+      activatePlayPauseButton: function(){
+      $('.button-play-pause').click(function(){
+          if ($(this).attr('data-status') == 'play'){
+            Player.pauseVideo();
+            Player.changePlayPauseButtonStatus(2);
+          } else {
+            Player.playVideo();
+            Player.changePlayPauseButtonStatus(1);
+          }
+        })
       },
 
       updatePlayerInfo: function () {
@@ -233,7 +260,7 @@ that.children(".question-wrapper").children('.lquestion').children('.triangle-bo
               Player.ytplayer = document.getElementById("ytPlayer");
               setInterval(Player.updatePlayerInfo, 250);
               Player.updatePlayerInfo();
-              Player.ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
+              Player.ytplayer.addEventListener("onStateChange", "Player.Player.onPlayerStateChange");
               Player.ytplayer.addEventListener("onError", "onPlayerError");
               Player.ytplayer.loadVideoById({
                   'videoId': Player.contents[videoID][0],
@@ -319,7 +346,7 @@ that.children(".question-wrapper").children('.lquestion').children('.triangle-bo
           Player.ytplayer = document.getElementById("ytPlayer");
           setInterval(Player.updatePlayerInfo, 250);
           Player.updatePlayerInfo(playerId);
-          Player.ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
+          Player.ytplayer.addEventListener("onStateChange", "Player.onPlayerStateChange");
           Player.ytplayer.addEventListener("onError", "onPlayerError");
       },
 
