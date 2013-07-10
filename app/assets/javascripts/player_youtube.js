@@ -105,8 +105,9 @@ var myClientX;
           });
 
 
-        $('form.submit_answer').submit(function (e) {
-              alert(e.preventDefault());
+        $('form#new_answer').submit(function (e) {
+          alert("hello");
+              e.preventDefault();
     var data = $(this).serialize();
 
               var text = $('.answer_input').val();
