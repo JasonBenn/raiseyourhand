@@ -22,7 +22,7 @@ $(document).ready(function() {
       };
 
       if ($('#search').val().length === 0) {
-        $.get('lessons/list', replaceWithResults);
+        $.post('lessons/list', replaceWithResults);
       }
     }, 150);
   })
