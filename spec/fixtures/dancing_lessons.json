@@ -1,0 +1,255 @@
+{
+    "version": "1.0",
+    "encoding": "UTF-8",
+    "entry": {
+        "xmlns$app": "http://www.w3.org/2007/app",
+        "xmlns": "http://www.w3.org/2005/Atom",
+        "xmlns$media": "http://search.yahoo.com/mrss/",
+        "xmlns$gd": "http://schemas.google.com/g/2005",
+        "xmlns$yt": "http://gdata.youtube.com/schemas/2007",
+        "gd$etag": "W/\"C0MFRX47eCp7I2A9WhFQFEU.\"",
+        "id": {
+            "$t": "tag:youtube.com,2008:video:C-u5WLJ9Yk4"
+        },
+        "published": {
+            "$t": "2009-10-25T06:55:33.000Z"
+        },
+        "updated": {
+            "$t": "2013-07-10T18:36:54.000Z"
+        },
+        "app$control": {
+            "yt$state": {
+                "$t": "Syndication of this video was restricted.",
+                "name": "restricted",
+                "reasonCode": "limitedSyndication"
+            }
+        },
+        "category": [
+            {
+                "scheme": "http://schemas.google.com/g/2005#kind",
+                "term": "http://gdata.youtube.com/schemas/2007#video"
+            },
+            {
+                "scheme": "http://gdata.youtube.com/schemas/2007/categories.cat",
+                "term": "Music",
+                "label": "Music"
+            }
+        ],
+        "title": {
+            "$t": "Britney Spears - ...Baby One More Time"
+        },
+        "content": {
+            "type": "application/x-shockwave-flash",
+            "src": "http://www.youtube.com/v/C-u5WLJ9Yk4?version=3&f=videos&app=youtube_gdata"
+        },
+        "link": [
+            {
+                "rel": "alternate",
+                "type": "text/html",
+                "href": "http://www.youtube.com/watch?v=C-u5WLJ9Yk4&feature=youtube_gdata"
+            },
+            {
+                "rel": "http://gdata.youtube.com/schemas/2007#video.responses",
+                "type": "application/atom+xml",
+                "href": "http://gdata.youtube.com/feeds/api/videos/C-u5WLJ9Yk4/responses?v=2"
+            },
+            {
+                "rel": "http://gdata.youtube.com/schemas/2007#video.related",
+                "type": "application/atom+xml",
+                "href": "http://gdata.youtube.com/feeds/api/videos/C-u5WLJ9Yk4/related?v=2"
+            },
+            {
+                "rel": "http://gdata.youtube.com/schemas/2007#uploader",
+                "type": "application/atom+xml",
+                "href": "http://gdata.youtube.com/feeds/api/users/ZijND2e2tPp2AQL8Go2YSg?v=2"
+            },
+            {
+                "rel": "self",
+                "type": "application/atom+xml",
+                "href": "http://gdata.youtube.com/feeds/api/videos/C-u5WLJ9Yk4?v=2"
+            }
+        ],
+        "author": [
+            {
+                "name": {
+                    "$t": "BritneySpearsVEVO"
+                },
+                "uri": {
+                    "$t": "http://gdata.youtube.com/feeds/api/users/BritneySpearsVEVO"
+                },
+                "yt$userId": {
+                    "$t": "ZijND2e2tPp2AQL8Go2YSg"
+                }
+            }
+        ],
+        "yt$accessControl": [
+            {
+                "action": "comment",
+                "permission": "allowed"
+            },
+            {
+                "action": "commentVote",
+                "permission": "allowed"
+            },
+            {
+                "action": "videoRespond",
+                "permission": "allowed"
+            },
+            {
+                "action": "rate",
+                "permission": "allowed"
+            },
+            {
+                "action": "embed",
+                "permission": "allowed"
+            },
+            {
+                "action": "list",
+                "permission": "allowed"
+            },
+            {
+                "action": "autoPlay",
+                "permission": "allowed"
+            },
+            {
+                "action": "syndicate",
+                "permission": "allowed"
+            }
+        ],
+        "gd$comments": {
+            "gd$feedLink": {
+                "rel": "http://gdata.youtube.com/schemas/2007#comments",
+                "href": "http://gdata.youtube.com/feeds/api/videos/C-u5WLJ9Yk4/comments?v=2",
+                "countHint": 46660
+            }
+        },
+        "media$group": {
+            "media$category": [
+                {
+                    "$t": "Music",
+                    "label": "Music",
+                    "scheme": "http://gdata.youtube.com/schemas/2007/categories.cat"
+                }
+            ],
+            "media$content": [
+                {
+                    "url": "http://www.youtube.com/v/C-u5WLJ9Yk4?version=3&f=videos&app=youtube_gdata",
+                    "type": "application/x-shockwave-flash",
+                    "medium": "video",
+                    "isDefault": "true",
+                    "expression": "full",
+                    "duration": 237,
+                    "yt$format": 5
+                }
+            ],
+            "media$credit": [
+                {
+                    "$t": "britneyspearsvevo",
+                    "role": "uploader",
+                    "scheme": "urn:youtube",
+                    "yt$display": "BritneySpearsVEVO",
+                    "yt$type": "partner"
+                }
+            ],
+            "media$description": {
+                "$t": "Music video by Britney Spears performing ...Baby One More Time. (C) 2003 Zomba Records",
+                "type": "plain"
+            },
+            "media$keywords": {},
+            "media$license": {
+                "$t": "youtube",
+                "type": "text/html",
+                "href": "http://www.youtube.com/t/terms"
+            },
+            "media$player": {
+                "url": "http://www.youtube.com/watch?v=C-u5WLJ9Yk4&feature=youtube_gdata_player"
+            },
+            "media$restriction": [
+                {
+                    "$t": "EG EE EC FI ZW EH ET ES ER ZM ZA JP MZ MY MX MW MV MU MT MS MR MQ MP MO MN MM ML MK MH MG MF ME MD MC MA BR BS BQ BV BW BT JM BZ BY JE BB BA BF BG BD BE BJ BH BI BN BO BL BM RE RO RS RW RU KM CW CV KI KH CR KE KG CY CX CZ CD CG CF CA CC KZ CM CL KW CN CI KP CK KR SE SD SG SA SC SB SM SL SO SN SI SH SK SJ ST SV SR SY SX SZ YE DJ YT PH HR PK HT HU PN PA PE PF PG PY PR HK PT HM HN PW AZ AX AS AR AQ AW AU AT AI KN AO AM AL AG AF AE AD IS IR IQ TR IT QA IE ID IO IN IM IL WS FR FO FM FJ FK WF PL PM VN TD NU NR NP VI VG VE NZ VC VA NF NG TT NE NC NA NO NL VU NI GA TV GB GE GD GG GF GI GH GM GL TZ GN GQ GP GS TG GU GT GW TC TL TM TN TO TH CO TJ JO TF GR CH GY KY CU TK US DM DO TW UZ UY DK UG UA UM DZ PS LY LT LU LV OM LR LS LI LK LA LB LC",
+                    "type": "country",
+                    "relationship": "allow"
+                }
+            ],
+            "media$thumbnail": [
+                {
+                    "url": "http://i1.ytimg.com/vi/C-u5WLJ9Yk4/default.jpg",
+                    "height": 90,
+                    "width": 120,
+                    "time": "00:01:58.500",
+                    "yt$name": "default"
+                },
+                {
+                    "url": "http://i1.ytimg.com/vi/C-u5WLJ9Yk4/mqdefault.jpg",
+                    "height": 180,
+                    "width": 320,
+                    "yt$name": "mqdefault"
+                },
+                {
+                    "url": "http://i1.ytimg.com/vi/C-u5WLJ9Yk4/hqdefault.jpg",
+                    "height": 360,
+                    "width": 480,
+                    "yt$name": "hqdefault"
+                },
+                {
+                    "url": "http://i1.ytimg.com/vi/C-u5WLJ9Yk4/sddefault.jpg",
+                    "height": 480,
+                    "width": 640,
+                    "yt$name": "sddefault"
+                },
+                {
+                    "url": "http://i1.ytimg.com/vi/C-u5WLJ9Yk4/1.jpg",
+                    "height": 90,
+                    "width": 120,
+                    "time": "00:00:59.250",
+                    "yt$name": "start"
+                },
+                {
+                    "url": "http://i1.ytimg.com/vi/C-u5WLJ9Yk4/2.jpg",
+                    "height": 90,
+                    "width": 120,
+                    "time": "00:01:58.500",
+                    "yt$name": "middle"
+                },
+                {
+                    "url": "http://i1.ytimg.com/vi/C-u5WLJ9Yk4/3.jpg",
+                    "height": 90,
+                    "width": 120,
+                    "time": "00:02:57.750",
+                    "yt$name": "end"
+                }
+            ],
+            "media$title": {
+                "$t": "Britney Spears - ...Baby One More Time",
+                "type": "plain"
+            },
+            "yt$duration": {
+                "seconds": "237"
+            },
+            "yt$uploaded": {
+                "$t": "2009-10-25T06:55:33.000Z"
+            },
+            "yt$uploaderId": {
+                "$t": "UCZijND2e2tPp2AQL8Go2YSg"
+            },
+            "yt$videoid": {
+                "$t": "C-u5WLJ9Yk4"
+            }
+        },
+        "gd$rating": {
+            "average": 4.8393407,
+            "max": 5,
+            "min": 1,
+            "numRaters": 120603,
+            "rel": "http://schemas.google.com/g/2005#overall"
+        },
+        "yt$statistics": {
+            "favoriteCount": "0",
+            "viewCount": "78363267"
+        },
+        "yt$rating": {
+            "numDislikes": "4844",
+            "numLikes": "115759"
+        }
+    }
+}
