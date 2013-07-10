@@ -1,12 +1,9 @@
-<div id="tabs">
-  <ul>
-    <li><a href="#tabs-1">Lessons</a></li>
-    <li><a href="#tabs-2">Questions</a></li>
-  </ul>
-  <div id="tabs-1">
-		<%= render partial: 'lessons/list', locals: { lessons: records.select { |record| record.is_a? Lesson } } %>
-  </div>
-  <div id="tabs-2">
-  	<%= render partial: 'questions/list', locals: { questions: records.select { |record| record.is_a? Question } } %>
-  </div>
+<h2>Lessons</h2>
+<div id="search-results-lessons">
+  <%= render partial: 'list', locals: { records: lessons, second_column_header: 'Users' } %>
+</div>
+
+<h2>Questions</h2>
+<div id="search-results-questions">
+	<%= render partial: 'list', locals: { records: questions, second_column_header: 'Answers' } %>
 </div>

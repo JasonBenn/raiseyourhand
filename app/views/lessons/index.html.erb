@@ -5,10 +5,6 @@
 	<input autofocus id="search" placeholder='What do you want to learn?'>
 </div>
 
-<div class="popular-lesson-text-container">
-	<div class="liner"></div>
-	<p>Popular Lessons</p>
-</div>
 <div id='results' class="home-search-results">
   <%= render partial: 'list', locals: { lessons: @lessons } %>
 </div>

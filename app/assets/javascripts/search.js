@@ -8,19 +8,17 @@ $(document).ready(function() {
 
       $.ajax('/search', {
         data: { 'search': search }, 
-        success: function(response) {
-          $('#results').empty()
-          $('#results').html(response)
-          $('#tabs').tabs();
-        }
+        success: replaceWithResults
       });
     };
+
     if ($('#search').val().length === 0) {
-      $.get('/lessons', function(response) {
-        // TODO: 
-        $('.basic-container').remove();
-        $('body').append(response);
-      })
+      $.get('lessons/list', replaceWithResults);
     }
   })
+
+  function replaceWithResults(serverResponse) {
+    $('#results').empty();
+    $('#results').html(serverResponse);
+  };
 })

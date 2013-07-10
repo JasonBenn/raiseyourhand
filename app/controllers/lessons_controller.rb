@@ -7,6 +7,11 @@ class LessonsController < ApplicationController
 		@lessons = Lesson.all
 	end
 
+	def list
+		@lessons = Lesson.all
+		render partial: 'list', locals: { lessons: @lessons }
+	end
+
 	def show
 		@lesson = Lesson.find(params[:id])
 		@question = Question.new
