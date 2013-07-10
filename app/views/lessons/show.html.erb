@@ -129,27 +129,21 @@
 <!-- Make partial -->
 <div class="live-questions-feed-container">
 <!-- Lesson iterate over content -->
-<% @lesson.contents.each_with_index do |chapter, index|%>
+<% @lesson.contents.each do |chapter|%>
 <!-- Content iterate over questions -->
-<% ratio = 2%>
-<% 105.downto(2) do |question| %>
-<% if question % 5 == 0 %>
+<% chapter.questions.each do |question| %>
 <!-- Create new questions divs for the questions -->
-<div class="lquestion-container t<%= question%>">
-  <% else%>
-  <div class="lquestion-container c6 t<%= question%>">
-  <% end%>
+<div class="lquestion-container t<%= question.time_in_content.to_i%>">
 <div class="question-wrapper">
 <div class="lquestion">
 <div class="triangle-border">
 <div class="lquestion-title">
 <p>
-  TEST c<%= index %> t<%= question%>
-
+<%= question.title %>
 </p>
 </div>
 <div class="lquestion-body">
-TEST
+<%= question.text %>
 <p class="author"> 
 <!-- REAL DATA TO COME -->
 Barack Obama, July 4th 2013
@@ -161,14 +155,15 @@ Barack Obama, July 4th 2013
 <img class="question-image" src="http://www.biography.com/imported/images/Biography/Images/Profiles/O/Barack-Obama-12782369-2-402.jpg">
 </div>
 
-<!-- Make partial -->
 
+<!-- Make partial -->
 <div class="lanswer-container">
+  <% question.answers.each do |answer| %>
 <div class="answer-wrapper">
 <div class="lanswer">
 <div class="atriangle-border">
 <div class="lanswer-body">
-Test
+<%= answer.text %>
 <!-- REAL DATA TO COME -->
 <p class="author">
 Barack Obama, July 4th 2013
@@ -179,6 +174,7 @@ Barack Obama, July 4th 2013
 <!-- REAL DATA TO COME -->
 <img class="answer-image" src="http://www.biography.com/imported/images/Biography/Images/Profiles/O/Barack-Obama-12782369-2-402.jpg">
 </div>
+<% end %>
 
 
 <!-- Make partial -->
@@ -220,3 +216,21 @@ Barack Obama, July 4th 2013
   <p>Player state: <span id="playerState">--</span></p>
   <p>Current Time: <span id="videoCurrentTime">--:--</span> | Duration: <span id="videoDuration">--:--</span></p>
 </div>
+
+<script type="text/html" id="template">
+<div class="question-wrapper">
+<div class="lquestion">
+<div class="triangle-border">
+<div class="lquestion-title">
+<p data-content="title">
+</p>
+</div>
+<div data-content="text" class="lquestion-body">
+<p class="author"> 
+Barack Obama, July 4th 2013
+</p>
+</div>
+</div>
+</div>
+<img class="question-image" src="http://www.biography.com/imported/images/Biography/Images/Profiles/O/Barack-Obama-12782369-2-402.jpg">
+</script>

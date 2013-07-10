@@ -1,4 +1,5 @@
   var Player = {
+      prependCount: 0,
       videoCount: 0,
       currentVideoID: null,
       checker: false,
@@ -14,7 +15,6 @@ var myClientX;
         window.document.addEventListener("mousemove", function(event) {
     myClientX = event.clientX;
     myClientY = event.clientY;
-    // console.log(myClientX);
 }, false);
 
           $(".dragger").draggable({
@@ -23,13 +23,6 @@ var myClientX;
               cursor: "crosshair",
               zIndex: 9999,
               drag: function (e) {
-                // Player.pauseVideo();
-                // console.log(myClientX-$('.progress-bar').offset().left);
-                // $('.dragger').css('margin-left', myClientX-$('.progress-bar').offset().left+'px');
-                  // Player.updateProgressSpan();
-                  // var content = this.getContentFromContentId(contentId);
-                  // var time = this.validateDragTime(content, this.getProgressTimeRequest(e, contentId));
-                  // this.seekTo(time);
               },
               stop: function (e) {
                   var location = e.pageX;
@@ -82,15 +75,10 @@ var myClientX;
                   });
               });
 
-
-
-          $('#tabs').tabs();
-
-          $("form").mouseenter(function () {
+          $(".user-lesson-inputs").focus(function () {
               Player.pauseVideo();
-              $('input[id$="_time_in_content"]').val(Player.ytplayer.getCurrentTime());
-              // TODO: replace 5 with ytplayer.getContentId();
-              $('input[id$="_content_id"]').val(5);
+              $('input[id$="_time_in_content"]').val(Player.getTotalTime());
+              $('input[id$="_content_id"]').val(Player.videoCount);
           });
 
           $("form").mouseleave(function () {
@@ -100,11 +88,15 @@ var myClientX;
           // TODO: reduce duplication in two functions below
           $('form#new_question').submit(function (event) {
               event.preventDefault();
+              var title = $(this).children('.user-lesson-inputs-slim').val();
+              var text = $(this).children('.text-area-sizing-medium').val();
+              // alert("here");
               var data = $(this).serialize();
               $.post('/questions', data, function (response) {
                   // TODO: insert response into question feed
                   // will be much easier after feed is reorganized.
               });
+              Player.prependQuestion(title, text);
               return false;
           });
 
@@ -117,35 +109,29 @@ var myClientX;
               return false;
           });
 
-          $("#ask_question").mouseenter(function () {
-              Player.pauseVideo();
-          });
-
-          $("#questions-answers").mouseenter(function () {
-              Player.pauseVideo();
-          });
-
-          $(".qcontainer").mouseenter(function () {
-              $(this).children(".triangle-border").css("heigth", "auto");
-              $(this).children(".triangle-border").children(".question_body").slideDown();
-              $(this).siblings(".repective-answers").children(".acontainer").slideDown();
-              $(this).siblings(".repective-answers").css("margin-top", "150px");
-          });
-
-          $(".qcontainer").mouseleave(function () {
-              $(this).children(".triangle-border").css("heigth", "50px");
-              $(this).children(".triangle-border").children(".question_body").hide();
-              $(this).siblings(".repective-answers").children(".acontainer").hide();
-              $(this).siblings(".repective-answers").css("margin-top", "0px");
-          });
-
-          $("#questions-answers").mouseleave(function () {
-              Player.playVideo();
-          });
-
           $('.user-input-tab').click(function(){
             Player.changeUserInputTabs($(this).attr('data-tab-content'));
-          })
+          });
+
+$('.lquestion-body').on('click', function(e){
+  // alert("here");
+$(this).parent().parent().parent().siblings('.lanswer-container').slideToggle(500);
+});
+
+      },
+
+      prependQuestion: function(title, text){
+        var that = '.lquestion-container.'+Player.prependCount;
+        // console.log(that);
+        $('.live-questions-feed-container').prepend("<div class='lquestion-container "+Player.prependCount+"'></div>");
+     $(that).loadTemplate($("#template"),
+    {
+      title: title,
+      text: text
+    });
+$(that).slideDown('slow');
+setTimeout(function() { Player.showBody($(that))}, 800); 
+Player.prependCount++;
       },
 
       changeUserInputTabs: function(contentType){
@@ -179,26 +165,19 @@ Player.makeActiveQuestionsVisible(parseInt(second));
 },
 
 makeActiveQuestionsVisible: function (second) {
-  console.log(second);
-  // console.log(chapter+" "+second);
 var that = $('.lquestion-container.t'+second);
-// Player.hideBody(that);
-// console.log("making visible:"+chapter+" "+second);
-
 $('.live-questions-feed-container').prepend(that);
-var newQ = $('.live-questions-feed-container').children('.lquestion-container').first();
-// $('.lquestion-body').hide(); 
-// newQ.children(".question-wrapper").children('.question-image').slideDown('fast');
+var newQ = $('.live-questions-feed-container').children('.lquestion-container.t'+second);
+// $.each(newQ, function(){
+// this.slideDown('slow');
+// });
+
 newQ.slideDown('slow');
 setTimeout(function() { Player.showBody(that)}, 800); 
 },
 
 showBody: function(that) {
 that.children(".question-wrapper").children('.lquestion').children('.triangle-border').children('.lquestion-body').slideDown('fast');
-},
-
-hideBody: function(that) {
-that.children(".question-wrapper").children('.lquestion').children('.triangle-border').children('.lquestion-body').hide();
 },
 
       onPlayerStateChange: function (newState) {
@@ -286,8 +265,6 @@ that.children(".question-wrapper").children('.lquestion').children('.triangle-bo
           };
           $('.progress').css('width', progressUpdate);
           $('.dragger').css('left', progressUpdate);
-          console.log(Player.getTotalTime());
-          console.log(Player.getTotalTime()*progressRatio);
           var realTime = Player.getTotalTime()*progressRatio;
 
           Player.makeActiveQuestionsVisibleController(realTime);
