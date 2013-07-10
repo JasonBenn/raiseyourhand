@@ -4,10 +4,8 @@ require 'spec_helper'
 describe "Creating a new Lesson", js: true  do
 	
  	before(:each) do
- 		#Content.any_instance.stub(:getVideoIdFromUrl).and_return("2zNSgSzhBfM")
-    FakeWeb.register_uri(:get, "http://gdata.youtube.com/feeds/api/videos/2zNSgSzhBfM?v=2&alt=json&prettyprint=true", body: File.new("#{Rails.root}/spec/fixtures/youtube_response.json").read )
-    FakeWeb.register_uri(:get, "http://gdata.youtube.com/feeds/api/videos/C-u5WLJ9Yk4?v=2&alt=json&prettyprint=true", body: File.new("#{Rails.root}/spec/fixtures/dancing_lessons.json").read )
-
+        FakeWeb.register_uri(:get, "http://gdata.youtube.com/feeds/api/videos/2zNSgSzhBfM?v=2&alt=json&prettyprint=true", body: File.new("#{Rails.root}/spec/fixtures/youtube_response.json").read )
+        FakeWeb.register_uri(:get, "http://gdata.youtube.com/feeds/api/videos/C-u5WLJ9Yk4?v=2&alt=json&prettyprint=true", body: File.new("#{Rails.root}/spec/fixtures/dancing_lessons.json").read )
  	end
  	it "should create a lesson"do
  		create_a_new_lesson
@@ -32,10 +30,10 @@ describe "Creating a new Lesson", js: true  do
 
 
  		selenium_webdriver = page.driver.browser
-    selenium_webdriver.mouse.down(element.native)
-    selenium_webdriver.mouse.move_by(-300, 0)
-    selenium_webdriver.mouse.up
-    expect(element[:style]).to include('left: 275px;')
+        selenium_webdriver.mouse.down(element.native)
+        selenium_webdriver.mouse.move_by(-300, 0)
+        selenium_webdriver.mouse.up
+        expect(element[:style]).to include('left: 275px;')
  	end 
 
  	it "should be able to add new videos to the lesson" do
@@ -51,9 +49,7 @@ describe "Creating a new Lesson", js: true  do
  		click_link_or_button 'Add Clip'
  		click_link_or_button 'View Lesson'
  		expect(page).to have_button('Create Question')
-
  	end
-
 end
    
 
