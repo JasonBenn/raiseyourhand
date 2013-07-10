@@ -5,5 +5,10 @@ class Search < ActiveRecord::Base
 
   def self.search(query)
   	select("DISTINCT searchable_id, searchable_type").where('term LIKE ?', '%' + query + '%')
+	  	results = select("DISTINCT searchable_id, searchable_type").
+		  	where('term LIKE ?', '%' + query + '%').
+		  	includes(:searchable)
+			records = results.map(&:searchable)
+			records.partition { |record| record.is_a? Lesson }
   end
 end
