@@ -1,7 +1,7 @@
 Raiseyourhand::Application.routes.draw do
   root to: 'lessons#index'
 
-  get 'lessons/list' => 'lessons#list'
+  match 'lessons/list', to: 'lessons#list'
   resources :lessons
   resources :votes
   resources :flashcards

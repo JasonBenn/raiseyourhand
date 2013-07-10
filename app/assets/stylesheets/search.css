@@ -29,7 +29,6 @@
 }
 
 .search-results + .search-results {
-	border-left: 1px solid gray;
 	padding-right: 0;
 	padding-left: 50px;
 }
@@ -37,7 +36,58 @@
 .number {
 	font-size: 24px;
 }
-
+.search-results h2{
+	text-align: center;
+	margin-bottom: 50px;
+}
+.lesson-search-result-row{
+	text-align: center;
+	padding: 15px;
+	border-radius: 10px;
+	border-bottom: 1px solid #ccc;
+}
+.lesson-search-result-row td{
+	padding: 13px 0 7px 0;
+}
+.search-result-table{
+	width: 90%;
+}
+.lesson-search-result-indi-title-link:link{
+	text-decoration: none;
+	color: #0e5366;
+}
+.lesson-search-result-indi-title-link:visited{
+	text-decoration: none;
+	color: #0e5366;
+}
+.lesson-search-result-indi-title{
+	font-size: 20px;
+	position: relative;
+	top: -16px;
+	max-width: 400px;
+	margin: 0 0 0 20px;
+	text-align: left;
+	text-decoration: none;
+	color: #0e5366;
+}
+.lesson-search-result-indi-title:hover{
+	color: #668b39;
+}
+.lesson-search-result-indi-votes{
+	font-size: 30px;
+	position: relative;
+	top: -13px;
+	max-width: 200px;
+	color: #666;
+}
+.lesson-search-result-indi-votes span{
+	font-size: 12px;
+	color: #ccc;
+	margin: -13px;
+}
+.lesson-search-result-thumb{
+	width: 100px;
+}
 /******QUESTION PREVIEW******/
 
 .question-preview {
@@ -52,4 +102,8 @@
 .question-preview div {
 	display: inline-block;
 	width: 60%;
+}
+.search-lesson-thumb{
+	width: auto;
+	height: 50px;
 }

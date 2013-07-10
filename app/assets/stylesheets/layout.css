@@ -20,12 +20,13 @@ h1, h2, h3, h4, h5, h6{
 	color:#0e5366;
 	margin-bottom: 10px;
 }
-p, li, textarea, input{
+p, li, textarea, input, a{
 	font-family: 'Lato', sans-serif;
 	font-weight: 400;
 }
 button{
 	cursor:pointer;
+	text-decoration: none;
 }
 header.basic-header{
 	width: 100%;

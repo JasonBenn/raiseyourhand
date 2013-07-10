@@ -1,31 +1,96 @@
 .lesson-group {
 	width: 900px;
-	margin: 0 auto;
-	padding: 30px;
-	margin: 20px;
-	border: 1px solid gray;
+	margin: 30px auto;
+	padding: 20px;
+	border: 3px solid #0e5366;
+	border-radius: 10px;
 	position: relative;
 }
 
 .lesson-group-top {
 
 }
-
+.lesson-group-top h3{
+	color: #668b39;
+}
+.lesson-group-top p{
+	color: #8fc250;
+}
 .lesson-group-bottom {
 	display: none;
+	width: 100%;
+	overflow: auto;
 }
-
-.lesson-group-bottom table td {
-	padding: 5px;
-	border: 1px solid gray;
+.my-lessons-all-chapters-container{
+	overflow: auto;
+	margin: 10px auto 16px auto;
 }
-
-.toggle-button {
-	border: 1px solid gray;
-	background-color: white;
-	position: absolute;
-	width: 100px;
+.my-lessons-indi-content-container{
+	text-align: center;
+	float: left;
+	margin: 15px;
+	border-radius: 15px;
+	background-color: #d4f1f9;
+	width: 413px;
+}
+.my-lessons-title-link:link{
+	color: #668b39;
+	text-decoration: none;
+}
+.my-lessons-title-link:visited{
+	color: #668b39;
+	text-decoration: none;
+}
+.my-lessons-title-link p{
+	color: #668b39;
+	text-decoration: none;
+}
+.my-lessons-indi-content-container h3{
+	font-size: 16px;
+	line-height: 30px;
+	width: 80%;
 	height: 30px;
-	left: 45%;
-	bottom: -15px;
+	overflow: hidden;
+	margin: 0 auto;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #0e5366;
+	height: 
+}
+.my-lessons-flashcard-container{
+	width: 100px;
+	float: left;
+	margin: 0 15px 15px 15px;
+	text-align: center;
+	font-size: 14px;
+	color: #0e5366;
+}
+.my-lesson-my-contributions{
+	color: #666;
+	font-size: 12px;
+}
+.my-lesson-chapter-text{
+	font-size: 12px;
+	color: #666;
+}
+.my-lessons-bottom-buttons-shell{
+	clear: both;
+	height: 30px;
+	margin-top: 5px;
+}
+.toggle-drop-container{
+	position: relative;
+	width: 100%;
+	height: 0px;
+}
+.toggle-button {
+	background-image: url('drop_down_up_SPRITE.png');
+	position: relative;
+	width: 39px;
+	height: 30px;
+	margin: 0 auto;
+	bottom: -9px;
+	cursor: pointer;
+}
+.toggle-button-down{
+	background-position: 0 -30px;
 }
