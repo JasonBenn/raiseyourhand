@@ -251,6 +251,7 @@ h2.home-title{
 	color: #fff;
 	font-size: 12px;
 	cursor: pointer;
+	text-decoration: none;
 }
 .button2:hover{
 	background-color: #8fc250;
@@ -268,6 +269,7 @@ h2.home-title{
 	color: #fff;
 	font-size: 12px;
 	cursor: pointer;
+	text-decoration: none;
 }
 .left-floater{
 	float: left;
