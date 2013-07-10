@@ -1,3 +1,4 @@
+// why are these globals?
 var timeline = [];
 var colors = ['0e5366', '668b39', 'fc9b46', 'fb5f61'];
 
@@ -67,7 +68,7 @@ var CreateLesson = {
   // Update a particular HTML element with a new value
   updateHTML: function(elmId, value) {
     document.getElementById(elmId).innerHTML = value;
-  },  
+  },
 
   // This function is called when an error is thrown by the player
   onPlayerError: function(errorCode) {
@@ -181,7 +182,7 @@ var CreateLesson = {
     var atts = { id: "player"+contentId };
     // All of the magic handled by SWFObject (http://code.google.com/p/swfobject/)
     swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
-                       "version=3&enablejsapi=1&playerapiid=player"+contentId, 
+                       "version=3&enablejsapi=1&playerapiid=player"+contentId,
                        "videoDiv-"+contentId, "640", "360", "9", null, null, params, atts);
   },
 
@@ -284,8 +285,8 @@ var CreateLesson = {
   addNewContentToPlaylist: function(){
     content = timeline[timeline.length - 1];
     $('.playlist-container').append('<li class="playlist-content switch-video-content-clip" data-content-id=' + content.id
-        + ' style="background-color:#' + CreateLesson.getColor(content.position) +'">' 
-        + content.title + '<div class="delete-content" data-contentId="' 
+        + ' style="background-color:#' + CreateLesson.getColor(content.position) +'">'
+        + content.title + '<div class="delete-content" data-contentId="'
         + content.id +'"></div></li>');
   },
 
@@ -313,8 +314,8 @@ var CreateLesson = {
       url:'/contents/'+contentId,
       type: 'delete',
       data: {
-        lesson_id: lesson_id, 
-        id: contentId 
+        lesson_id: lesson_id,
+        id: contentId
       }
     }).success(function(result){
       that.hideUpdateLoader();
@@ -334,8 +335,8 @@ var CreateLesson = {
       url:'/sortorder',
       type: 'put',
       data: {
-        lesson_id: lesson_id, 
-        sortorder: position_array 
+        lesson_id: lesson_id,
+        sortorder: position_array
       }
     }).success(function(result){
       that.hideUpdateLoader();
@@ -417,7 +418,7 @@ var CreateLesson = {
     timeline.forEach(function(content, index){
       var title = content.title;
       html += ('<li class="playlist-content switch-video-content-clip" data-content-id=' + content.id
-        + ' style="background-color:#' + CreateLesson.getColor(index) +'">' 
+        + ' style="background-color:#' + CreateLesson.getColor(index) +'">'
         + title +'<div class="delete-content" data-contentId="'
         + content.id + '"></div></li>');
     });
@@ -440,7 +441,7 @@ var CreateLesson = {
       axis: 'x',
       containment: "parent",
       cursor: "crosshair",
-      zIndex: 9999, 
+      zIndex: 9999,
       drag: function(e){
         that.activateContent(contentId);
         that.updateProgressSpan(contentId);
@@ -483,7 +484,7 @@ var CreateLesson = {
   updateProgressSpan: function(contentId){
     var point_a = $('.create-draggable-progress-id-'+contentId).css('left');
     var point_b = $('.create-draggable-progress-end-id-'+contentId).css('left');
-    var length = Math.abs(parseFloat(point_b) - parseFloat(point_a)); 
+    var length = Math.abs(parseFloat(point_b) - parseFloat(point_a));
     $('.progress-span-id-'+ contentId).css({
       left: point_a,
       width: length

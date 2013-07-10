@@ -9,6 +9,7 @@
       cID: null,
       currentVisible: null,
 
+      // this init function is HUGE. break it down into  smaller methods so its readable instead of having it be one mega function
       init: function () {
 var myClientX;
 
@@ -17,6 +18,7 @@ var myClientX;
     myClientY = event.clientY;
 }, false);
 
+          // extract this into its own method
           $(".dragger").draggable({
               axis: 'x',
               containment: "parent",
@@ -50,6 +52,7 @@ var myClientX;
               }
           });
 
+  // extract this into its own method
   $('.progress-bar').click(function(e){
                   var location = e.pageX;
                   var parentOffsetX = $(".progress-bar").offset().left;
@@ -132,7 +135,7 @@ $(this).parent().parent().parent().siblings('.lanswer-container').slideToggle(50
       text: text
     });
 $(that).slideDown('slow');
-setTimeout(function() { Player.showBody($(that))}, 800); 
+setTimeout(function() { Player.showBody($(that))}, 800);
 Player.prependCount++;
       },
 
@@ -160,7 +163,7 @@ Player.prependCount++;
 
       getContentId: function () {
           return Player.cID;
-      },    
+      },
 
 makeActiveQuestionsVisibleController: function (second) {
 Player.makeActiveQuestionsVisible(parseInt(second));
@@ -175,7 +178,7 @@ var newQ = $('.live-questions-feed-container').children('.lquestion-container.t'
 // });
 
 newQ.slideDown('slow');
-setTimeout(function() { Player.showBody(that)}, 800); 
+setTimeout(function() { Player.showBody(that)}, 800);
 },
 
 showBody: function(that) {
@@ -311,7 +314,7 @@ that.children(".question-wrapper").children('.lquestion').children('.triangle-bo
       },
 
 
-      // disable progress when dragging 
+      // disable progress when dragging
       // play shouldnt play the vid again
 
       pauseVideo: function () {

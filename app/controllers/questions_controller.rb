@@ -2,7 +2,7 @@ class QuestionsController < ApplicationController
   before_filter :authenticated
 
   def create
-  	p params[:question]
+  	p params[:question] # random leftover debugging code like this should not be in master branch
   	@question = current_user.questions.build(params[:question])
   	if @question.save
     	render json: @question, status: '201'
@@ -10,5 +10,5 @@ class QuestionsController < ApplicationController
     	bad_request
     end
   end
-  
+
 end

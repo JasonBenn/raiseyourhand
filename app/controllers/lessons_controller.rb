@@ -40,6 +40,7 @@ class LessonsController < ApplicationController
 	end
 
 	def destroy
+		# can I delete anyone's lesson? do you need security verification here?
 		Lesson.destroy(params[:id])
 		flash[:notice] = "Lesson deleted"
 		redirect_to profile_path current_user

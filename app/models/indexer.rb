@@ -1,3 +1,4 @@
+# why is this in the models directory, it should be a lib
 module Indexer
 	INDEXED = { "Lesson" => [:title], "Question" => [:title] }
 

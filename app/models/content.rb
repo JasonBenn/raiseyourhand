@@ -31,20 +31,24 @@ class Content < ActiveRecord::Base
 		JSON.parse(open("http://gdata.youtube.com/feeds/api/videos/#{youtube_id}?v=2&alt=json&prettyprint=true").read)
 	end
 
+  # the word "get" implies a request or query... since this is just a wrapper method
+  # i would drop the "get" and call it `youtube_thumbnail`
 	def get_youtube_thumbnail(data)
 		data['entry']['media$group']['media$thumbnail'][1]['url']
 	end
 
+  # same for this method
 	def get_youtube_title(data)
 		data['entry']['title']['$t']
 	end
 
+  # same for this method
 	def get_youtube_duration(data)
 		data['entry']['media$group']['yt$duration']['seconds']
 	end
 
 	def getVideoIdFromUrl(url)
-		url_params = CGI.parse(URI.parse(url).query) 
+		url_params = CGI.parse(URI.parse(url).query)
 		url_params['v'][0]
 	end
 end

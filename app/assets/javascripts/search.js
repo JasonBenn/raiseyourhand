@@ -1,3 +1,4 @@
+// modularize this into an object literal(s)
 $(document).ready(function() {
   $('.basic-container').on('keyup', '#search', function() {
     if ($('#search').val().length > 2) {
@@ -7,7 +8,7 @@ $(document).ready(function() {
       search = $('#search').val();
 
       $.ajax('/search', {
-        data: { 'search': search }, 
+        data: { 'search': search },
         success: replaceWithResults
       });
     };

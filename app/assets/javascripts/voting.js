@@ -1,3 +1,4 @@
+// modularize this into an object literal(s)
 $(document).ready(function() {
   $('.vote').click(function(click) {
     click.stopPropagation();

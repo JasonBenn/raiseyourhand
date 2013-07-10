@@ -1,3 +1,4 @@
+// modularize javascript in object literal(s)
 $(document).ready(function() {
   $('span').click(function() {
     $('.flashcards').css({'display':'block'});
@@ -44,7 +45,7 @@ function quizGame(contentId) {
   });
 
   function getCard(i) {
-    return  '<div id="front">' + 
+    return  '<div id="front">' +
               "<p>" + cards[i].front + "</p>" +
             '</div>' +
             '<hr>' +

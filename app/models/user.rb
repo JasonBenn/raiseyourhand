@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   has_many :questions
   has_many :answers
 
- validates_presence_of :oauth_token, :uid, :name
+  validates_presence_of :oauth_token, :uid, :name
 
   def self.from_omniauth(auth)
     where(uid: auth.uid).first_or_initialize do |user|
