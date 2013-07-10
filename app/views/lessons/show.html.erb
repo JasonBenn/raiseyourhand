@@ -65,19 +65,7 @@
 <button class='button2 button-play-pause left-floater' data-status="pause"><div class="play-pause-icon"></div></button>
 
 <script type="text/javascript">
-  function activatePlayPauseButton(){
-    $('.button-play-pause').click(function(){
-      if ($(this).attr('data-status') == 'play'){
-        Player.pauseVideo();
-        $(this).attr('data-status', 'pause').children('.play-pause-icon').css('background-position', '0px 0px');
-      } else {
-        Player.playVideo();
-        $(this).attr('data-status', 'play').children('.play-pause-icon').css('background-position', '0px -16px');
-      }
-    })
-  }
-  activatePlayPauseButton();
-
+  Player.activatePlayPauseButton();
 </script>
 
 <!-- Progress bar parent (wrapper) -->
