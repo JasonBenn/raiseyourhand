@@ -50,8 +50,8 @@
 	  CreateLesson.activateContent(playerId);
 	  setInterval(CreateLesson.updatePlayerInfo, 250);
 	  CreateLesson.updatePlayerInfo(playerId);
-	  ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
-	  ytplayer.addEventListener("onError", "onPlayerError");
+	  ytplayer.addEventListener("onStateChange", "CreateLesson.onPlayerStateChange");
+	  ytplayer.addEventListener("onError", "CreateLesson.onPlayerError");
 	  //Load an initial video into the player
 	  var url = CreateLesson.getYoutubeURLFromDiv(playerString);
 	  var start_time = CreateLesson.getStartTimeFromId(playerId);
