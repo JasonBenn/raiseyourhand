@@ -146,6 +146,7 @@ h2.home-title{
 .popular-lesson-text-container{
 	width: 100%;
 	position: relative;
+	margin: 50px auto;
 }
 .popular-lesson-text-container p{
 	text-align: center;
@@ -192,6 +193,7 @@ h2.home-title{
 	background-color: #8fc250;
 	border-radius: 5px;
 	position: absolute;
+	z-index: 10;
 }
 .play-pause-icon{
 	width: 14px;

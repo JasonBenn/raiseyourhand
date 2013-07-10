@@ -1,0 +1,14 @@
+<table class="search-result-table">
+  <tbody>
+    <% lessons.each do |lesson| %>
+      <tr class="lesson-search-result-row">
+        <td class="lesson-search-result-thumb"><%= image_tag lesson.contents.first.thumbnail, :class => 'search-lesson-thumb' %></td>
+        <td><%= link_to lesson_path(lesson), :class => 'lesson-search-result-indi-title-link' do %> 
+              <p class='lesson-search-result-indi-title'><%= lesson.title %><p>
+            <% end %>
+        </td>
+        <td><p class="lesson-search-result-indi-votes"><%= lesson.votes.size %><br><span>votes</span></p></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -18,6 +18,7 @@
 }
 .lesson-group-bottom {
 	display: none;
+	width: 100%;
 	overflow: auto;
 }
 .my-lessons-all-chapters-container{
@@ -31,6 +32,18 @@
 	border-radius: 15px;
 	background-color: #d4f1f9;
 	width: 413px;
+}
+.my-lessons-title-link:link{
+	color: #668b39;
+	text-decoration: none;
+}
+.my-lessons-title-link:visited{
+	color: #668b39;
+	text-decoration: none;
+}
+.my-lessons-title-link p{
+	color: #668b39;
+	text-decoration: none;
 }
 .my-lessons-indi-content-container h3{
 	font-size: 16px;
@@ -64,15 +77,20 @@
 	height: 30px;
 	margin-top: 5px;
 }
-.remove-lesson-from-notebook-btn{
-	cle
+.toggle-drop-container{
+	position: relative;
+	width: 100%;
+	height: 0px;
 }
 .toggle-button {
-	border: 1px solid gray;
-	background-color: white;
-	position: absolute;
-	width: 100px;
+	background-image: url('drop_down_up_SPRITE.png');
+	position: relative;
+	width: 39px;
 	height: 30px;
-	left: 45%;
-	bottom: -15px;
+	margin: 0 auto;
+	bottom: -9px;
+	cursor: pointer;
+}
+.toggle-button-down{
+	background-position: 0 -30px;
 }
