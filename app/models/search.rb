@@ -4,11 +4,12 @@ class Search < ActiveRecord::Base
   validates_uniqueness_of :term, scope: [:searchable_id, :searchable_type]
 
   def self.search(query)
-  	select("DISTINCT searchable_id, searchable_type").where('term LIKE ?', '%' + query + '%')
+  	Rails.cache.fetch(query) do
 	  	results = select("DISTINCT searchable_id, searchable_type").
 		  	where('term LIKE ?', '%' + query + '%').
 		  	includes(:searchable)
 			records = results.map(&:searchable)
 			records.partition { |record| record.is_a? Lesson }
+		end
   end
 end
