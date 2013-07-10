@@ -23,7 +23,6 @@ class ContentsController < ApplicationController
 
 
 	def sortorder
-		#TODO find way to branch reponse based on validations
 		Content.transaction do
 			begin
 			contents = params[:sortorder].each_with_index do |id, index|
@@ -55,10 +54,4 @@ class ContentsController < ApplicationController
 			bad_request
 		end
 	end
-
-	def bad_request
-		render text: "Invalid Request", status: "400"
-		return false
-	end
-
 end

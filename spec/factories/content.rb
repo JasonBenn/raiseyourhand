@@ -3,13 +3,13 @@ FactoryGirl.define do
     title 'John'
 
     factory :lesson_with_content do
-	    after(:create) do |lesson|
-      	create(:content, {lesson: lesson})
+	    before(:create) do |lesson|
+      	lesson.contents << build(:content, {lesson: lesson}) 
 	    end
   	end
 
   	factory :lesson_with_muiltiple_content do
-  		after(:create) { |lesson| 5.times { create(:content, lesson: lesson) } }
+  		before(:create) { |lesson| 5.times { lesson.contents << build(:content, lesson: lesson) } }
   	end
 
 	end

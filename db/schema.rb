@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(:version => 20130710135343) do
 
   create_table "answers", :force => true do |t|
     t.integer  "question_id"
-    t.text     "text"
+    t.string   "text"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.integer  "user_id"
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(:version => 20130710135343) do
   add_index "lessons", ["title"], :name => "index_lessons_on_title"
 
   create_table "questions", :force => true do |t|
-    t.text     "text"
+    t.string   "text"
     t.integer  "content_id"
     t.string   "time_in_lesson"
     t.datetime "created_at",                    :null => false
@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(:version => 20130710135343) do
   end
 
   create_table "users", :force => true do |t|
-    t.text     "email"
+    t.string   "email"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
     t.string   "provider"
