@@ -19,6 +19,25 @@
 	height: 2em;
 }
 
+/*******SEARCH RESULTS********/
+
+.search-results {
+	width: 45%;
+	margin: 0 auto;
+	display: inline-block;
+	padding-right: 50px;
+}
+
+.search-results + .search-results {
+	border-left: 1px solid gray;
+	padding-right: 0;
+	padding-left: 50px;
+}
+
+.number {
+	font-size: 24px;
+}
+
 /******QUESTION PREVIEW******/
 
 .question-preview {
