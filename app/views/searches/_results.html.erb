@@ -1,9 +1,9 @@
-<h2>Lessons</h2>
-<div id="search-results-lessons">
+<div class="search-results">
+	<h2>Lessons</h2>
   <%= render partial: 'list', locals: { records: lessons, second_column_header: 'Users' } %>
 </div>
 
-<h2>Questions</h2>
-<div id="search-results-questions">
+<div class="search-results">
+	<h2>Questions</h2>
 	<%= render partial: 'list', locals: { records: questions, second_column_header: 'Answers' } %>
 </div>
