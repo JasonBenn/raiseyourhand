@@ -29,5 +29,13 @@ $(document).ready(function() {
   function replaceWithResults(serverResponse) {
     $('#results').empty();
     $('#results').html(serverResponse);
+    highlightResults();
   };
+
+  function highlightResults() {
+    var userInputRegex = new RegExp('(' + userInput() + ')', 'gim');
+    $('.lesson-search-result-indi-title').html(function(index, oldText) {
+      return oldText.replace(userInputRegex, "<span class='highlight'>$1</span>");
+    });
+  }
 })
