@@ -7,6 +7,11 @@ class LessonsController < ApplicationController
 		@lessons = Lesson.all
 	end
 
+	def list
+		@lessons = Lesson.all
+		render partial: 'list', locals: { lessons: @lessons }
+	end
+
 	def show
 		@lesson = Lesson.find(params[:id])
 		@question = Question.new
@@ -32,6 +37,12 @@ class LessonsController < ApplicationController
 	end
 
 	def update
+	end
+
+	def destroy
+		Lesson.destroy(params[:id])
+		flash[:notice] = "Lesson deleted"
+		redirect_to profile_path current_user
 	end
 
 	private

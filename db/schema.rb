@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(:version => 20130710135343) do
     t.string   "finish_time"
     t.string   "duration"
     t.string   "title"
+    t.string   "thumbnail"
   end
 
   create_table "flashcards", :force => true do |t|
@@ -44,9 +45,10 @@ ActiveRecord::Schema.define(:version => 20130710135343) do
 
   create_table "lessons", :force => true do |t|
     t.integer  "creator_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
     t.string   "title"
+    t.integer  "votes_count", :default => 0
   end
 
   add_index "lessons", ["title"], :name => "index_lessons_on_title"

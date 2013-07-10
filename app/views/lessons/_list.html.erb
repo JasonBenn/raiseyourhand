@@ -1,12 +1,13 @@
-<% lessons.each_slice(4).each do |lesson_slice| %>
-  <ul>
-    <% lesson_slice.each do |lesson| %>
-      <%= link_to lesson_path(lesson) do %>
-        <li class='lesson-preview'>
-          <img class='lesson-preview-thumbnail'></img>
-          <span><%= lesson.title %></span>
-        </li>
-      <% end %>
-    <% end %>
-  </ul>
+<div class="popular-lesson-text-container">
+	<div class="liner"></div>
+	<p>Popular Lessons</p>
+</div>
+
+<% lessons.each do |lesson| %>
+  <%= link_to lesson_path(lesson) do %>
+    <div class="lesson-thumbnail-shell">
+      <%=  image_tag lesson.contents.first.thumbnail %>
+      <p><%= lesson.title %></p>
+    </div>
+  <% end %>
 <% end %>

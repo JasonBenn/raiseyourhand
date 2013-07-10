@@ -1,6 +1,7 @@
 Raiseyourhand::Application.routes.draw do
   root to: 'lessons#index'
 
+  get 'lessons/list' => 'lessons#list'
   resources :lessons
   resources :votes
   resources :flashcards
@@ -8,6 +9,7 @@ Raiseyourhand::Application.routes.draw do
   resources :questions
   resources :answers
   resources :profiles, only: [:show]
+  resources :user_lessons, only: [:destroy]
 
   get '/test' => 'test#index'
   match 'auth/:provider/callback', to: 'sessions#create'

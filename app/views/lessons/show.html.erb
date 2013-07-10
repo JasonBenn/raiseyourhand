@@ -21,6 +21,11 @@
 
 <!-- Page HTML -->
 <%= render partial: 'shared/voting', locals: { votable: @lesson } %>
+
+<section class="sub-header">
+  <h1 class="lesson-title"><%= @lesson.title %></h1>
+</section>
+
 <table class='content-nav'>
   <tr>
     <% @lesson.contents.each do |content| %>
@@ -31,11 +36,6 @@
     </td>
   <% end %>
 </tr></table>
-
-<section class="sub-header">
-  <h1 class="lesson-title"><%= @lesson.title %></h1>
-</section>
-
 
 <div class='flashcards'>
   <%= render partial: 'flashcards/card' %>
@@ -65,19 +65,7 @@
 <button class='button2 button-play-pause left-floater' data-status="pause"><div class="play-pause-icon"></div></button>
 
 <script type="text/javascript">
-  function activatePlayPauseButton(){
-    $('.button-play-pause').click(function(){
-      if ($(this).attr('data-status') == 'play'){
-        Player.pauseVideo();
-        $(this).attr('data-status', 'pause').children('.play-pause-icon').css('background-position', '0px 0px');
-      } else {
-        Player.playVideo();
-        $(this).attr('data-status', 'play').children('.play-pause-icon').css('background-position', '0px -16px');
-      }
-    })
-  }
-  activatePlayPauseButton();
-
+  Player.activatePlayPauseButton();
 </script>
 
 <!-- Progress bar parent (wrapper) -->
@@ -125,52 +113,77 @@
   </div>
 </div>
 
-<div id='questions-answers' class="live-questions-feed-container">
 
-<!-- gets first content of lesson (equal to one video) -->
-
-<% @lesson.contents.each_with_index do |video, index| %>
-
-<% video_length = video.length %>
-
-<!-- set video link to content-link, start-time and end-time via script tag -->
-
-<!-- creates the question flow -->
-<% times = get_question_timing(video) %>
-
-<% video_length.ceil.times do |question| %>
-<% if times.has_key?(question) %>
-
-    <div class="qcontainer">
-      <div class="triangle-border">
-        <strong>
-          <%= times[question].title%>
-        </strong>
-        <p class="question_body">
-          <%= times[question].text%>
-        </p>
-      </div>
-      <img class="bubble-face" src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-prn2/c0.0.160.160/p160x160/202896_4_1782288297_n.jpg">
-    </div>
-    <div class="repective-answers">
-    <% times[question].answers.each do |answer|%>
-      <div class="acontainer">
-        <div class="atriangle-border"><%= answer.text%>
-        </div>
-        <img class="abubble-face" src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-prn2/c0.0.160.160/p160x160/202896_4_1782288297_n.jpg">
-      </div>
-      <% end %>
-    </div>  
-<% else %>
-<div>
-<div class="qcontainer">
-  <%= question %>
+<!-- Make partial -->
+<div class="live-questions-feed-container">
+<!-- Lesson iterate over content -->
+<% @lesson.contents.each do |chapter|%>
+<!-- Content iterate over questions -->
+<% chapter.questions.each do |question| %>
+<!-- Create new questions divs for the questions -->
+<div class="lquestion-container t<%= question.time_in_content.to_i%>">
+<div class="question-wrapper">
+<div class="lquestion">
+<div class="triangle-border">
+<div class="lquestion-title">
+<p>
+<%= question.title %>
+</p>
 </div>
+<div class="lquestion-body">
+<%= question.text %>
+<p class="author"> 
+<!-- REAL DATA TO COME -->
+Barack Obama, July 4th 2013
+</p>
+</div>
+</div>
+</div>
+<!-- REAL DATA TO COME -->
+<img class="question-image" src="http://www.biography.com/imported/images/Biography/Images/Profiles/O/Barack-Obama-12782369-2-402.jpg">
+</div>
+
+
+<!-- Make partial -->
+<div class="lanswer-container">
+  <% question.answers.each do |answer| %>
+<div class="answer-wrapper">
+<div class="lanswer">
+<div class="atriangle-border">
+<div class="lanswer-body">
+<%= answer.text %>
+<!-- REAL DATA TO COME -->
+<p class="author">
+Barack Obama, July 4th 2013
+</p>
+</div>
+</div>
+</div>
+<!-- REAL DATA TO COME -->
+<img class="answer-image" src="http://www.biography.com/imported/images/Biography/Images/Profiles/O/Barack-Obama-12782369-2-402.jpg">
 </div>
 <% end %>
-  <% end %>
-<% end %>
+
+
+<!-- Make partial -->
+<div class="answer-wrapper">
+<div class="lanswer">
+<div class="atriangle-border">
+<textarea class="answer_input" placeholder="Answer this Question">
+</textarea>
+<br>
+<br>
+<button id="answer_button">Answer</button>
 </div>
+</div>
+<img class="answer-image" src="https://graph.facebook.com/<%=current_user.uid%>/picture">
+</div>
+
+</div>
+</div>   
+<% end %>
+<% end %>
+</div>   
 
 <div class="lesson-user-input-shell">
   <div class="tabs-container">
@@ -191,3 +204,21 @@
   <p>Player state: <span id="playerState">--</span></p>
   <p>Current Time: <span id="videoCurrentTime">--:--</span> | Duration: <span id="videoDuration">--:--</span></p>
 </div>
+
+<script type="text/html" id="template">
+<div class="question-wrapper">
+<div class="lquestion">
+<div class="triangle-border">
+<div class="lquestion-title">
+<p data-content="title">
+</p>
+</div>
+<div data-content="text" class="lquestion-body">
+<p class="author"> 
+Barack Obama, July 4th 2013
+</p>
+</div>
+</div>
+</div>
+<img class="question-image" src="http://www.biography.com/imported/images/Biography/Images/Profiles/O/Barack-Obama-12782369-2-402.jpg">
+</script>

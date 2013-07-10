@@ -16,4 +16,8 @@ class Lesson < ActiveRecord::Base
   accepts_nested_attributes_for :contents, :reject_if => lambda { |a| a[:url].blank? }, :allow_destroy => true
   
   after_save :index_attributes
+
+  def relevant_search_result_info
+    user_lessons.size
+  end
 end

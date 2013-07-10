@@ -1,10 +1,10 @@
-<div class='title'>
-  <img src="" alt="">
-  <h1>Raise Your Hand</h1>
-  <h3>Become an expert in anything through free, interactive, user-generated courses.</h3>
+<h1 class="home-title">Become an expert on anything</h1>
+<h2 class="home-title">Through free, interactive, user-generated courses</h3>
+
+<div class="home-search-container">
+	<input autofocus id="search" placeholder='What do you want to learn?'>
 </div>
 
-<input autofocus id="search" class='search-big-mode' placeholder='What do you want to learn?'>
-<div id='results'>
+<div id='results' class="home-search-results">
   <%= render partial: 'list', locals: { lessons: @lessons } %>
 </div>

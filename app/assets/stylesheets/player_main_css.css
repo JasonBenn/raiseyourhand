@@ -113,8 +113,6 @@
 }
 .img-right {
   /*float: left;*/
-  left: 600px;
-}
 .table_question_right{
   display: none;
   float: left;
@@ -185,4 +183,226 @@ float: left;
   left: 0px;
   z-index: 3;
 }
-*/
+.upper-box {
+  height:400px;
+  width:430px;
+  position: absolute;
+  background-color: red;
+  z-index: 1;
+  opacity: 0.5;
+  display: none;
+}
+
+.lower-box {
+  height:400px;
+  width:430px;
+  position: absolute;
+  overflow: scroll;
+}
+
+.question-image{
+  height: 50px;
+  width: 50px;
+}
+
+.answer-image{
+  height: 50px;
+  width: 50px;
+}
+
+.lquestion {
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  /*border: 1px solid black;*/
+  margin-top: 20px;
+}
+
+.lanswer {
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  /*border: 1px solid black;*/
+  margin-top: 10px;
+}
+
+.lquestion-title{
+  /*font-weight: bold;*/
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-family: 'Lato', sans-serif;
+  font-weight: 2000;
+  font-size: 14px;
+  /*display: none;*/
+}
+
+.lquestion-body{
+  text-align: center;
+  display: none;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.lanswer-body{
+  text-align: center;
+    font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.lanswer-container{
+  display: none;
+}
+
+.clicker{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.lquestion-container{
+  display: none;
+}
+
+.triangle-border {
+  width: 300px;
+  /*height: 50px;*/
+  position:relative;
+  padding:15px;
+  /*margin:1em 0 3em;*/
+  margin-left: 20px;
+  /*border:5px solid black;*/
+  color:#333;
+  background:steelblue;
+  /* css3 */
+  -webkit-border-radius:10px;
+  -moz-border-radius:10px;
+  border-radius:10px;
+}
+.triangle-border:before {
+  content:"";
+  position:absolute;
+  bottom:-20px; /* value = - border-top-width - border-bottom-width */
+  left:40px; /* controls horizontal position */
+  border-width:20px 20px 0;
+  border-style:solid;
+  border-color:steelblue transparent;
+  background-color: white;
+  /* reduce the damage in FF3.0 */
+  display:block; 
+  width:0;
+
+}
+
+/* creates the smaller  triangle */
+.triangle-border:after {
+  content:"";
+  position:absolute;
+  bottom:-13px; /* value = - border-top-width - border-bottom-width */
+  left:47px; /* value = (:before left) + (:before border-left) - (:after border-left) */
+  border-width:13px 13px 0;
+  border-style:solid;
+  border-color:steelblue transparent;
+  /* reduce the damage in FF3.0 */
+  display:block; 
+  width:0;
+
+}
+
+.atriangle-border {
+  width: 300px;
+  /*height: 50px;*/
+  position:relative;
+  padding:15px;
+  /*margin:1em 0 3em;*/
+  margin-left: 65px;
+  /*border:5px solid black;*/
+  color:#333;
+  background:green;
+  /* css3 */
+  -webkit-border-radius:10px;
+  -moz-border-radius:10px;
+  border-radius:10px;
+}
+.atriangle-border:before {
+  content:"";
+  position:absolute;
+  bottom:-20px; /* value = - border-top-width - border-bottom-width */
+  left:239px; /* controls horizontal position */
+  border-width:20px 20px 0;
+  border-style:solid;
+  border-color:green transparent;
+  background-color: white;
+  /* reduce the damage in FF3.0 */
+  display:block; 
+  width:0;
+}
+
+/* creates the smaller  triangle */
+.atriangle-border:after {
+  content:"";
+  position:absolute;
+  bottom:-13px; /* value = - border-top-width - border-bottom-width */
+  left:242px; /* value = (:before left) + (:before border-left) - (:after border-left) */
+  border-width:13px 13px 0;
+  border-style:solid;
+  border-color:green transparent;
+  /* reduce the damage in FF3.0 */
+  display:block; 
+  width:0;
+}
+
+img.question-image{
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  -webkit-border-radius: 50px;
+-moz-border-radius: 50px;
+margin-top: 10px;
+margin-left: 44px;
+/*z-index: 999;*/
+}
+
+img.answer-image{
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  -webkit-border-radius: 50px;
+-moz-border-radius: 50px;
+margin-top: 10px;
+margin-left: 375px;
+/*z-index: 999;*/
+}
+.answer_input{
+  width: 100%;
+  background-color: green;
+  border: none;
+      font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+
+  height: 50px;
+}
+.answer_input:focus{
+  outline: none;
+  /*height: 150px;*/
+}
+
+.answer_input::-webkit-input-placeholder {
+  color: black;
+}
+.answer_input:-moz-placeholder {
+  color: black;
+}
+#answer_button{
+ border: 2px solid black;
+ background-color: green;
+}
+.author{
+  /*float: left;*/
+  margin-top: 15px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  font-size: 11px;  
+}

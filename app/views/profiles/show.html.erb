@@ -1,5 +1,19 @@
-<div id='accordion'>
-	<%= @lessons.each do |lesson| %>
-		<%= render partial: 'lesson', locals: { lesson: lesson } %>
-	<% end %>
-</div>
+<% if current_user.lessons.any? %>
+	<h2>My Lessons</h2>
+	<div id='accordion'>
+		<% @lessons.each do |lesson| %>
+			<%= render partial: 'lesson', locals: { lesson: lesson, owned: false } %>
+		<% end %>
+	</div>
+<% else %>
+	<p>You have no lessons in your notebook! Click a lesson on the main page and it will be automatically added here.</p>
+<% end %>
+
+<% if current_user.created_lessons.any? %>
+	<h2>Created Lessons</h2>
+	<div id='accordion'>
+		<% current_user.created_lessons.each do |lesson| %>
+			<%= render partial: 'lesson', locals: { lesson: lesson, owned: true } %>
+		<% end %>
+	</div>
+<% end %>

@@ -154,36 +154,42 @@ span {
 
 .qanswer{
   display: none;
-}
+}*/
 
 .content-nav {
-  width: 93%;
+  width: 100%;
+  max-width: 1140px;
   margin: 10px auto;
-  border-spacing: 6px;
+  border-collapse: separate;
+  border-spacing: 4px;
 }
 
 .content-nav-piece {
   background-color: #E6E6E6;
+  border-radius: 5px;
 }
 
 .content-nav-piece:hover {
-  border-spacing: 10px;
   background-color: steelblue;
 }
 
 .content-nav-piece span {
   background-color: white;
   float: right;
-  margin-right: 5%;
+  margin: 3px;
   text-align: center;
-  width: 8px;
-  height: 8px;
-  font-size: 14px;
+  width: 9px;
+  height: 9px;
+  font-size: 12px;
   line-height: 8px;
-  border-radius: 16px;
+  border-radius: 20px;
   border: 1px solid gray;
   color: gray;
-}*/
+}
+
+.content-nav-piece span:hover {
+  cursor: pointer;
+}
 
 /*******NAV*******/
 /*
