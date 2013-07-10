@@ -12,6 +12,8 @@ describe Lesson do
     it { should allow_mass_assignment_of(:creator_id) }
   end
 
-  pending 'testing validations'
-
+  describe 'Validates' do
+    it { should validate_presence_of(:title) }
+    it { should validate_presence_of(:contents) }
+  end
 end

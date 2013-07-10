@@ -12,6 +12,7 @@ class Question < ActiveRecord::Base
   has_many :votes, as: :votable
 
   after_save :index_attributes
+  validates_presence_of :content, :time_in_lesson, :title
 
   def relevant_search_result_info
     answers.size
