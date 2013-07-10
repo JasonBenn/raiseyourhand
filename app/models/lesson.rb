@@ -11,6 +11,7 @@ class Lesson < ActiveRecord::Base
   has_many :votes, as: :votable
   has_many :searches, as: :searchable
   has_many :contents, inverse_of: :lesson, dependent: :destroy
+  validates_presence_of :title, :contents
 
   accepts_nested_attributes_for :contents, :reject_if => lambda { |a| a[:url].blank? }, :allow_destroy => true
   
