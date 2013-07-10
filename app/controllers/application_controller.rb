@@ -17,4 +17,9 @@ class ApplicationController < ActionController::Base
   def authenticated
   	redirect_to root_url unless is_logged_in?
   end
+
+  def bad_request
+    render text: "Invalid Request", status: "400"
+    return false
+  end
 end

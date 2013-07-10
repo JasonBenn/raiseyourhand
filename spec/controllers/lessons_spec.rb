@@ -19,12 +19,17 @@ describe LessonsController do
   
 
 	describe '#create' do
-		it 'new content given valid params' do 
+		it 'new lesson given valid params' do 
 			expect{ post(:create, post_new_lesson_request) }.to change{Lesson.count}.by(1)
 		end
 
 		it 'should create the first piece of content' do
 			expect{ post(:create, post_new_lesson_request) }.to change{Content.count}.by(1)
+		end
+
+
+		it 'should not create new lesson with invalid params' do
+			expect{ post(:create) }.to change{Lesson.count}.by(0) 
 		end
 	end
 end
