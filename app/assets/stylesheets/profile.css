@@ -33,6 +33,18 @@
 	background-color: #d4f1f9;
 	width: 413px;
 }
+.my-lessons-title-link:link{
+	color: #668b39;
+	text-decoration: none;
+}
+.my-lessons-title-link:visited{
+	color: #668b39;
+	text-decoration: none;
+}
+.my-lessons-title-link p{
+	color: #668b39;
+	text-decoration: none;
+}
 .my-lessons-indi-content-container h3{
 	font-size: 16px;
 	line-height: 30px;
