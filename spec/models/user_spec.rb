@@ -16,6 +16,8 @@ describe User do
     it { should have_many :user_lessons }
     it { should have_many(:lessons).through(:user_lessons) }
     it { should have_many(:created_lessons).class_name('Lesson') }
+    it { should have_many :questions }
+    it { should have_many :answers }
   end
 
 
@@ -35,7 +37,6 @@ describe User do
 
     before(:each) do
       @auth = OmniAuth.config.mock_auth[:facebook]
-  
     end
 
 
