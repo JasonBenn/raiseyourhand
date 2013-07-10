@@ -26,6 +26,7 @@ p, li, textarea, input{
 }
 button{
 	cursor:pointer;
+	text-decoration: none;
 }
 header.basic-header{
 	width: 100%;
