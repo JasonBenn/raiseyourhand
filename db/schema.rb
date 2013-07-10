@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130709151428) do
+ActiveRecord::Schema.define(:version => 20130710015210) do
 
   create_table "answers", :force => true do |t|
     t.integer  "question_id"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20130709151428) do
     t.string   "finish_time"
     t.string   "duration"
     t.string   "title"
+    t.string   "thumbnail"
   end
 
   create_table "flashcards", :force => true do |t|

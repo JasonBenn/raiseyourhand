@@ -1,4 +1,4 @@
-#search {
+/*#search {
 	margin: 50px auto;
 	display: block;
 	border: 5px solid steelblue;
@@ -7,7 +7,7 @@
   font-size: 20px;
   border-radius: 10px;
   text-shadow: 0 0 3px gray;
-}
+}*/
 
 .search-big-mode {
 	width: 600px;
