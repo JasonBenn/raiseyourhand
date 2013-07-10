@@ -9,7 +9,7 @@ describe Flashcard do
     it { should allow_mass_assignment_of(:content_id) }
     it { should allow_mass_assignment_of(:front) }
     it { should allow_mass_assignment_of(:back) }
-    it { should allow_mass_assignment_of(:time_in_content) }
+    it { should allow_mass_assignment_of(:time_in_lesson) }
   end
 
   pending 'testing validations'

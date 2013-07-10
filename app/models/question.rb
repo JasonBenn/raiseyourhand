@@ -2,7 +2,7 @@ class Question < ActiveRecord::Base
   include VotableHelper
   include Indexer
 
-  attr_accessible :content_id, :text, :time_in_content, :title
+  attr_accessible :content_id, :text, :time_in_lesson, :title
 
   belongs_to :content
   belongs_to :user

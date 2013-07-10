@@ -77,7 +77,7 @@ var myClientX;
 
           $(".user-lesson-inputs").focus(function () {
               Player.pauseVideo();
-              $('input[id$="_time_in_content"]').val(Player.getTotalTime());
+              $('input[id$="_time_in_lesson"]').val(Player.getTotalTime());
               $('input[id$="_content_id"]').val(Player.videoCount);
           });
 
