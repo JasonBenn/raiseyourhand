@@ -13,5 +13,9 @@ describe Question do
     it { should allow_mass_assignment_of(:time_in_lesson) }
   end
 
-  pending 'testing validations'
+  context 'testing validations' do
+    it { should validate_presence_of(:content) }
+    it { should validate_presence_of(:title) }
+    it { should validate_presence_of(:time_in_lesson) }
+  end
 end

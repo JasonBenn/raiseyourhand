@@ -12,5 +12,12 @@ describe Flashcard do
     it { should allow_mass_assignment_of(:time_in_lesson) }
   end
 
-  pending 'testing validations'
+   context 'testing validations' do
+    it { should validate_presence_of(:time_in_lesson) }
+    it { should validate_presence_of(:content) }
+    it { should validate_presence_of(:front) }
+    it { should validate_presence_of(:back) }
+  end
+
+  
 end
