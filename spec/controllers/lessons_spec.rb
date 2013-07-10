@@ -32,6 +32,8 @@ describe LessonsController do
 			expect{ post(:create) }.to change{Lesson.count}.by(0) 
 		end
 	end
+
+
 end
 
 
