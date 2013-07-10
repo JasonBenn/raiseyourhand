@@ -4,6 +4,6 @@ class Search < ActiveRecord::Base
   validates_uniqueness_of :term, scope: [:searchable_id, :searchable_type]
 
   def self.search(query)
-  	where('term LIKE ?', '%' + query + '%')
+  	select("DISTINCT searchable_id, searchable_type").where('term LIKE ?', '%' + query + '%')
   end
 end
