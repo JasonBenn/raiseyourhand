@@ -11,13 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130710133252) do
+ActiveRecord::Schema.define(:version => 20130710135343) do
 
   create_table "answers", :force => true do |t|
     t.integer  "question_id"
-    t.text     "text"
+    t.string   "text"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "user_id"
   end
 
   create_table "contents", :force => true do |t|
@@ -35,11 +36,11 @@ ActiveRecord::Schema.define(:version => 20130710133252) do
 
   create_table "flashcards", :force => true do |t|
     t.integer  "content_id"
-    t.text     "front"
-    t.text     "back"
-    t.string   "time_in_content"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.string   "front"
+    t.string   "back"
+    t.string   "time_in_lesson"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "lessons", :force => true do |t|
@@ -53,14 +54,15 @@ ActiveRecord::Schema.define(:version => 20130710133252) do
   add_index "lessons", ["title"], :name => "index_lessons_on_title"
 
   create_table "questions", :force => true do |t|
-    t.text     "text"
+    t.string   "text"
     t.integer  "content_id"
-    t.string   "time_in_content"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.string   "time_in_lesson"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.string   "title"
-    t.integer  "answers_count",   :default => 0
-    t.integer  "votes_count",     :default => 0
+    t.integer  "answers_count",  :default => 0
+    t.integer  "votes_count",    :default => 0
+    t.integer  "user_id"
   end
 
   add_index "questions", ["title"], :name => "index_questions_on_title"
@@ -85,7 +87,7 @@ ActiveRecord::Schema.define(:version => 20130710133252) do
   end
 
   create_table "users", :force => true do |t|
-    t.text     "email"
+    t.string   "email"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
     t.string   "provider"
