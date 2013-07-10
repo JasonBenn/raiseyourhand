@@ -81,9 +81,9 @@ var myClientX;
               $('input[id$="_content_id"]').val(Player.cID);
           });
 
-          $("form").mouseleave(function () {
-              Player.playVideo();
-          });
+          // $("form").mouseleave(function () {
+          //     Player.playVideo();
+          // });
 
           // TODO: reduce duplication in two functions below
           $('form#new_question').submit(function (event) {
@@ -102,6 +102,23 @@ var myClientX;
               return false;
           });
 
+
+        $('form#submit_answer').on('submit', function (event) {
+              event.preventDefault();
+    var data = $(this).serialize();
+
+              var text = $('.answer_input').val();
+              console.log(data);
+              // $.post('/questions', data, function (response) {
+              //   alert("here");
+              //     // TODO: insert response into question feed
+              //     // will be much easier after feed is reorganized.
+              // });
+              // Player.prependQuestion(title, text);
+              return false;
+          });
+
+
           $('form#new_flashcard').submit(function (event) {
               event.preventDefault();
               var data = $(this).serialize();
@@ -115,9 +132,11 @@ var myClientX;
             Player.changeUserInputTabs($(this).attr('data-tab-content'));
           });
 
-$('.lquestion-body').on('click', function(e){
-  // alert("here");
+$('.lquestion-body').on('dbclick', function(e){
+  alert("here");
+  // Player.pauseVideo();
 $(this).parent().parent().parent().siblings('.lanswer-container').slideToggle(500);
+return false;
 });
 
       },
@@ -127,7 +146,7 @@ $(this).parent().parent().parent().siblings('.lanswer-container').slideToggle(50
         var standardText = "just added by you";
         // console.log(that);
         $('.live-questions-feed-container').prepend("<div class='lquestion-container "+Player.prependCount+"'></div>");
-     $(that).loadTemplate($("#template"),
+     $(that).loadTemplate($("#question-template"),
     {
       title: title,
       text: text,
