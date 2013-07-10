@@ -1,5 +1,6 @@
   var Player = {
       prependCount: 0,
+      appendCount: 0,
       videoCount: 0,
       currentVideoID: null,
       checker: false,
@@ -10,20 +11,19 @@
       currentVisible: null,
 
       init: function () {
-var myClientX;
+          var myClientX;
 
-        window.document.addEventListener("mousemove", function(event) {
-    myClientX = event.clientX;
-    myClientY = event.clientY;
-}, false);
+          window.document.addEventListener("mousemove", function (event) {
+              myClientX = event.clientX;
+              myClientY = event.clientY;
+          }, false);
 
           $(".dragger").draggable({
               axis: 'x',
               containment: "parent",
               cursor: "crosshair",
               zIndex: 9999,
-              drag: function (e) {
-              },
+              drag: function (e) {},
               stop: function (e) {
                   var location = e.pageX;
                   var children = $(".progress-bar").children(".chapter");
@@ -50,30 +50,30 @@ var myClientX;
               }
           });
 
-  $('.progress-bar').click(function(e){
-                  var location = e.pageX;
-                  var parentOffsetX = $(".progress-bar").offset().left;
-                  var children = $(this).children(".chapter");
-                  var lookedFor;
-                  children.each(function () {
-                      var start = $(this).data("start");
-                      var end = $(this).data("end");
+          $('.progress-bar').click(function (e) {
+              var location = e.pageX;
+              var parentOffsetX = $(".progress-bar").offset().left;
+              var children = $(this).children(".chapter");
+              var lookedFor;
+              children.each(function () {
+                  var start = $(this).data("start");
+                  var end = $(this).data("end");
 
-                      if (location - parentOffsetX >= start && location - parentOffsetX <= end) {
-                          lookedFor = $(this).index('.chapter');
-                          var currentWidth = end - start;
-                          // alert(parentOffsetX);
-                          if (lookedFor == 0) {
-                              var width = 0;
-                          } else {
-                              var width = $(this).parent().children(".chapter").eq(lookedFor - 1).data("end");
-                          };
-                          var valueSubstract = location - width - parentOffsetX;
-                          var percentage = valueSubstract / currentWidth
-                          Player.seekToPercentage(lookedFor, percentage);
-                      }
-                  });
+                  if (location - parentOffsetX >= start && location - parentOffsetX <= end) {
+                      lookedFor = $(this).index('.chapter');
+                      var currentWidth = end - start;
+                      // alert(parentOffsetX);
+                      if (lookedFor == 0) {
+                          var width = 0;
+                      } else {
+                          var width = $(this).parent().children(".chapter").eq(lookedFor - 1).data("end");
+                      };
+                      var valueSubstract = location - width - parentOffsetX;
+                      var percentage = valueSubstract / currentWidth
+                      Player.seekToPercentage(lookedFor, percentage);
+                  }
               });
+          });
 
           $(".user-lesson-inputs").focus(function () {
               Player.pauseVideo();
@@ -81,47 +81,28 @@ var myClientX;
               $('input[id$="_content_id"]').val(Player.cID);
           });
 
-          // $("form").mouseleave(function () {
-          //     Player.playVideo();
-          // });
-
-          // TODO: reduce duplication in two functions below
           $('form#new_question').submit(function (event) {
-            // return false;
               event.preventDefault();
               var title = $(this).children('.user-lesson-inputs-slim').val();
               var text = $(this).children('.text-area-sizing-medium').val();
               var time = $(this).children('.timing').val();
-              // alert("here");
               var data = $(this).serialize();
-              $.post('/questions', data, function (response) {
-                // alert("here");
-                  // TODO: insert response into question feed
-                  // will be much easier after feed is reorganized.
-              });
+              $.post('/questions', data, function (response) {});
               Player.prependQuestion(title, text);
-              // $('#new_question')[0].reset();
               return false;
           });
 
-
-        $('form#new_answer').submit(function (e) {
-          alert("hello");
+          $('form#new_answer').submit(function (e) {
+              // alert("hello");
               e.preventDefault();
-    var data = $(this).serialize();
-
+              var data = $(this).serialize();
               var text = $('.answer_input').val();
-              $.post('/answers', data, function (response) {
-                // alert("here");
-                  // TODO: insert response into question feed
-                  // $(this)[0].reset();
-                  // will be much easier after feed is reorganized.
-              });
-              // Player.prependQuestion(title, text);
-              
+              $.post('/answers', data, function (response) {});
+
+              var formBubble = $(this).parent().parent().parent();
+              Player.appendAnswer(text, formBubble);
               return false;
           });
-
 
           $('form#new_flashcard').submit(function (event) {
               event.preventDefault();
@@ -132,46 +113,56 @@ var myClientX;
               return false;
           });
 
-          $('.user-input-tab').click(function(){
-            Player.changeUserInputTabs($(this).attr('data-tab-content'));
+          $('.user-input-tab').click(function () {
+              Player.changeUserInputTabs($(this).attr('data-tab-content'));
           });
 
-$('.lquestion-body').on('click', function(e){
-  // Player.pauseVideo();
-$(this).parent().parent().parent().siblings('.lanswer-container').slideToggle(500);
-return false;
-});
-
+          $('.lquestion-body').on('click', function (e) {
+              $(this).parent().parent().parent().siblings('.lanswer-container').slideToggle(500);
+              return false;
+          });
       },
 
-      prependQuestion: function(title, text){
-        var that = '.lquestion-container.'+Player.prependCount;
+      prependQuestion: function (title, text) {
+          var that = '.lquestion-container.' + Player.prependCount;
+          var standardText = "just added by you";
+          $('.live-questions-feed-container').prepend("<div class='lquestion-container " + Player.prependCount + "'></div>");
+          $(that).loadTemplate($("#question-template"), {
+              title: title,
+              text: text,
+              author: standardText
+          });
+          $(that).slideDown('slow');
+          setTimeout(function () {
+              Player.showBody($(that))
+          }, 800);
+          Player.prependCount++;
+      },
+
+      appendAnswer: function (title, DOMObject) {
+        var that = '.answer-wrapper.' + Player.appendCount;
         var standardText = "just added by you";
-        // console.log(that);
-        $('.live-questions-feed-container').prepend("<div class='lquestion-container "+Player.prependCount+"'></div>");
-     $(that).loadTemplate($("#question-template"),
-    {
-      title: title,
-      text: text,
-      author: standardText
-    });
-$(that).slideDown('slow');
-setTimeout(function() { Player.showBody($(that))}, 800); 
-Player.prependCount++;
+       $("<div class='answer-wrapper " + Player.appendCount + "'></div>").insertBefore(DOMObject);
+        $(that).loadTemplate($("#answer-template"), {
+              text: title
+              // author: standardText
+          });
+          $(that).slideDown('slow');
+          Player.appendCount++;
       },
 
-      changeUserInputTabs: function(contentType){
-        if (contentType == 'question'){
-          $('.user-input-tab').removeClass('user-input-tab-active');
-          $('.user-input-tab-quesiton').addClass('user-input-tab-active');
-          $('.user-input-indi-section').hide();
-          $('.user-input-questions-section').show();
-        } else if (contentType == 'card') {
-          $('.user-input-tab').removeClass('user-input-tab-active');
-          $('.user-input-tab-card').addClass('user-input-tab-active');
-          $('.user-input-indi-section').hide();
-          $('.user-input-cards-section').show();
-        };
+      changeUserInputTabs: function (contentType) {
+          if (contentType == 'question') {
+              $('.user-input-tab').removeClass('user-input-tab-active');
+              $('.user-input-tab-quesiton').addClass('user-input-tab-active');
+              $('.user-input-indi-section').hide();
+              $('.user-input-questions-section').show();
+          } else if (contentType == 'card') {
+              $('.user-input-tab').removeClass('user-input-tab-active');
+              $('.user-input-tab-card').addClass('user-input-tab-active');
+              $('.user-input-indi-section').hide();
+              $('.user-input-cards-section').show();
+          };
       },
 
       updateHTML: function (elmId, value) {
@@ -184,57 +175,58 @@ Player.prependCount++;
 
       getContentId: function () {
           return Player.cID;
-      },    
+      },
 
-makeActiveQuestionsVisibleController: function (second) {
-Player.makeActiveQuestionsVisible(parseInt(second));
-},
+      makeActiveQuestionsVisibleController: function (second) {
+          Player.makeActiveQuestionsVisible(parseInt(second));
+      },
 
-makeActiveQuestionsVisible: function (second) {
-var that = $('.lquestion-container.t'+second);
-$('.live-questions-feed-container').prepend(that);
-var newQ = $('.live-questions-feed-container').children('.lquestion-container.t'+second);
-// $.each(newQ, function(){
-// this.slideDown('slow');
-// });
+      makeActiveQuestionsVisible: function (second) {
+          var that = $('.lquestion-container.t' + second);
+          $('.live-questions-feed-container').prepend(that);
+          var newQ = $('.live-questions-feed-container').children('.lquestion-container.t' + second);
+          // alert(second);
 
-newQ.slideDown('slow');
-setTimeout(function() { Player.showBody(that)}, 800); 
-},
+          newQ.slideDown('slow');
+          // newQ.show();
+          setTimeout(function () {
+              Player.showBody(that)
+          }, 800);
+      },
 
-showBody: function(that) {
-that.children(".question-wrapper").children('.lquestion').children('.triangle-border').children('.lquestion-body').slideDown('fast');
-},
+      showBody: function (that) {
+          that.children(".question-wrapper").children('.lquestion').children('.triangle-border').children('.lquestion-body').slideDown('fast');
+      },
 
       onPlayerStateChange: function (newState) {
           Player.updateHTML("playerState", newState);
           Player.updatePlayerButtonStatus(newState);
       },
 
-      updatePlayerButtonStatus: function(state){
-        if (state == 1 || state == 2){
-          Player.changePlayPauseButtonStatus(state);
-        };
+      updatePlayerButtonStatus: function (state) {
+          if (state == 1 || state == 2) {
+              Player.changePlayPauseButtonStatus(state);
+          };
       },
 
-      changePlayPauseButtonStatus: function(state){
-        if (state == 1){
-          $('.button-play-pause').attr('data-status', 'play').children('.play-pause-icon').css('background-position', '0px -16px');
-        } else {
-          $('.button-play-pause').attr('data-status', 'pause').children('.play-pause-icon').css('background-position', '0px 0px');
-        };
-      },
-
-      activatePlayPauseButton: function(){
-      $('.button-play-pause').click(function(){
-          if ($(this).attr('data-status') == 'play'){
-            Player.pauseVideo();
-            Player.changePlayPauseButtonStatus(2);
+      changePlayPauseButtonStatus: function (state) {
+          if (state == 1) {
+              $('.button-play-pause').attr('data-status', 'play').children('.play-pause-icon').css('background-position', '0px -16px');
           } else {
-            Player.playVideo();
-            Player.changePlayPauseButtonStatus(1);
-          }
-        })
+              $('.button-play-pause').attr('data-status', 'pause').children('.play-pause-icon').css('background-position', '0px 0px');
+          };
+      },
+
+      activatePlayPauseButton: function () {
+          $('.button-play-pause').click(function () {
+              if ($(this).attr('data-status') == 'play') {
+                  Player.pauseVideo();
+                  Player.changePlayPauseButtonStatus(2);
+              } else {
+                  Player.playVideo();
+                  Player.changePlayPauseButtonStatus(1);
+              }
+          })
       },
 
       updatePlayerInfo: function () {
@@ -281,14 +273,7 @@ that.children(".question-wrapper").children('.lquestion').children('.triangle-bo
       },
 
       Test: function () {
-          return window.setInterval(function () {
-              // Player.changeCss();
-          }, 0);
-      },
-
-      changeCss: function () {
-          $("#questions-answers").scrollTop(Player.getCurrentTime() * 149);
-          Player.getCurrentTime();
+          return window.setInterval(function () {}, 0);
       },
 
       getTotalTime: function () {
@@ -318,11 +303,9 @@ that.children(".question-wrapper").children('.lquestion').children('.triangle-bo
           };
           $('.progress').css('width', progressUpdate);
           $('.dragger').css('left', progressUpdate);
-          var realTime = Player.getTotalTime()*progressRatio;
+          var realTime = Player.getTotalTime() * progressRatio;
 
           Player.makeActiveQuestionsVisibleController(realTime);
-          // console.log(Player.videoCount);
-
       },
 
       playVideo: function () {
@@ -333,10 +316,6 @@ that.children(".question-wrapper").children('.lquestion').children('.triangle-bo
           };
 
       },
-
-
-      // disable progress when dragging 
-      // play shouldnt play the vid again
 
       pauseVideo: function () {
           if (Player.ytplayer) {
