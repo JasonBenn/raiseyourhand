@@ -13,6 +13,7 @@
   -moz-user-select: moz-none;
   -ms-user-select: none;
   user-select: none;
+  background-color: #e3f8d8;
 }
 
 .show-back, .next-card {
