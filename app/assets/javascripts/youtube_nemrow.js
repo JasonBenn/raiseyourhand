@@ -38,15 +38,28 @@ var CreateLesson = {
     })
   },
 
+  changePlayPauseButtonStatus: function($element, state){
+    $('.button-play-pause').attr('data-status', 'pause').children('.play-pause-icon').css('background-position', '0px 0px');
+    if (state == 1){
+      $element.attr('data-status', 'play').children('.play-pause-icon').css('background-position', '0px -16px');
+    };
+  },
+
+  changePlayerVisualByState: function(state){
+    $element = $('.button-play-pause-id-'+active_edit_video);
+    this.changePlayPauseButtonStatus($element, state);
+  },
+
   playOrPauseVideoByContentId: function(contentId){
     $('.button-play-pause-id-'+contentId).click(function(){
       CreateLesson.activateContent(contentId);
-      if ($(this).attr('data-status') == 'pause'){
+      $element = $(this);
+      if ($element.attr('data-status') == 'pause'){
         playVideo();
-        $(this).attr('data-status', 'play').children('.play-pause-icon').css('background-position', '0px -16px');
+        CreateLesson.changePlayPauseButtonStatus($element, 1);
       } else {
         pauseVideo();
-        $(this).attr('data-status', 'pause').children('.play-pause-icon').css('background-position', '0px 0px');
+        CreateLesson.changePlayPauseButtonStatus($element, 2);
       }
     })
   },
@@ -81,7 +94,13 @@ var CreateLesson = {
 
   // This function is called when the player changes state
   onPlayerStateChange: function(newState) {
-    this.updateHTML("playerState", newState);
+    this.changePlayerVisualByState(newState)
+  },
+
+  updatePlayPauseButton: function(state){
+    if (state == 1 || state == 2){
+      // CreateLesson.playPauseDirectByContentId(active_edit_video);
+    };
   },
 
   // Display information about the current state of the player

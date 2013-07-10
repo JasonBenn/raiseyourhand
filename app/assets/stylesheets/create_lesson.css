@@ -317,6 +317,7 @@ ul.playlist-container{
 	height: 13px;
 	background-image: url('small_x.png');
 	position: absolute;
+	display: none;
 }
 .create-draggable-progress{
 	width: 2px;
@@ -336,7 +337,7 @@ ul.playlist-container{
 }
 .progress-span{
 	height: 100%;
-	background-color: #fff;
+	background-color: #000;
 	position: absolute;
 	opacity: 0.4;
 	z-index: 2;
