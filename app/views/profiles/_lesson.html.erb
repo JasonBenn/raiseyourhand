@@ -28,7 +28,10 @@
 			<% end %>
 		</div>
 		<div class="my-lessons-bottom-buttons-shell">
-			
+			<%= link_to "Remove from notebook", user_lesson_path(find_user_lesson(current_user.id, lesson.id)), :class => 'remove-lesson-from-notebook-btn button1', method: :delete, confirm: "Are you sure?" %>
+			<% if owned %>
+				<%= link_to "Delete lesson", lesson_path(Lesson.find(lesson.id)), method: :delete, confirm: "Are you sure you want to delete?" %>
+			<% end %>
 		</div>
 	</div>
 
