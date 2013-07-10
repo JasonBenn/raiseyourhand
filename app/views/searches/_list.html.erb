@@ -1,0 +1,19 @@
+<table>
+  <thead>
+    <tr>
+      <th>Votes</th>
+      <th><%= second_column_header %></th>
+      <th>Title</th>
+    </tr> 
+  </thead>
+  <tbody>
+    <% records.each do |record| %>
+      <tr>
+      	<%= render partial: 'row', locals: { 
+          upvotes: record.votes.size, 
+          relevant_info: record.relevant_search_result_info, 
+          title: record.title } %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
