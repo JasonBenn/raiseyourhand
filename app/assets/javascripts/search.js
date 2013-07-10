@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $('#search').keyup(function() {
+  $('.basic-container').on('keyup', '#search', function() {
     if ($('#search').val().length > 2) {
       $('.title').hide();
       $('#search').removeClass('search-big-mode')
@@ -17,8 +17,9 @@ $(document).ready(function() {
     };
     if ($('#search').val().length === 0) {
       $.get('/lessons', function(response) {
-        // TODO: this overwrites CSS. controller should return more specific piece of homepage.
-        $('body').html(response);
+        // TODO: 
+        $('.basic-container').remove();
+        $('body').append(response);
       })
     }
   })

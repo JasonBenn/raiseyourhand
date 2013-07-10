@@ -1,7 +1,7 @@
 <% if current_user.lessons.any? %>
 	<h2>My Lessons</h2>
 	<div id='accordion'>
-		<%= @lessons.each do |lesson| %>
+		<% @lessons.each do |lesson| %>
 			<%= render partial: 'lesson', locals: { lesson: lesson, owned: false } %>
 		<% end %>
 	</div>
@@ -12,7 +12,7 @@
 <% if current_user.created_lessons.any? %>
 	<h2>Created Lessons</h2>
 	<div id='accordion'>
-		<%= current_user.created_lessons.each do |lesson| %>
+		<% current_user.created_lessons.each do |lesson| %>
 			<%= render partial: 'lesson', locals: { lesson: lesson, owned: true } %>
 		<% end %>
 	</div>
