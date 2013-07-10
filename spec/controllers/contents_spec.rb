@@ -16,10 +16,10 @@ describe ContentsController do
     @controller.stub(:current_user).and_return(:user)
   end    
   describe "#create" do
+    let(:lesson) { FactoryGirl.create(:lesson_with_content) }
     
-  let(:lesson) { FactoryGirl.create(:lesson) }
     it "new content given valid params" do
-      expect{ post_new_content_request }.to change{Content.count}.by(1)
+      expect{ post_new_content_request }.to change{Content.count}.by(2)
     end
 
     it "renders the _new_content template" do
@@ -37,10 +37,6 @@ describe ContentsController do
       response.body.should eq("Invalid Request") 
     end
   end
-
-    # context "when not logged in" do
-    #   response.should redirect_to root_url
-    # end
 
   def post_new_content_request
     post(:create, {content: { lesson_id: lesson.id,
