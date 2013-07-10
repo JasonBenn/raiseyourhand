@@ -15,16 +15,13 @@ $(document).ready(function() {
         $('#search').addClass('search-small-mode')
         search = $('#search').val();
 
-        $.ajax('/search', {
-          data: { 'search': search }, 
-          success: replaceWithResults
-        });
+        $.get('/search', { 'search': search }, replaceWithResults);
       };
 
       if ($('#search').val().length === 0) {
         $.post('lessons/list', replaceWithResults);
       }
-    }, 150);
+    }, 200);
   })
 
 
