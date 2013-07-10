@@ -23,11 +23,16 @@ class Content < ActiveRecord::Base
 			self.finish_time = get_duration
 			self.duration = get_duration
 			self.title = get_youtube_title(youtube_data)
+			self.thumbnail = get_youtube_thumbnail(youtube_data)
 		end
   end
 
   def getMetaDataFromYoutubeWithId(youtube_id)
 		JSON.parse(open("http://gdata.youtube.com/feeds/api/videos/#{youtube_id}?v=2&alt=json&prettyprint=true").read)
+	end
+
+	def get_youtube_thumbnail(data)
+		data['entry']['media$group']['media$thumbnail'][1]['url']
 	end
 
 	def get_youtube_title(data)

@@ -77,6 +77,88 @@
 	width: 100%;
 	border-bottom: 3px solid #0e5366;
 }
+h1.home-title{
+	font-size: 40px;
+	margin: 60px auto 20px auto;
+	color: #000;
+	text-align: center;
+	font-weight: 400;
+}
+h2.home-title{
+	font-size: 24px;
+	margin: 20px auto 60px auto;
+	color: #668b39;
+	text-align: center;
+}
+.home-search-container{
+	width: 600px;
+	margin: 0 auto;
+}
+.home-search-container input{
+	width: 580px;
+	height: 36px;
+	border-radius: 10px;
+	border: 3px solid #0e5366;
+	font-size: 18px;
+	color: #666666;
+	padding: 4px 10px;
+	text-align: center;
+	margin: 0 auto 60px auto;
+	background-color: #d4f1f9;
+	outline: none;
+}
+.home-search-results{
+	overflow: auto;max-width: 1140px;
+	margin: 0 auto;
+}
+.lesson-thumbnail-shell{
+	width: 261px;
+	height: 183px;
+	position: relative;
+	float: left;
+	margin: 9px;
+	border: 2px solid #668b39;
+}
+.lesson-thumbnail-shell p{
+	width: 251px;
+	height: 35px;
+	line-height: 35px;
+	padding-left: 10px;
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	color: #000;
+	font-size: 14px;
+	background-color: #e3f8d8;
+}
+.lesson-thumbnail-shell img{
+	position: absolute;
+	top: 0px
+	left:0px;
+	width: 100%;
+	height: auto;
+}
+.popular-lesson-text-container{
+	width: 100%;
+	position: relative;
+}
+.popular-lesson-text-container p{
+	text-align: center;
+	color: #8fc250;
+	margin: 25px auto;
+	width: 300px;
+	background-color: #fff;
+	font-size: 24px;
+	z-index: 2;
+}
+.popular-lesson-text-container .liner{
+	width: 100%;
+	position: absolute;
+	height: 2px;
+	background-color: #8fc250;
+	top: 13px;
+	z-index: -1;
+}
 .user-input-indi-section{
 	width: 100%;
 	position: absolute;
