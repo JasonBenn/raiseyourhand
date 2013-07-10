@@ -134,13 +134,17 @@
 <%= question.text %>
 <p class="author"> 
 <!-- REAL DATA TO COME -->
-Barack Obama, July 4th 2013
+<%=question.user.name%>, <%=distance_of_time_in_words_to_now(question.created_at)%> ago
+</p>
+<p class="author"> 
+<!-- REAL DATA TO COME -->
+Time in Lesson: <%=sprintf("%02d",question.time_in_lesson.to_i / 60)%>:<%=sprintf("%02d",question.time_in_lesson.to_i % 60)%>
 </p>
 </div>
 </div>
 </div>
 <!-- REAL DATA TO COME -->
-<img class="question-image" src="http://www.biography.com/imported/images/Biography/Images/Profiles/O/Barack-Obama-12782369-2-402.jpg">
+<img class="question-image" src="https://graph.facebook.com/<%=question.user.uid%>/picture">
 </div>
 
 

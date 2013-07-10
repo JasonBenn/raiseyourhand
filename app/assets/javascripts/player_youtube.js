@@ -77,8 +77,8 @@ var myClientX;
 
           $(".user-lesson-inputs").focus(function () {
               Player.pauseVideo();
-              $('input[id$="_time_in_lesson"]').val(Player.getTotalTime());
-              $('input[id$="_content_id"]').val(Player.videoCount);
+              $('input[id$="_time_in_lesson"]').val(Player.getCurrentTime());
+              $('input[id$="_content_id"]').val(Player.cID);
           });
 
           $("form").mouseleave(function () {
@@ -90,9 +90,11 @@ var myClientX;
               event.preventDefault();
               var title = $(this).children('.user-lesson-inputs-slim').val();
               var text = $(this).children('.text-area-sizing-medium').val();
+              var time = $(this).children('.timing').val();
               // alert("here");
               var data = $(this).serialize();
               $.post('/questions', data, function (response) {
+                alert("here");
                   // TODO: insert response into question feed
                   // will be much easier after feed is reorganized.
               });
