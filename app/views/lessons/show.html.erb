@@ -147,10 +147,9 @@ Time in Lesson: <%=sprintf("%02d",question.time_in_lesson.to_i / 60)%>:<%=sprint
 <img class="question-image" src="https://graph.facebook.com/<%=question.user.uid%>/picture">
 </div>
 
-
-<!-- Make partial -->
 <div class="lanswer-container">
-  <% question.answers.each do |answer| %>
+<!-- Make partial -->
+<% question.answers.each do |answer| %>
 <div class="answer-wrapper">
 <div class="lanswer">
 <div class="atriangle-border">
@@ -169,36 +168,20 @@ Time in Lesson: <%=sprintf("%02d",question.time_in_lesson.to_i / 60)%>:<%=sprint
 <% end %>
 
 <!-- Make partial -->
-
-
-
-
-
-
-
 <div class="answer-wrapper">
 <div class="lanswer">
 <div class="atriangle-border">
-  <%= form_for question.answers.new do |f| %>
-  <%= f.text_field :text, :class => 'answer_input', placeholder: 'Answer this Question' %>
-  <%= f.text_field :question_id, hidden: true, value: question.id %>
-  <%= f.submit :class => 'answer_button' %>
+<%= form_for question.answers.new do |f| %>
+<%= f.text_field :text, :class => 'answer_input', placeholder: 'Answer this Question' %>
+<%= f.text_field :question_id, hidden: true, value: question.id %>
+<%= f.submit :class => 'answer_button' %>
 <% end %>
-<!-- <form id="submit_answer">
-<textarea name="text" class="answer_input" placeholder="Answer this Question">
-</textarea>
-<input name="question_id" id="aquestion_id" type="hidden" value="<%=question.id%>" readonly>
-<br>
-<br>
-<input type="submit" id="answer_button" value="Answer">
-</form> -->
 </div>
 </div>
 <img class="answer-image" src="https://graph.facebook.com/<%=current_user.uid%>/picture">
 </div>
-
-</div>
 </div>   
+</div>
 <% end %>
 <% end %>
 </div>   
@@ -241,7 +224,6 @@ Time in Lesson: <%=sprintf("%02d",question.time_in_lesson.to_i / 60)%>:<%=sprint
 </script>
 
 <script type="text/html" id="answer-template">
-<div class="answer-wrapper">
 <div class="lanswer">
 <div class="atriangle-border">
 <div data-content="text" class="lanswer-body">
@@ -250,6 +232,6 @@ Time in Lesson: <%=sprintf("%02d",question.time_in_lesson.to_i / 60)%>:<%=sprint
 </div>
 </div>
 </div>
-<img class="question-image" src="https://graph.facebook.com/<%=current_user.uid%>/picture">
+<img class="answer-image" src="https://graph.facebook.com/<%=current_user.uid%>/picture">
 </div>
 </script>

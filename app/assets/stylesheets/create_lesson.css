@@ -15,7 +15,7 @@
 	margin: 2px auto 5px 5px;
 }
 .live-questions-feed-container{
-	width: 410px;
+	width: 450px;
 	height: 627px;
 	position: absolute;
 	left: 740px;
@@ -24,7 +24,7 @@
 	border: 2px solid #a3a3a3;
 	color: #a3a3a3;
 	outline: none;
-	padding-right: 50px;
+	/*padding-right: 50px;*/
 }
 .lesson-user-input-shell{
 	width: 640px;
