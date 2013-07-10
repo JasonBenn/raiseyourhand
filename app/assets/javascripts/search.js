@@ -9,13 +9,11 @@ $(document).ready(function() {
 
   $('.basic-container').on('keyup', '#search', function() {
     delay(function(){
-      if ($('#search').val().length > 0) {
+      if (userInput().length > 0) {
         $('.title').hide();
         $('#search').removeClass('search-big-mode')
         $('#search').addClass('search-small-mode')
-        search = $('#search').val();
-
-        $.get('/search', { 'search': search }, replaceWithResults);
+        $.get('/search', { 'search': userInput() }, replaceWithResults);
       };
 
       if ($('#search').val().length === 0) {
@@ -24,6 +22,9 @@ $(document).ready(function() {
     }, 200);
   })
 
+  function userInput() {
+    return $('#search').val();
+  };
 
   function replaceWithResults(serverResponse) {
     $('#results').empty();
