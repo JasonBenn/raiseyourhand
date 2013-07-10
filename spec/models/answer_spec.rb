@@ -11,5 +11,9 @@ describe Answer do
     it { should allow_mass_assignment_of(:text) }
   end
 
-  pending 'testing validations'
+
+  context 'testing validations' do
+    it { should validate_presence_of(:question) }
+    it { should validate_presence_of(:user) }
+  end
 end

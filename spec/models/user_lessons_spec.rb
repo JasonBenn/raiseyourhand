@@ -10,6 +10,8 @@ describe UserLesson do
     it { should allow_mass_assignment_of(:user_id) }
     it { should allow_mass_assignment_of(:lesson_id) }
   end
-
-  pending 'testing validations'
+  
+  describe 'Validates' do
+  	it { should validate_uniqueness_of(:user_id) }
+  end
 end

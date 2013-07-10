@@ -178,7 +178,9 @@ Time in Lesson: <%=sprintf("%02d",question.time_in_lesson.to_i / 60)%>:<%=sprint
 <% end %>
 </div>
 </div>
-<img class="answer-image" src="https://graph.facebook.com/<%=current_user.uid%>/picture">
+<% if is_logged_in? %>
+  <img class="answer-image" src="https://graph.facebook.com/<%=current_user.uid%>/picture">
+<% end %>
 </div>
 </div>   
 </div>
@@ -220,7 +222,9 @@ Time in Lesson: <%=sprintf("%02d",question.time_in_lesson.to_i / 60)%>:<%=sprint
 </div>
 </div>
 </div>
-<img class="question-image" src="https://graph.facebook.com/<%=current_user.uid%>/picture">
+<% if is_logged_in? %>
+  <img class="question-image" src="https://graph.facebook.com/<%=current_user.uid%>/picture">
+<% end %>
 </script>
 
 <script type="text/html" id="answer-template">
@@ -232,6 +236,8 @@ Time in Lesson: <%=sprintf("%02d",question.time_in_lesson.to_i / 60)%>:<%=sprint
 </div>
 </div>
 </div>
-<img class="answer-image" src="https://graph.facebook.com/<%=current_user.uid%>/picture">
+<% if is_logged_in? %>
+  <img class="answer-image" src="https://graph.facebook.com/<%=current_user.uid%>/picture">
+<% end %>  
 </div>
 </script>
