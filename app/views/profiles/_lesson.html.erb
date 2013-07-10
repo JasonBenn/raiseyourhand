@@ -1,6 +1,8 @@
 <div class='lesson-group'>
 	<div class='lesson-group-top'>
-		<h3><%= lesson.title %></h3>
+		<%= link_to lesson_path(lesson),:class => 'my-lessons-title-link' do %> 
+			<h3><%= lesson.title %></h3>
+		<% end %>
 		<p><%= lesson.contents.size %> chapters</p>
 	</div>
 	<div class='lesson-group-bottom'>
