@@ -124,12 +124,14 @@ $(this).parent().parent().parent().siblings('.lanswer-container').slideToggle(50
 
       prependQuestion: function(title, text){
         var that = '.lquestion-container.'+Player.prependCount;
+        var standardText = "just added by you";
         // console.log(that);
         $('.live-questions-feed-container').prepend("<div class='lquestion-container "+Player.prependCount+"'></div>");
      $(that).loadTemplate($("#template"),
     {
       title: title,
-      text: text
+      text: text,
+      author: standardText
     });
 $(that).slideDown('slow');
 setTimeout(function() { Player.showBody($(that))}, 800); 
