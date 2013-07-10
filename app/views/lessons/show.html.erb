@@ -158,26 +158,40 @@ Time in Lesson: <%=sprintf("%02d",question.time_in_lesson.to_i / 60)%>:<%=sprint
 <%= answer.text %>
 <!-- REAL DATA TO COME -->
 <p class="author">
-Barack Obama, July 4th 2013
+<%=answer.user.name%>, <%=distance_of_time_in_words_to_now(answer.created_at)%> ago
 </p>
 </div>
 </div>
 </div>
 <!-- REAL DATA TO COME -->
-<img class="answer-image" src="http://www.biography.com/imported/images/Biography/Images/Profiles/O/Barack-Obama-12782369-2-402.jpg">
+<img class="answer-image" src="https://graph.facebook.com/<%=answer.user.uid%>/picture">
 </div>
 <% end %>
 
-
 <!-- Make partial -->
+
+
+
+
+
+
+
 <div class="answer-wrapper">
 <div class="lanswer">
 <div class="atriangle-border">
-<textarea class="answer_input" placeholder="Answer this Question">
+  <%= form_for question.answers.new do |f| %>
+  <%= f.text_field :text, :class => 'answer_input', placeholder: 'Answer this Question' %>
+  <%= f.text_field :question_id, hidden: true, value: question.id %>
+  <%= f.submit :class => 'answer_button' %>
+<% end %>
+<!-- <form id="submit_answer">
+<textarea name="text" class="answer_input" placeholder="Answer this Question">
 </textarea>
+<input name="question_id" id="aquestion_id" type="hidden" value="<%=question.id%>" readonly>
 <br>
 <br>
-<button id="answer_button">Answer</button>
+<input type="submit" id="answer_button" value="Answer">
+</form> -->
 </div>
 </div>
 <img class="answer-image" src="https://graph.facebook.com/<%=current_user.uid%>/picture">
@@ -209,7 +223,7 @@ Barack Obama, July 4th 2013
   <p>Current Time: <span id="videoCurrentTime">--:--</span> | Duration: <span id="videoDuration">--:--</span></p>
 </div>
 
-<script type="text/html" id="template">
+<script type="text/html" id="question-template">
 <div class="question-wrapper">
 <div class="lquestion">
 <div class="triangle-border">
@@ -224,4 +238,18 @@ Barack Obama, July 4th 2013
 </div>
 </div>
 <img class="question-image" src="https://graph.facebook.com/<%=current_user.uid%>/picture">
+</script>
+
+<script type="text/html" id="answer-template">
+<div class="answer-wrapper">
+<div class="lanswer">
+<div class="atriangle-border">
+<div data-content="text" class="lanswer-body">
+<p class="author">
+</p>
+</div>
+</div>
+</div>
+<img class="question-image" src="https://graph.facebook.com/<%=current_user.uid%>/picture">
+</div>
 </script>
