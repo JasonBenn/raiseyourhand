@@ -1,6 +1,6 @@
 class SearchesController < ApplicationController
 	def search
-		results = Search.search(params[:search]).includes(:searchable)
+		results = Search.search(params[:search].downcase).includes(:searchable)
 		records = results.map(&:searchable)
 		lessons, questions = records.partition { |record| record.is_a? Lesson }
 		render partial: 'results', locals: { lessons: lessons, questions: questions }, layout: false

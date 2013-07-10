@@ -22,12 +22,21 @@ module Indexer
 
 	def self.index_words(text, searchable_type, searchable_id)
 		unless text.nil?
-			text.split(' ').each do |word|
+			indexable_word_sequences(text, 3).each do |word|
 				Search.create(
 					term: word,
 					searchable_type: searchable_type,
 					searchable_id: searchable_id )
 			end
 		end
+	end
+
+	private 
+
+	def self.indexable_word_sequences(text, max_words_per_sequence)
+		words = text.split(' ').map(&:downcase)
+		(1..max_words_per_sequence).map do |num_words|
+			words.each_cons(num_words).map { |a| a.join(' ') }
+		end.flatten
 	end
 end
