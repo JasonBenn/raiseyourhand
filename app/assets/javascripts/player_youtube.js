@@ -6,6 +6,7 @@
       ytplayer: document.getElementById("ytPlayer"),
       contents: [],
       cID: null,
+      currentVisible: null,
 
       init: function () {
 var myClientX;
@@ -171,7 +172,34 @@ var myClientX;
 
       getContentId: function () {
           return Player.cID;
-      },
+      },    
+
+makeActiveQuestionsVisibleController: function (second) {
+Player.makeActiveQuestionsVisible(parseInt(second));
+},
+
+makeActiveQuestionsVisible: function (second) {
+  console.log(second);
+  // console.log(chapter+" "+second);
+var that = $('.lquestion-container.t'+second);
+// Player.hideBody(that);
+// console.log("making visible:"+chapter+" "+second);
+
+$('.live-questions-feed-container').prepend(that);
+var newQ = $('.live-questions-feed-container').children('.lquestion-container').first();
+// $('.lquestion-body').hide(); 
+// newQ.children(".question-wrapper").children('.question-image').slideDown('fast');
+newQ.slideDown('slow');
+setTimeout(function() { Player.showBody(that)}, 800); 
+},
+
+showBody: function(that) {
+that.children(".question-wrapper").children('.lquestion').children('.triangle-border').children('.lquestion-body').slideDown('fast');
+},
+
+hideBody: function(that) {
+that.children(".question-wrapper").children('.lquestion').children('.triangle-border').children('.lquestion-body').hide();
+},
 
       onPlayerStateChange: function (newState) {
           Player.updateHTML("playerState", newState);
@@ -222,7 +250,7 @@ var myClientX;
 
       Test: function () {
           return window.setInterval(function () {
-              Player.changeCss();
+              // Player.changeCss();
           }, 0);
       },
 
@@ -258,6 +286,13 @@ var myClientX;
           };
           $('.progress').css('width', progressUpdate);
           $('.dragger').css('left', progressUpdate);
+          console.log(Player.getTotalTime());
+          console.log(Player.getTotalTime()*progressRatio);
+          var realTime = Player.getTotalTime()*progressRatio;
+
+          Player.makeActiveQuestionsVisibleController(realTime);
+          // console.log(Player.videoCount);
+
       },
 
       playVideo: function () {
