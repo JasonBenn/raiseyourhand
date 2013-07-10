@@ -18,6 +18,6 @@ class Lesson < ActiveRecord::Base
   after_save :index_attributes
 
   def relevant_search_result_info
-    users.size
+    user_lessons.size
   end
 end
