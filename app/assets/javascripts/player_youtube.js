@@ -87,6 +87,7 @@ var myClientX;
 
           // TODO: reduce duplication in two functions below
           $('form#new_question').submit(function (event) {
+            // return false;
               event.preventDefault();
               var title = $(this).children('.user-lesson-inputs-slim').val();
               var text = $(this).children('.text-area-sizing-medium').val();
@@ -94,27 +95,29 @@ var myClientX;
               // alert("here");
               var data = $(this).serialize();
               $.post('/questions', data, function (response) {
-                alert("here");
+                // alert("here");
                   // TODO: insert response into question feed
                   // will be much easier after feed is reorganized.
               });
               Player.prependQuestion(title, text);
+              // $('#new_question')[0].reset();
               return false;
           });
 
 
-        $('form#submit_answer').on('submit', function (event) {
-              event.preventDefault();
+        $('form.submit_answer').submit(function (e) {
+              alert(e.preventDefault());
     var data = $(this).serialize();
 
               var text = $('.answer_input').val();
-              console.log(data);
-              // $.post('/questions', data, function (response) {
-              //   alert("here");
-              //     // TODO: insert response into question feed
-              //     // will be much easier after feed is reorganized.
-              // });
+              $.post('/answers', data, function (response) {
+                // alert("here");
+                  // TODO: insert response into question feed
+                  // $(this)[0].reset();
+                  // will be much easier after feed is reorganized.
+              });
               // Player.prependQuestion(title, text);
+              
               return false;
           });
 
@@ -132,8 +135,7 @@ var myClientX;
             Player.changeUserInputTabs($(this).attr('data-tab-content'));
           });
 
-$('.lquestion-body').on('dbclick', function(e){
-  alert("here");
+$('.lquestion-body').on('click', function(e){
   // Player.pauseVideo();
 $(this).parent().parent().parent().siblings('.lanswer-container').slideToggle(500);
 return false;
