@@ -1,0 +1,15 @@
+<table class="search-result-table">
+  <tbody>
+    <% questions.each do |question| %>
+      <tr class="lesson-search-result-row">
+      	<td class="lesson-search-result-thumb"><%= image_tag question.content.thumbnail, :class => 'search-lesson-thumb' %></td>
+        <td><%= link_to lesson_path(question.content.lesson), :class => 'lesson-search-result-indi-title-link' do %> 
+        			<p class='lesson-search-result-indi-title'><%= question.title %><p>
+        		<% end %>
+        </td>
+        <td><p class="lesson-search-result-indi-votes"><%= question.votes.size %><br><span>votes</span></p></td>
+        <td><p class="lesson-search-result-indi-votes"><%= question.answers.size %><br><span>answers</span></p></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
