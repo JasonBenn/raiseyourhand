@@ -5,7 +5,10 @@ describe "Creating a new Lesson", js: true  do
 	
  	before(:each) do
  		Content.any_instance.stub(:getVideoIdFromUrl).and_return("2zNSgSzhBfM")
+ 		#Content.any_instance.stub(:getVideoIdFromUrl).and_return("2zNSgSzhBfM")
     FakeWeb.register_uri(:get, "http://gdata.youtube.com/feeds/api/videos/2zNSgSzhBfM?v=2&alt=json&prettyprint=true", body: File.new("#{Rails.root}/spec/fixtures/youtube_response.json").read )
+    FakeWeb.register_uri(:get, "http://gdata.youtube.com/feeds/api/videos/C-u5WLJ9Yk4?v=2&alt=json&prettyprint=true", body: File.new("#{Rails.root}/spec/fixtures/dancing_lessons.json").read )
+
  	end
  	it "Can 'create a lesson"do
  	 	visit '/'
