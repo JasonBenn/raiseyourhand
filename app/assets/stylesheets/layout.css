@@ -33,6 +33,7 @@ header.basic-header{
 	min-height: 90px;
 	border-bottom: solid #0e5366;
 	padding-bottom: 10px;
+	position: relative;
 }
 header .logo-in-header{
 	margin: 21px 0 0 0;
@@ -84,4 +85,22 @@ header .logo-in-header{
 }
 .side-decor-right{
 	right: 0px;
+}
+
+/******FLASH MESSAGES*****/
+.alert{
+	position:	 absolute;
+	font: 12px/14px "Lucida Grande", Arial, Helvetica, Verdana, sans-serif;
+	text-align:	center;
+	z-index: 5;
+	left: 37%;
+	width: 300px;
+	background-color:		#000;
+	-webkit-border-radius:	5px;
+	-webkit-box-shadow:		0 0 5px rgba(0, 0, 0, 0.5);
+	padding: 15px;
+	font-size: 15px;
+	color: #fff;
+	background-color: #8fc250;
+	border: 1px solid #668b39;
 }

@@ -1,0 +1,11 @@
+<aside class='voting-panel'>
+	<%= link_to votes_path(votable_id: votable.id, votable_type: votable.class, direction: 1), method: :post, :class => "vote" do %>
+	  <i class="icon-chevron-sign-up"></i>
+	<% end %>
+
+	<span><%= votable.votes_count %></span>
+
+	<%= link_to votes_path(votable_id: votable.id, votable_type: votable.class, direction: 0), method: :post, :class => "vote" do %>
+	  <i class="icon-chevron-sign-down"></i>
+	<% end %>
+</aside>
