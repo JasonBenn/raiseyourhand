@@ -43,11 +43,23 @@ header .logo-in-header{
 	float: right;
 	list-style: none;
 	margin: 22px 0 0 0;
+	font-size: 14px;
 }
 .header-nav li{
 	display: inline-block;
 	margin: 0 0 0 20px;
-	font-size: 12px;
+	font-size: 14px;
+}
+.header-nav li a:link{
+	color: #0e5366;
+	text-decoration: none;
+}
+.header-nav li a:visited{
+	color: #0e5366;
+	text-decoration: none;
+}
+.header-nav li a:hover{
+	color: #668b39;
 }
 .header-btn{
 	position: relative;
