@@ -1,4 +1,5 @@
 <!-- Required Javascript - need to be here bc we use it twice in the document with diff meaning. Cant be renamed as part of YT API-->
+
 <script type="text/javascript">
       function onYouTubePlayerReady(playerId) {
       Player.ytplayer = document.getElementById("ytPlayer");
@@ -131,7 +132,7 @@
 </p>
 </div>
 <div class="lquestion-body">
-<%= question.text %>
+<p class="body"><%= question.text %></p>
 <p class="author"> 
 <!-- REAL DATA TO COME -->
 <%=question.user.name%>, <%=distance_of_time_in_words_to_now(question.created_at)%> ago
@@ -141,6 +142,8 @@
 Time in Lesson: <%=sprintf("%02d",question.time_in_lesson.to_i / 60)%>:<%=sprintf("%02d",question.time_in_lesson.to_i % 60)%>
 </p>
 </div>
+<button class="show_answers">Answer this Question</button>
+<button>Show Answers</button>
 </div>
 </div>
 <!-- REAL DATA TO COME -->
@@ -172,7 +175,7 @@ Time in Lesson: <%=sprintf("%02d",question.time_in_lesson.to_i / 60)%>:<%=sprint
 <div class="lanswer">
 <div class="atriangle-border">
 <%= form_for question.answers.new do |f| %>
-<%= f.text_field :text, :class => 'answer_input', placeholder: 'Answer this Question' %>
+<%= f.text_field :text, :class => 'answer_input', placeholder: 'Answer this Question',  required: true%>
 <%= f.text_field :question_id, hidden: true, value: question.id %>
 <%= f.submit :class => 'answer_button' %>
 <% end %>
@@ -240,4 +243,15 @@ Time in Lesson: <%=sprintf("%02d",question.time_in_lesson.to_i / 60)%>:<%=sprint
   <img class="answer-image" src="https://graph.facebook.com/<%=current_user.uid%>/picture">
 <% end %>  
 </div>
+</script>
+
+<script type="text/html" id="modal-template">
+<p data-content="title" class="modal-title"></p>
+    <p data-content="text" class="modal-text"></p>
+    <p data-content="author"></p>
+    <form id="new_answers">
+    <!-- <p class="modal-answer-title">Your Answer</p> -->
+      <textarea class="your-answer" placeholder="Your Answer" required=true></textarea><br>
+      <input class="answer-submit" type="submit" value="Answer">
+    </form>
 </script>
