@@ -14,7 +14,6 @@
 <div class="indi-video-shell indi-video-shell-<%= content.id %>" data-content-id="<%= content.id %>" data-index-id="<%= content.id %>">
 	<input type="hidden" class="youtubeId-player<%= content.id %>" value='<%= content.url %>'>
 	<div id="videoDiv-<%= content.id %>"></div>
-	<h2 class="indi-video-title"><%= content.title %></h2>
 
 	<div class="creat-lesson-controller-container">
 		<button class='button-play-pause-id-<%= content.id %> button2 button-play-pause left-floater' data-status="pause"><div class="play-pause-icon"></div></button>
@@ -31,7 +30,9 @@
 				<div class="tab-for-progress-bar"></div>
 		  </div>
 		</div>
+		<p class="splicer-instructions-text">slide pink bars to select video section</p>
 	</div>
+	<h2 class="indi-video-title"><%= content.title %></h2>
 
 	<script type="text/javascript">
 		CreateLesson._run('<%= content.id %>');		

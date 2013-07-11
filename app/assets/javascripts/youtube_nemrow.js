@@ -285,8 +285,7 @@ var CreateLesson = {
     content = timeline[timeline.length - 1];
     $('.playlist-container').append('<li class="playlist-content switch-video-content-clip" data-content-id=' + content.id
         + ' style="background-color:#' + CreateLesson.getColor(content.position) +'">' 
-        + content.title + '<div class="delete-content" data-contentId="' 
-        + content.id +'"></div></li>');
+        + content.title + '<i class="icon-reorder sort-order-placement-draggable"></i></li>');
   },
 
   getRandomColor: function(){
@@ -302,7 +301,8 @@ var CreateLesson = {
       $('.full-lesson-timeline').append('<li class="timeline-portion switch-video-content-clip '
         + 'timeline-portion-id-'+element.position+'" style="width:'
         + percent_filled+'%; background-color:#'
-        + CreateLesson.getColor(index) +'" data-content-id='+element.id+'></li>');
+        + CreateLesson.getColor(index) +'" data-content-id='+element.id+'>'
+        + '<p class="time-line-title-inner">'+element.title+'</p></li>');
     });
   },
 
@@ -418,8 +418,7 @@ var CreateLesson = {
       var title = content.title;
       html += ('<li class="playlist-content switch-video-content-clip" data-content-id=' + content.id
         + ' style="background-color:#' + CreateLesson.getColor(index) +'">' 
-        + title +'<div class="delete-content" data-contentId="'
-        + content.id + '"></div></li>');
+        + title +'<i class="icon-reorder sort-order-placement-draggable"></i></li>');
     });
     $('.playlist-container').append(html);
   },
