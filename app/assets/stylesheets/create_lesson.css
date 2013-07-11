@@ -33,17 +33,17 @@
 	position: relative;
 }
 .user-input-tab{
+	background-color: #0e5366;
+	color: #fff;
 	width: 198px;
 	height: 30px;
 	margin: 0 5px;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
 	border: 1px solid #0e5366;
-	background-color: #fff;
 	display:  inline-block;
 	line-height: 30px;
 	text-align: center;
-	color: #12819f;
 	cursor: pointer;
 }
 .user-lesson-inputs{
@@ -176,10 +176,6 @@ h2.home-title{
 .user-input-indi-section-active{
 	display: block;
 }
-.user-input-tab-active{
-	background-color: #0e5366;
-	color: #fff;
-}
 .create-progress{
 	width:0px;
 	height: 100%;
@@ -187,6 +183,12 @@ h2.home-title{
 	top: 0px;
 	background-color: blue;
 	z-index: 2;
+}
+.user-input-tab-active{
+	background-color: #fff;
+	color: #12819f;
+	border-bottom: 0;
+	height: 31px;
 }
 .progress{
 	height: 100%;
