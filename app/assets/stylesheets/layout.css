@@ -69,6 +69,7 @@ header .logo-in-header{
 	margin: 0 auto;
 	position: relative;
 	padding: 0 70px;
+	overflow: auto;
 }
 .side-decor{
 	height: 100%;

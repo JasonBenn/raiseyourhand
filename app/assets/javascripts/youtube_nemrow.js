@@ -1,5 +1,6 @@
 var timeline = [];
-var colors = ['0e5366', '668b39', 'fc9b46', 'fb5f61'];
+var colors = ['0e5366', '668b39'];
+// var colors = ['0e5366', '668b39', 'fc9b46', 'fb5f61'];
 
 var CreateLesson = {
   init: function(){
@@ -281,11 +282,30 @@ var CreateLesson = {
     return content[0];
   },
 
+  activateHelpContainer: function(){
+    $('.create-lesson-help-activate').click(function(){
+      var start_div_css = 281;
+      var top_offset = 40 * parseInt($('.playlist-container').children().length - 1);
+      var full_top_css = parseInt(start_div_css) + parseInt(top_offset);
+      $('.full-page-dim-overlay').fadeIn();
+      $('.edit-lesson-help-container').fadeIn();
+      $('.add-clip-helper-container').css('top', full_top_css);
+    });
+    $('.full-page-dim-overlay').click(function(){
+      $('.full-page-dim-overlay').fadeOut();
+      $('.edit-lesson-help-container').fadeOut();
+    });
+  },
+
+  firstTimeCreatorHelpAutoActive: function(){
+    $('.create-lesson-help-activate').trigger('click');
+  },
+
   addNewContentToPlaylist: function(){
     content = timeline[timeline.length - 1];
     $('.playlist-container').append('<li class="playlist-content switch-video-content-clip" data-content-id=' + content.id
         + ' style="background-color:#' + CreateLesson.getColor(content.position) +'">' 
-        + content.title + '<i class="icon-reorder sort-order-placement-draggable"></i></li>');
+        + content.title + '<i class="icon-sort sort-order-placement-draggable"></i></li>');
   },
 
   getRandomColor: function(){
@@ -302,7 +322,7 @@ var CreateLesson = {
         + 'timeline-portion-id-'+element.position+'" style="width:'
         + percent_filled+'%; background-color:#'
         + CreateLesson.getColor(index) +'" data-content-id='+element.id+'>'
-        + '<p class="time-line-title-inner">'+element.title+'</p></li>');
+        + '</li>');
     });
   },
 
@@ -418,7 +438,7 @@ var CreateLesson = {
       var title = content.title;
       html += ('<li class="playlist-content switch-video-content-clip" data-content-id=' + content.id
         + ' style="background-color:#' + CreateLesson.getColor(index) +'">' 
-        + title +'<i class="icon-reorder sort-order-placement-draggable"></i></li>');
+        + title +'<i class="icon-sort sort-order-placement-draggable"></i></li>');
     });
     $('.playlist-container').append(html);
   },
