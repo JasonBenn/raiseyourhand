@@ -1,3 +1,6 @@
+.hideForMVP{
+	display: none;
+}
 .create-progress-bar{
 	width: 575px;
 	height: 30px;
@@ -6,6 +9,11 @@
 	border-radius: 5px;
 	position: relative;
 	margin: 2px auto 5px 5px;
+}
+.sort-order-placement-draggable{
+	position: absolute;
+	top: 13px;
+	right: 13px;
 }
 .watch-progress-bar{
 	width: 575px;
@@ -173,6 +181,9 @@ h2.home-title{
 	left: 0px;
 	display: none;
 }
+.add-more-yt-vids-text{
+	margin: 20px 0 0 18px;
+}
 .user-input-indi-section-active{
 	display: block;
 }
@@ -193,11 +204,27 @@ h2.home-title{
 	background-color: #8fc250;
 	border-radius: 5px;
 	position: absolute;
-	z-index: 10;
+	z-index: 2;
+}
+.splicer-instructions-text{
+	margin: 2px auto 5px auto;
+	text-align:center;
+	font-size: 12px;
+	color: #666;
+	width: 100%;
+}
+.time-line-title-inner{
+	position: absolute;
+	left: 10px;
+	top: 9px;
+	font-size: 12px;
+	color: #fff;
+	height: 14px;
+	overflow: hidden;
 }
 .play-pause-icon{
 	width: 14px;
-	height: 16px;
+	height: 15px;
 	background-image: url('play_pause_SPRITE.png');
 	margin: 0px 5px;
 }
@@ -205,6 +232,7 @@ h2.home-title{
 	width: 640px;
 	height: 30px;
 	position: relative;
+	margin: 5px 0 0 0;
 }
 .sub-header{
 	overflow: auto;
@@ -284,7 +312,7 @@ h2.home-title{
 	margin: 0 0 20px 10px;
 }
 .url-input-container{
-	margin-top: 20px;
+	margin: 5px;
 	height: 40px;
 }
 .submit-url-btn{
@@ -346,6 +374,9 @@ ul.playlist-container{
 	opacity: 0.4;
 	z-index: 2;
 }
+.button-play-pause{
+	margin: 3px 0 0 0;
+}
 .create-draggable-progress-end{
 	right: 0px;
 }
@@ -354,7 +385,7 @@ h1.lesson-title{
 	float: left;
 }
 .indi-video-title{
-	margin: 20px 0 15px 0;
+	margin: 30px 0 15px 0;
 	height: 27px;
 	overflow: hidden;
 }
@@ -418,4 +449,7 @@ h1.lesson-title{
 .timeline-portion{
 	height: 100%;
 	display: inline-table;
+	position: relative;
+	overflow: hidden;
+	cursor: pointer;
 }

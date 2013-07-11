@@ -10,6 +10,13 @@
 .lesson-group-top {
 
 }
+.no-lesson-in-notebook-text{
+	width: 500px;
+	font-size: 24px;
+	text-align: center;
+	margin: 50px auto;
+	line-height: 30px;
+}
 .lesson-group-top h3{
 	color: #668b39;
 }
