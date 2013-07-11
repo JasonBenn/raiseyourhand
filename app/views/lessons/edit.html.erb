@@ -47,28 +47,15 @@
 			<%= image_tag 'arrow-white.png' %>
 		</div>
 	</div>
-
-	<!-- <div class="url-input-container left-floater">
-		<input type="text" placeholder="Youtube URL">
-		<button class="button2">Add Clip</button>
-	</div> -->
-
-
-	<!-- <button class="play-current-editing-video" onClick='CreateLesson.playVideo()'>Play</button>
-	<button class="pause-current-editing-video" onClick='CreateLesson.pauseVideo()'>Pause</button>
- -->
 	
 <script type="text/javascript">
 	function onYouTubePlayerReady(playerString) { 
-	  // This causes the updatePlayerInfo to be called every 250ms to
-	  // get fresh data from the player
 	  var playerId = CreateLesson.getIdFromPlayerString(playerString);
 	  CreateLesson.activateContent(playerId);
 	  setInterval(CreateLesson.updatePlayerInfo, 250);
 	  CreateLesson.updatePlayerInfo(playerId);
 	  ytplayer.addEventListener("onStateChange", "CreateLesson.onPlayerStateChange");
 	  ytplayer.addEventListener("onError", "CreateLesson.onPlayerError");
-	  //Load an initial video into the player
 	  var url = CreateLesson.getYoutubeURLFromDiv(playerString);
 	  var start_time = CreateLesson.getStartTimeFromId(playerId);
 	  ytplayer.cueVideoById(CreateLesson.getVideoIdFromUrl(url), start_time);
