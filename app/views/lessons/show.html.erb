@@ -172,7 +172,7 @@ Time in Lesson: <%=sprintf("%02d",question.time_in_lesson.to_i / 60)%>:<%=sprint
 <div class="lanswer">
 <div class="atriangle-border">
 <%= form_for question.answers.new do |f| %>
-<%= f.text_field :text, :class => 'answer_input', placeholder: 'Answer this Question' %>
+<%= f.text_field :text, :class => 'answer_input', placeholder: 'Answer this Question',  required: true%>
 <%= f.text_field :question_id, hidden: true, value: question.id %>
 <%= f.submit :class => 'answer_button' %>
 <% end %>
