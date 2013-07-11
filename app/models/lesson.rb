@@ -1,7 +1,6 @@
 class Lesson < ActiveRecord::Base
   include VotableHelper
   include Indexer
-  default_scope order('created_at DESC')
 
   attr_accessible :creator_id, :title, :contents_attributes
   
