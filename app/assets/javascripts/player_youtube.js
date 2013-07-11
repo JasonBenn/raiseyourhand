@@ -81,6 +81,37 @@
               $('input[id$="_content_id"]').val(Player.cID);
           });
 
+          $(".show_answers").click(function(e){
+            // alert("here");
+            e.preventDefault();
+            var title = $(this).parent().children(".lquestion-title").text();
+            var text = $(this).parent().children(".lquestion-body").children(".body").text();
+            var author = $(this).parent().children(".lquestion-body").children(".author").text();
+// $("#modal").fadeIn();
+$("#fancybox").loadTemplate($("#modal-template"), {
+              title: title,
+              text: text,
+              author: author
+              // author: standardText
+          });
+
+
+
+            $("#modal").css('visibility', 'visible');
+            Player.pauseVideo();
+            $("#modal").animate({'opacity': 0.7}, 800);
+
+             setTimeout(function () {
+              // alert("here");
+              $("#fancybox").css('visibility', 'visible');
+            // Player.pauseVideo();
+            $("#fancybox").animate({'opacity': 1}, 800);
+
+            }, 800);
+            // alert("here");
+
+          });
+
           $('form#new_question').submit(function (event) {
               event.preventDefault();
               var title = $(this).children('.user-lesson-inputs-slim').val();
@@ -92,16 +123,16 @@
               return false;
           });
 
-          $('form#new_answer').submit(function (e) {
-              // alert("hello");
+          $('form#new_answers').submit(function (e) {
+              alert("hello");
               e.preventDefault();
-              var data = $(this).serialize();
-              var text = $('.answer_input').val();
-              $.post('/answers', data, function (response) {});
+              // var data = $(this).serialize();
+              // var text = $('.your-answer').val();
+              // $.post('/answers', data, function (response) {});
 
-              var formBubble = $(this).parent().parent().parent();
-              Player.appendAnswer(text, formBubble);
-              return false;
+              // var formBubble = $(this).parent().parent().parent();
+              // Player.appendAnswer(text, formBubble);
+              // return false;
           });
 
           $('form#new_flashcard').submit(function (event) {
@@ -115,6 +146,17 @@
 
           $('.user-input-tab').click(function () {
               Player.changeUserInputTabs($(this).attr('data-tab-content'));
+          });
+
+            $('#modal').click(function () {
+              
+$("#fancybox").animate({'opacity': 0}, 800);
+    $("#fancybox").css('visibility', 'hidden');
+$("#modal").animate({'opacity': 0}, 800);
+    $("#modal").css('visibility', 'hidden');
+            // Player.pauseVideo();
+            
+              
           });
 
           $('.lquestion-body').on('click', function (e) {

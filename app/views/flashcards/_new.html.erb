@@ -1,10 +1,10 @@
 <%= form_for flashcard do |f| %>
-  <%= f.text_field :front, :class => 'user-lesson-inputs user-lesson-inputs-slim', placeholder: 'Question',  required: true %>
-  <%= f.text_area :back, :class => 'text-area-sizing-medium', placeholder: 'Answer',  required: true %>
-  <%= f.text_field :content_id, hidden: true %>
-  <%= f.text_field :time_in_lesson, hidden: true %>
-  <% if current_user %>
-  <%= f.submit :class => 'button1' %>
+<%= f.text_field :front, :class => 'user-lesson-inputs user-lesson-inputs-slim', placeholder: 'Question',  required: true %>
+<%= f.text_area :back, :class => 'text-area-sizing-medium', placeholder: 'Answer',  required: true %>
+<%= f.text_field :content_id, hidden: true %>
+<%= f.text_field :time_in_lesson, hidden: true %>
+<% if current_user %>
+<%= f.submit :class => 'button1' %>
 <% else %>  
 <p> Please log in to create flashcard </p>
 <% end %>
