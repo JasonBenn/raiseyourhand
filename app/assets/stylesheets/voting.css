@@ -1,11 +1,11 @@
 .voting-panel {
-	font-size: 25px;
+	font-size: 20px;
 	text-align: center;
   float: left;
   width: 35px;
   position: absolute;
-  left: 20px;
-  top: -22px;
+  left: 25px;
+  top: -14px;
 }
 
 .vote {
@@ -19,4 +19,12 @@
   font-family: 'Lato', sans-serif;
   font-weight: 500;
   text-align: center;
+}
+
+.icon-chevron-sign-up:hover {
+	color: green;
+}
+
+.icon-chevron-sign-down:hover {
+	color: red;
 }
