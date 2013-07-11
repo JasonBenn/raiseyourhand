@@ -176,12 +176,12 @@ float: left;
   margin-left: 60px;
 }
 .dragger{
-   width: 10px;
-  background-color: black;
+  width: 1px;
   height: 100%;
   position: absolute;
   left: 0px;
   z-index: 3;
+  left: -7px;
 }
 .upper-box {
   height:400px;
