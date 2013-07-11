@@ -62,7 +62,19 @@
       <div class="chapter progress<%=index%>" data-start="<%=current_width%>" data-end="<%=current_width + width%>">  
       </div>
       <%= render partial: "javascript-input_progress-bar.erb", locals: { index: index} %>
-      <%= render partial: "css-input_progress-bar.erb", locals: { index: index, width: width, current_width: current_width, content: content, total_length: total_length} %> %>
+
+      <!-- CSS rendering for chapter progress bars -->
+      <style type="text/css">
+      .progress<%=index%>{
+        width: <%= width %>px;
+        height: 100%;
+        position: absolute;
+        left: <%= current_width %>px;
+        <% current_width += (content.length/total_length)* 575 %>
+        top: 0px;
+      }
+      </style>
+      
       <% end %>
     </div>
   </div>
