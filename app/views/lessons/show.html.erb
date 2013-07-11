@@ -193,8 +193,8 @@ Time in Lesson: <%=sprintf("%02d",question.time_in_lesson.to_i / 60)%>:<%=sprint
 
 <div class="lesson-user-input-shell">
   <div class="tabs-container">
-    <p class="user-input-tab user-input-tab-quesiton user-input-tab-active" data-tab-content="question">Question</p>
-    <p class="user-input-tab user-input-tab-card" data-tab-content="card">Flash Card</p>
+    <p class="user-input-tab user-input-tab-quesiton user-input-tab-active" data-tab-content="question">Ask a Question</p>
+    <p class="user-input-tab user-input-tab-card" data-tab-content="card">Add a Review Question</p>
   </div>
   <div class="user-input-indi-section user-input-questions-section user-input-indi-section-active">
     <%= render 'questions/new', question: @question %>
