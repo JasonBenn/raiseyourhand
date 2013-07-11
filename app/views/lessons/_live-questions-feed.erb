@@ -1,55 +1,50 @@
 <div class="live-questions-feed-container">
-<!-- Lesson iterate over content -->
-<% lesson.contents.each do |chapter|%>
-<!-- Content iterate over questions -->
-<% chapter.questions.each do |question| %>
-<!-- Create new questions divs for the questions -->
-<div class="lquestion-container t<%= question.time_in_lesson.to_i%>">
-<div class="question-wrapper">
-<div class="lquestion">
-<div class="triangle-border">
-<div class="lquestion-title">
-<p>
-<%= question.title %>
-</p>
-</div>
-<div class="lquestion-body">
-<p class="body"><%= question.text %></p>
-<p class="author"> 
-<!-- REAL DATA TO COME -->
-<%=question.user.name%>, <%=distance_of_time_in_words_to_now(question.created_at)%> ago (@ <%=sprintf("%02d",question.time_in_lesson.to_i / 60)%>:<%=sprintf("%02d",question.time_in_lesson.to_i % 60)%>)</p>
-</div>
-<div class="icon-wrapper">
-<div class="show_all_answers"><p><i class="icon-comments"></i> Show all answers (<%=question.answers.count%>)</p></div>
-<div class="answer_this"><p><i class="icon-comment-alt"></i> Answer this</p></div>
-</div><br>
-</div>
-</div>
-<!-- REAL DATA TO COME -->
-<img class="question-image" src="https://graph.facebook.com/<%=question.user.uid%>/picture">
-</div>
+	<!-- Lesson iterate over content -->
+	<% lesson.contents.each do |chapter|%>
+	<!-- Content iterate over questions -->
+	<% chapter.questions.each do |question| %>
+	<!-- Create new questions divs for the questions -->
+	<div class="lquestion-container t<%= question.time_in_lesson.to_i%>">
+		<div class="question-wrapper">
+			<div class="lquestion">
+				<div class="triangle-border">
+					<div class="lquestion-title">
+						<p>
+							<%= question.title %>
+						</p>
+					</div>
+					<div class="lquestion-body">
+						<p class="body"><%= question.text %></p>
+						<p class="author"> 
+							<%=question.user.name%>, <%=distance_of_time_in_words_to_now(question.created_at)%> ago (@ <%=sprintf("%02d",question.time_in_lesson.to_i / 60)%>:<%=sprintf("%02d",question.time_in_lesson.to_i % 60)%>)</p>
+						</div>
+						<div class="icon-wrapper">
+							<div class="show_all_answers"><p><i class="icon-comments"></i> Show all answers (<%=question.answers.count%>)</p></div>
+							<div class="answer_this"><p><i class="icon-comment-alt"></i> Answer this</p></div>
+						</div><br>
+					</div>
+				</div>
+				<img class="question-image" src="https://graph.facebook.com/<%=question.user.uid%>/picture">
+			</div>
 
-<div class="lanswer-container">
-<!-- Make partial -->
-<% question.answers.each do |answer| %>
-<div class="answer-wrapper">
-<div class="lanswer">
-<div class="atriangle-border">
-<div class="lanswer-body">
-<%= answer.text %>
-<!-- REAL DATA TO COME -->
-<p class="author">
-<%=answer.user.name%>, <%=distance_of_time_in_words_to_now(answer.created_at)%> ago
-</p>
-</div>
-</div>
-</div>
-<!-- REAL DATA TO COME -->
-<img class="answer-image" src="https://graph.facebook.com/<%=answer.user.uid%>/picture">
-</div>
-<% end %>
-</div>   
-</div>
-<% end %>
-<% end %>
-</div>   
+			<div class="lanswer-container">
+				<% question.answers.each do |answer| %>
+				<div class="answer-wrapper">
+					<div class="lanswer">
+						<div class="atriangle-border">
+							<div class="lanswer-body">
+								<%= answer.text %>
+								<p class="author">
+									<%=answer.user.name%>, <%=distance_of_time_in_words_to_now(answer.created_at)%> ago
+								</p>
+							</div>
+						</div>
+					</div>
+					<img class="answer-image" src="https://graph.facebook.com/<%=answer.user.uid%>/picture">
+				</div>
+				<% end %>
+			</div>   
+		</div>
+		<% end %>
+		<% end %>
+	</div>   
