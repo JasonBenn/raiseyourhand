@@ -1,0 +1,15 @@
+  <script type="text/javascript">
+  $('.progress<%=index%>').css('background-color', '#'+CreateLesson.getColor(<%= index %>));
+  if (<%= index %> == 0){
+    $('.progress<%=index%>').css({
+      'border-top-left-radius' : 10,
+      'border-bottom-left-radius' : 10
+    });    
+  }
+  if (<%= index %> == <%= @lesson.contents.count.to_i - 1 %>){
+    $('.progress<%=index%>').css({
+      'border-top-right-radius' : 10,
+      'border-bottom-right-radius' : 10
+    });    
+  }
+  </script>
