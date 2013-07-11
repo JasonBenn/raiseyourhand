@@ -1,0 +1,19 @@
+<script type="text/javascript">
+function onYouTubePlayerReady(playerId) {
+  Player.ytplayer = document.getElementById("ytPlayer");
+  console.log(Player.ytplayer);
+  Player.playerSubMethod(playerId);
+  Player.ytplayer.cueVideoById({
+    'videoId': Player.contents[0][0],
+    'startSeconds': Player.contents[0][1],
+    'endSeconds': Player.contents[0][2],
+    'suggestedQuality': "default"
+  });
+  Player.videoCount = 0;
+  Player.cID = Player.contents[0][3];
+  Player.currentVideoID = Player.contents[0][0];
+};
+$(document).ready(function(){
+  Player.init();
+});
+</script>

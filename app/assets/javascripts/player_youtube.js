@@ -81,6 +81,31 @@
               $('input[id$="_content_id"]').val(Player.cID);
           });
 
+          $(".answer_this").click(function (e) {
+              e.preventDefault();
+              var title = $(this).parent().parent().children(".lquestion-title").text();
+              var text = $(this).parent().parent().children(".lquestion-body").children(".body").text();
+              var author = $(this).parent().parent().children(".lquestion-body").children(".author").text();
+              $("#fancybox").loadTemplate($("#modal-template"), {
+                  title: title,
+                  text: text,
+                  author: author
+              });
+
+              $("#modal").css('visibility', 'visible');
+              Player.pauseVideo();
+              $("#modal").animate({
+                  'opacity': 0.7
+              }, 800);
+              setTimeout(function () {
+                  $("#fancybox").css('visibility', 'visible');
+                  $("#fancybox").animate({
+                      'opacity': 1
+                  }, 800);
+
+              }, 800);
+          });
+
           $('form#new_question').submit(function (event) {
               event.preventDefault();
               var title = $(this).children('.user-lesson-inputs-slim').val();
@@ -89,19 +114,20 @@
               var data = $(this).serialize();
               $.post('/questions', data, function (response) {});
               Player.prependQuestion(title, text);
+              $(this)[0].reset();
               return false;
           });
 
-          $('form#new_answer').submit(function (e) {
-              // alert("hello");
+          $('form#new_answers').submit(function (e) {
+              alert("hello");
               e.preventDefault();
-              var data = $(this).serialize();
-              var text = $('.answer_input').val();
-              $.post('/answers', data, function (response) {});
+              // var data = $(this).serialize();
+              // var text = $('.your-answer').val();
+              // $.post('/answers', data, function (response) {});
 
-              var formBubble = $(this).parent().parent().parent();
-              Player.appendAnswer(text, formBubble);
-              return false;
+              // var formBubble = $(this).parent().parent().parent();
+              // Player.appendAnswer(text, formBubble);
+              // return false;
           });
 
           $('form#new_flashcard').submit(function (event) {
@@ -110,6 +136,7 @@
               $.post('/flashcards', data, function (response) {
                   $('span[data-content-id="' + Player.getContentId() + '"]').html(response);
               });
+              $(this)[0].reset();
               return false;
           });
 
@@ -117,8 +144,21 @@
               Player.changeUserInputTabs($(this).attr('data-tab-content'));
           });
 
-          $('.lquestion-body').on('click', function (e) {
-              $(this).parent().parent().parent().siblings('.lanswer-container').slideToggle(500);
+          $('#modal').click(function () {
+              $("#fancybox").animate({
+                  'opacity': 0
+              }, 800);
+              $("#fancybox").css('visibility', 'hidden');
+              $("#modal").animate({
+                  'opacity': 0
+              }, 800);
+              $("#modal").css('visibility', 'hidden');
+              Player.playVideo();
+
+          });
+
+          $('.show_all_answers').on('click', function (e) {
+              $(this).parent().parent().parent().parent().siblings('.lanswer-container').slideToggle(500);
               return false;
           });
       },
@@ -140,12 +180,11 @@
       },
 
       appendAnswer: function (title, DOMObject) {
-        var that = '.answer-wrapper.' + Player.appendCount;
-        var standardText = "just added by you";
-       $("<div class='answer-wrapper " + Player.appendCount + "'></div>").insertBefore(DOMObject);
-        $(that).loadTemplate($("#answer-template"), {
+          var that = '.answer-wrapper.' + Player.appendCount;
+          var standardText = "just added by you";
+          $("<div class='answer-wrapper " + Player.appendCount + "'></div>").insertBefore(DOMObject);
+          $(that).loadTemplate($("#answer-template"), {
               text: title
-              // author: standardText
           });
           $(that).slideDown('slow');
           Player.appendCount++;
@@ -185,10 +224,7 @@
           var that = $('.lquestion-container.t' + second);
           $('.live-questions-feed-container').prepend(that);
           var newQ = $('.live-questions-feed-container').children('.lquestion-container.t' + second);
-          // alert(second);
-
           newQ.slideDown('slow');
-          // newQ.show();
           setTimeout(function () {
               Player.showBody(that)
           }, 800);

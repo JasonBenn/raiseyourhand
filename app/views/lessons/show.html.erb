@@ -1,247 +1,108 @@
-<!-- Required Javascript - need to be here bc we use it twice in the document with diff meaning. Cant be renamed as part of YT API-->
-<script type="text/javascript">
-      function onYouTubePlayerReady(playerId) {
-      Player.ytplayer = document.getElementById("ytPlayer");
-      console.log(Player.ytplayer);
-          Player.playerSubMethod(playerId);
-          Player.ytplayer.cueVideoById({
-              'videoId': Player.contents[0][0],
-              'startSeconds': Player.contents[0][1],
-              'endSeconds': Player.contents[0][2],
-              'suggestedQuality': "default"
-          });
-          Player.videoCount = 0;
-          Player.cID = Player.contents[0][3];
-          Player.currentVideoID = Player.contents[0][0];
-      };
- $(document).ready(function(){
-  Player.init();
- });
-</script>
+  <!-- Needed JS input for youtube -->
+  <%= render partial: "javascript-input_ytplayer.erb" %>
 
-<!-- Page HTML -->
+  <!-- Page HTML -->
+  <section class="sub-header">
+    <%= render partial: 'shared/voting', locals: { votable: @lesson } %>
+    <h1 class="lesson-title">
+      <%= @lesson.title %>
+    </h1>
+  </section>
 
-<section class="sub-header">
-  <%= render partial: 'shared/voting', locals: { votable: @lesson } %>
-  <h1 class="lesson-title"><%= @lesson.title %></h1>
-</section>
-
-<table class='content-nav'>
-  <tr>
-    <% @lesson.contents.each do |content| %>
-    <td class='content-nav-piece'>
-      <aside class='tooltip-content'><p><%= content.title.truncate(30) %></p></aside>
-      <% if content.flashcards.any? %>
-        <span data-content-id="<%= content.id %>">
-          <aside class='tooltip-flashcard'><p><%= content.flashcards.size %> review questions for this video</p></aside>
-          <%= content.flashcards.count %>
-        </span>
+  <table class='content-nav'>
+    <tr>
+      <% @lesson.contents.each do |content| %>
+        <td class='content-nav-piece'>
+          <aside class='tooltip-content'><p><%= content.title.truncate(30) %></p></aside>
+          <% if content.flashcards.any? %>
+            <span data-content-id="<%= content.id %>">
+              <aside class='tooltip-flashcard'><p><%= content.flashcards.size %> review questions for this video</p></aside>
+              <%= content.flashcards.count %>
+            </span>
+          <% end %>
+        </td>
       <% end %>
-    </td>
-  <% end %>
-</tr></table>
+    </tr>
+  </table>
 
-<div class='flashcards'>
-  <%= render partial: 'flashcards/card' %>
-</div>
-<% count = 0 %>
-<div class="video-window-watch-lesson">
-  <% @lesson.contents.each do |content| %>
+  <!-- flashcard header -->
+  <div class='flashcards'>
+    <%= render partial: 'flashcards/card' %>
+  </div>
+
+  <!-- helper method -->
+  <% count = 0 %>
+  <div class="video-window-watch-lesson">
+    <% @lesson.contents.each do |content| %>
     <% url = content.url.match(/(=)(\w+)/)[2] %>
     <% start_time = content.start_time.to_f %>
     <% end_time = content.finish_time.to_f %>
     <% id = content.id %>
     <% count += 1 %>
+    <%= render partial: "javascript-input_chapters.erb", locals: { url: url, start_time: start_time, end_time: end_time, id: id } %>
+    <% end%>  
 
-  <!-- Pushing the contents to javascript. Needed for switching bewteen lesson contents -->
+    <!-- youtube video player -->
+    <div id="videoDiv"></div>
+    <% total_length = 0 %>
+    <% @lesson.contents.each {|content| total_length += content.length}%>
+
+    <button class='button2 button-play-pause left-floater' data-status="pause"><div class="play-pause-icon"></div></button>
+
     <script type="text/javascript">
-    Player.contents.push(["<%= url%>", <%= start_time%>, <%= end_time%>, <%= id%>]);
+    Player.activatePlayPauseButton();
     </script>
-  <% end%>  
 
-<!-- video player -->
-  <div id="videoDiv">
+    <!-- Progress bar parent (wrapper) -->
+    <div class="progress-bar watch-progress-bar">
+      <div class="progress"></div>
+      <div class="dragger"></div>
+      <% current_width = 0 %>
+      <% @lesson.contents.each_with_index do |content, index| %>
+      <% width = ((content.length/total_length)* 575)%>
+
+      <!-- Creates a progress bar div for each chapter in lesson (incl style) -->
+      <div class="chapter progress<%=index%>" data-start="<%=current_width%>" data-end="<%=current_width + width%>">  
+      </div>
+      <%= render partial: "javascript-input_progress-bar.erb", locals: { index: index} %>
+
+      <!-- CSS rendering for chapter progress bars -->
+      <style type="text/css">
+      .progress<%=index%>{
+        width: <%= width %>px;
+        height: 100%;
+        position: absolute;
+        left: <%= current_width %>px;
+        <% current_width += (content.length/total_length)* 575 %>
+        top: 0px;
+      }
+      </style>
+      <% end %>
+    </div>
   </div>
 
-<% total_length = 0 %>
-<% @lesson.contents.each {|content| total_length += content.length}%>
+  <!-- Live-Questions Feed -->
+  <%= render partial: "live-questions-feed", locals: { lesson: @lesson } %>
 
-<button class='button2 button-play-pause left-floater' data-status="pause"><div class="play-pause-icon"></div></button>
-
-<script type="text/javascript">
-  Player.activatePlayPauseButton();
-</script>
-
-<!-- Progress bar parent (wrapper) -->
-<div class="progress-bar watch-progress-bar">
-  <div class="progress"></div>
-  <div class="dragger"></div>
-
-  <% current_width = 0 %>
-  <% @lesson.contents.each_with_index do |content, index| %>
-
-  <% width = ((content.length/total_length)* 575)%>
-
-  <!-- Creates a progress bar div for each chapter in lesson (incl style) -->
-  <div class="chapter progress<%=index%>" data-start="<%=current_width%>" data-end="<%=current_width + width%>">  
+  <!-- Question and Flashcard input -->
+  <div class="lesson-user-input-shell">
+    <div class="tabs-container">
+      <p class="user-input-tab user-input-tab-quesiton user-input-tab-active" data-tab-content="question">
+        Ask a Question
+      </p>
+      <p class="user-input-tab user-input-tab-card" data-tab-content="card">
+        Add a Review Question
+      </p>
+    </div>
+    <div class="user-input-indi-section user-input-questions-section user-input-indi-section-active">
+      <%= render 'questions/new', question: @question %>
+    </div>
+    <div class="user-input-indi-section user-input-cards-section">
+      <%= render 'flashcards/new', flashcard: @flashcard %>
+    </div>
   </div>
-  <script type="text/javascript">
-  $('.progress<%=index%>').css('background-color', '#'+CreateLesson.getColor(<%= index %>));
-  if (<%= index %> == 0){
-    $('.progress<%=index%>').css({
-      'border-top-left-radius' : 10,
-      'border-bottom-left-radius' : 10
-    });    
-  }
-  if (<%= index %> == <%= @lesson.contents.count.to_i - 1 %>){
-    $('.progress<%=index%>').css({
-      'border-top-right-radius' : 10,
-      'border-bottom-right-radius' : 10
-    });    
-  }
-  </script>
-  <style type="text/css">
-    .progress<%=index%>{
-    /* Based on percentage of whole video*/
-    width: <%= width %>px;
-    height: 100%;
-    position: absolute;
-    /* Based on end of prior video of whole video*/
-    left: <%= current_width %>px;
-    <% current_width += (content.length/total_length)* 575 %>
-    top: 0px;
-    /*random hex color ruby*/
-  }
-  </style>
-  <% end %>
-  </div>
-</div>
 
-
-<!-- Make partial -->
-<div class="live-questions-feed-container">
-<!-- Lesson iterate over content -->
-<% @lesson.contents.each do |chapter|%>
-<!-- Content iterate over questions -->
-<% chapter.questions.each do |question| %>
-<!-- Create new questions divs for the questions -->
-<div class="lquestion-container t<%= question.time_in_lesson.to_i%>">
-<div class="question-wrapper">
-<div class="lquestion">
-<div class="triangle-border">
-<div class="lquestion-title">
-<p>
-<%= question.title %>
-</p>
-</div>
-<div class="lquestion-body">
-<%= question.text %>
-<p class="author"> 
-<!-- REAL DATA TO COME -->
-<%=question.user.name%>, <%=distance_of_time_in_words_to_now(question.created_at)%> ago
-</p>
-<p class="author"> 
-<!-- REAL DATA TO COME -->
-Time in Lesson: <%=sprintf("%02d",question.time_in_lesson.to_i / 60)%>:<%=sprintf("%02d",question.time_in_lesson.to_i % 60)%>
-</p>
-</div>
-</div>
-</div>
-<!-- REAL DATA TO COME -->
-<img class="question-image" src="https://graph.facebook.com/<%=question.user.uid%>/picture">
-</div>
-
-<div class="lanswer-container">
-<!-- Make partial -->
-<% question.answers.each do |answer| %>
-<div class="answer-wrapper">
-<div class="lanswer">
-<div class="atriangle-border">
-<div class="lanswer-body">
-<%= answer.text %>
-<!-- REAL DATA TO COME -->
-<p class="author">
-<%=answer.user.name%>, <%=distance_of_time_in_words_to_now(answer.created_at)%> ago
-</p>
-</div>
-</div>
-</div>
-<!-- REAL DATA TO COME -->
-<img class="answer-image" src="https://graph.facebook.com/<%=answer.user.uid%>/picture">
-</div>
-<% end %>
-
-<!-- Make partial -->
-<div class="answer-wrapper">
-<div class="lanswer">
-<div class="atriangle-border">
-<%= form_for question.answers.new do |f| %>
-<%= f.text_field :text, :class => 'answer_input', placeholder: 'Answer this Question' %>
-<%= f.text_field :question_id, hidden: true, value: question.id %>
-<%= f.submit :class => 'answer_button' %>
-<% end %>
-</div>
-</div>
-<% if is_logged_in? %>
-  <img class="answer-image" src="https://graph.facebook.com/<%=current_user.uid%>/picture">
-<% end %>
-</div>
-</div>   
-</div>
-<% end %>
-<% end %>
-</div>   
-
-<div class="lesson-user-input-shell">
-  <div class="tabs-container">
-    <p class="user-input-tab user-input-tab-quesiton user-input-tab-active" data-tab-content="question">Ask a Question</p>
-    <p class="user-input-tab user-input-tab-card" data-tab-content="card">Add a Review Question</p>
-  </div>
-  <div class="user-input-indi-section user-input-questions-section user-input-indi-section-active">
-    <%= render 'questions/new', question: @question %>
-  </div>
-  <div class="user-input-indi-section user-input-cards-section">
-    <%= render 'flashcards/new', flashcard: @flashcard %>
-  </div>
-</div>
-
-
-<!-- diregard for now. Needed for now though. Please dont delete -->
-<div id="videoInfo">
-  <p>Player state: <span id="playerState">--</span></p>
-  <p>Current Time: <span id="videoCurrentTime">--:--</span> | Duration: <span id="videoDuration">--:--</span></p>
-</div>
-
-<script type="text/html" id="question-template">
-<div class="question-wrapper">
-<div class="lquestion">
-<div class="triangle-border">
-<div class="lquestion-title">
-<p data-content="title">
-</p>
-</div>
-<div data-content="text" class="lquestion-body">
-<p data-content="author" class="author">
-</p>
-</div>
-</div>
-</div>
-<% if is_logged_in? %>
-  <img class="question-image" src="https://graph.facebook.com/<%=current_user.uid%>/picture">
-<% end %>
-</script>
-
-<script type="text/html" id="answer-template">
-<div class="lanswer">
-<div class="atriangle-border">
-<div data-content="text" class="lanswer-body">
-<p class="author">
-</p>
-</div>
-</div>
-</div>
-<% if is_logged_in? %>
-  <img class="answer-image" src="https://graph.facebook.com/<%=current_user.uid%>/picture">
-<% end %>  
-</div>
-</script>
+  <!-- jQuery templates -->
+  <%= render partial: "question-template" %>
+  <%= render partial: "answer-template" %>
+  <%= render partial: "modal-template" %>
