@@ -1,6 +1,5 @@
 var timeline = [];
 var colors = ['0e5366', '668b39'];
-// var colors = ['0e5366', '668b39', 'fc9b46', 'fb5f61'];
 
 var CreateLesson = {
   init: function(){
@@ -65,12 +64,10 @@ var CreateLesson = {
     })
   },
 
-  // Update a particular HTML element with a new value
   updateHTML: function(elmId, value) {
     document.getElementById(elmId).innerHTML = value;
   },  
 
-  // This function is called when an error is thrown by the player
   onPlayerError: function(errorCode) {
     alert("An error occured of type:" + errorCode);
   },
@@ -93,21 +90,16 @@ var CreateLesson = {
     return colors[index % colors.length]
   },
 
-  // This function is called when the player changes state
   onPlayerStateChange: function(newState) {
     this.changePlayerVisualByState(newState)
   },
 
   updatePlayPauseButton: function(state){
     if (state == 1 || state == 2){
-      // CreateLesson.playPauseDirectByContentId(active_edit_video);
     };
   },
 
-  // Display information about the current state of the player
   updatePlayerInfo: function(playerId) {
-    // Also check that at least one function exists since when IE unloads the
-    // page, it will destroy the SWF before clearing the interval.
     if(ytplayer && ytplayer.getDuration) {
       CreateLesson.updateProgressBar(ytplayer.getCurrentTime(), ytplayer.getDuration(), active_edit_video);
       CreateLesson.detectClipEndTime(ytplayer.getCurrentTime());
@@ -128,7 +120,6 @@ var CreateLesson = {
     $('.progress-bar-'+active_edit_video+' .progress').css('width', progressUpdate);
   },
 
-  // Allow the user to set the volume from 0-100
   setVideoVolume: function() {
     var volume = parseInt(document.getElementById("volumeSetting").value);
     if(isNaN(volume) || volume < 0 || volume > 100) {
@@ -174,13 +165,9 @@ var CreateLesson = {
     active_edit_video = contentId;
   },
 
-  // The "main method" of this sample. Called when someone clicks "Run".
   loadPlayer: function(contentId) {
-    // Lets Flash from another domain call JavaScript
     var params = { allowScriptAccess: "always" };
-    // The element id of the Flash embed
     var atts = { id: "player"+contentId };
-    // All of the magic handled by SWFObject (http://code.google.com/p/swfobject/)
     swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
                        "version=3&enablejsapi=1&playerapiid=player"+contentId, 
                        "videoDiv-"+contentId, "640", "360", "9", null, null, params, atts);
@@ -558,5 +545,3 @@ function getDuration(){
     return ytplayer.getDuration();
   };
 };
-
-
