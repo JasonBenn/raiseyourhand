@@ -8,16 +8,19 @@
       <%= @lesson.title %>
     </h1>
   </section>
+
   <table class='content-nav'>
     <tr>
       <% @lesson.contents.each do |content| %>
-      <td class='content-nav-piece'>
-        <% if content.flashcards.any? %>
-        <span data-content-id="<%= content.id %>">
-          <%= content.flashcards.count %>
-        </span>
-        <% end %>
-      </td>
+        <td class='content-nav-piece'>
+          <aside class='tooltip-content'><p><%= content.title.truncate(30) %></p></aside>
+          <% if content.flashcards.any? %>
+            <span data-content-id="<%= content.id %>">
+              <aside class='tooltip-flashcard'><p><%= content.flashcards.size %> review questions for this video</p></aside>
+              <%= content.flashcards.count %>
+            </span>
+          <% end %>
+        </td>
       <% end %>
     </tr>
   </table>
