@@ -1,0 +1,14 @@
+<script type="text/html" id="answer-template">
+<div class="lanswer">
+<div class="atriangle-border">
+<div data-content="text" class="lanswer-body">
+<p class="author">
+</p>
+</div>
+</div>
+</div>
+<% if is_logged_in? %>
+  <img class="answer-image" src="https://graph.facebook.com/<%=current_user.uid%>/picture">
+<% end %>  
+</div>
+</script>

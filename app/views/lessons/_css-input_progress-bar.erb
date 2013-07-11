@@ -1,0 +1,10 @@
+  <style type="text/css">
+    .progress<%=index%>{
+    width: <%= width %>px;
+    height: 100%;
+    position: absolute;
+    left: <%= current_width %>px;
+    <% current_width += (content.length/total_length)* 575 %>
+    top: 0px;
+  }
+  </style>
