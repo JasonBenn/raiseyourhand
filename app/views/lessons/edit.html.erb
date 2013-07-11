@@ -4,7 +4,8 @@
   active_edit_video = <%= @lesson.contents.first.id %>;
 </script>
 	<section class="sub-header">
-		<h1 class="lesson-title"><%= @lesson.title %></h1>
+		<h1 class="lesson-title"><%= @lesson.title %> <span>(edit mode)</span></h1>
+		<p class="button3 left-floater create-lesson-help-activate">?</p>
 		<%= button_to "View Lesson", lesson_path(@lesson.id), :class => 'button1 right-floater', :method => :get %>
 		<p class="saving-data-shell right-floater">All changes Saved</p>
 	</section>
@@ -27,6 +28,24 @@
 			<input type="text" placeholder="Youtube URL" id="add-new-content" class="left-floater add-youtube-movie-input">
 			<button class="button2 submit-url-btn right-floater add-new_youtube-clip">Add Clip</button>
 		</div>
+		<h4 class="add-more-yt-vids-text">Full timeline overview:</h4>
+		<ul class="full-lesson-timeline"></ul>
+	</div>
+
+	<!-- help shell -->
+	<div class="edit-lesson-help-container">
+		<div class="help-indi-shells splice-video-helper-container">
+			<p>drag pink bars to choose the section of each video in your lesson</p>
+			<%= image_tag 'arrow-white.png' %>
+		</div>
+		<div class="help-indi-shells drag-list-helper-container">
+			<p>order video list by dragging and dropping here</p>
+			<%= image_tag 'arrow-white.png' %>
+		</div>
+		<div class="help-indi-shells add-clip-helper-container">
+			<p>Add more clips to your lesson by entering the url here</p>
+			<%= image_tag 'arrow-white.png' %>
+		</div>
 	</div>
 
 	<!-- <div class="url-input-container left-floater">
@@ -38,11 +57,7 @@
 	<!-- <button class="play-current-editing-video" onClick='CreateLesson.playVideo()'>Play</button>
 	<button class="pause-current-editing-video" onClick='CreateLesson.pauseVideo()'>Pause</button>
  -->
-	<h3 class="full-time-line-header-text">Full Lesson Sequence</h3>
-
-	<div class="full-timeline-window">
-		<ul class="full-lesson-timeline"></ul>
-	</div>
+	
 <script type="text/javascript">
 	function onYouTubePlayerReady(playerString) { 
 	  // This causes the updatePlayerInfo to be called every 250ms to
@@ -61,5 +76,9 @@
 	};
 	$(document).ready(function(){
 		CreateLesson.init();
+		CreateLesson.activateHelpContainer();
+		<% if current_user.created_lessons.first.created_at > Time.now - 60 %>
+			CreateLesson.firstTimeCreatorHelpAutoActive();
+		<% end %>
 	})
 </script>

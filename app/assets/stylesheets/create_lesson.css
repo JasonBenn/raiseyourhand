@@ -218,10 +218,10 @@ h2.home-title{
 .time-line-title-inner{
 	position: absolute;
 	left: 10px;
-	top: 9px;
-	font-size: 12px;
+	top: 5px;
+	font-size: 10px;
 	color: #fff;
-	height: 14px;
+	height: 10px;
 	overflow: hidden;
 }
 .play-pause-icon{
@@ -238,7 +238,7 @@ h2.home-title{
 }
 .sub-header{
 	overflow: auto;
-	margin: 40px 0 25px 0;
+	margin: 25px 0 25px 0;
 	width: 100%;
 }
 .saving-data-shell{
@@ -275,6 +275,75 @@ h2.home-title{
 	background-color: #8fc250;
 	border: 3px solid #668b39;
 }
+.full-page-dim-overlay{
+	background-color: #000;
+	opacity: 0.7;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	position: fixed;
+	z-index: 100;
+	display: none;
+}
+.create-lesson-help-activate{
+	position: relative;
+	top: 10px;
+}
+.help-indi-shells{
+	background-color: #fff;
+	width: 300px;
+	border-radius: 10px;
+	padding: 20px;
+	text-align:center;
+	position: absolute;
+	border: 3px solid #000;
+}
+.edit-lesson-help-container{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 0px;
+	display: none;
+	z-index: 101;
+}
+.add-clip-helper-container{
+	top: 281px;
+	left: 756px;
+}
+.add-clip-helper-container img{
+	position: absolute;
+	bottom: -5px;
+	left: -97px;
+	transform: rotate(320deg);
+	-ms-transform: rotate(320deg);
+	-webkit-transform: rotate(320deg); 
+}
+.drag-list-helper-container img{
+	position: absolute;
+	bottom: -71px;
+	right: -122px;
+	transform:rotate(110deg);
+	-ms-transform:rotate(110deg); 
+	-webkit-transform:rotate(110deg); 
+}
+.drag-list-helper-container{
+	top: 9px;
+	left: 593px;
+}
+.splice-video-helper-container{
+	top: 333px;
+	left: 112px;
+}
+.splice-video-helper-container img{
+	position: absolute;
+	bottom: -71px;
+	right: -122px;
+	transform:rotate(110deg);
+	-ms-transform:rotate(110deg); 
+	-webkit-transform:rotate(110deg); 
+}
 .button2{
 	padding: 5px 10px;
 	background-color: #668b39;
@@ -282,6 +351,16 @@ h2.home-title{
 	border: 2px solid #8fc250;
 	color: #fff;
 	font-size: 12px;
+	cursor: pointer;
+	text-decoration: none;
+}
+.button3{
+	padding: 2px 8px;
+	background-color: #9e0000;
+	border-radius: 5px;
+	border: 2px solid #ef0303;
+	color: #fff;
+	font-size: 14px;
 	cursor: pointer;
 	text-decoration: none;
 }
@@ -310,8 +389,9 @@ h2.home-title{
 	float: right;
 }
 .playlist-shell{
-	float: left;
-	margin: 0 0 20px 10px;
+	position: absolute;
+	left: 741px;
+	top: 101px;
 }
 .url-input-container{
 	margin: 5px;
@@ -343,6 +423,7 @@ ul.playlist-container{
 	padding-left: 20px;
 	color: #fff;
 	text-shadow:1px 1px 2px #000;
+	opacity: 0.8;
 }
 .delete-content{
 	right: 20px;
@@ -386,14 +467,21 @@ h1.lesson-title{
 	font-size: 32px;
 	float: left;
 }
+h1.lesson-title span{
+	font-size: 16px;
+	color: #999;
+	font-weight: bold;
+	display: inline-block;
+}
 .indi-video-title{
 	margin: 30px 0 15px 0;
 	height: 27px;
 	overflow: hidden;
 }
 .full-time-line-header-text{
-	clear: both;
 	margin-left: 10px;
+	width: 15%;
+	float: left;
 }
 .video-window{
 	width: 660px;
@@ -432,19 +520,24 @@ h1.lesson-title{
 	top: 0px;
 	left: 0px;
 }
-.full-timeline-window{
+.lesson-overview-container{
 	width: 100%;
+	height: 30px;
+	clear: both;
+}
+.full-timeline-window{
+	width: 80%;
 	height: 30px;
 	overflow: hidden;
 	margin: 10px 0;
 }
 .full-lesson-timeline{
-	width: 100%;
-	height: 30px;
+	width: 430px;
+	height: 20px;
 	background-image: url('honey_im_subtle.png');
 	position: relative;
+	margin: 8px auto;
 	overflow: hidden;
-	margin: 0px;
 	padding: 0px;
 	border-radius: 10px;
 }
