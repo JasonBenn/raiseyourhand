@@ -9,6 +9,7 @@
       contents: [],
       cID: null,
       currentVisible: null,
+      cDOMO: null,
 
       init: function () {
           var myClientX;
@@ -62,7 +63,6 @@
                   if (location - parentOffsetX >= start && location - parentOffsetX <= end) {
                       lookedFor = $(this).index('.chapter');
                       var currentWidth = end - start;
-                      // alert(parentOffsetX);
                       if (lookedFor == 0) {
                           var width = 0;
                       } else {
@@ -86,10 +86,14 @@
               var title = $(this).parent().parent().children(".lquestion-title").text();
               var text = $(this).parent().parent().children(".lquestion-body").children(".body").text();
               var author = $(this).parent().parent().children(".lquestion-body").children(".author").text();
+              var qid = $(this).parent().parent().parent().parent().parent().children(".question-id").val();
+              console.log(qid);
+              cDOMO = $(this).parent().parent().parent().parent().parent();
               $("#fancybox").loadTemplate($("#modal-template"), {
                   title: title,
                   text: text,
-                  author: author
+                  author: author,
+                  question_id: qid
               });
 
               $("#modal").css('visibility', 'visible');
@@ -118,16 +122,17 @@
               return false;
           });
 
-          $('form#new_answers').submit(function (e) {
-              alert("hello");
+          $('body').on('submit', 'form#new_answers', function (e) {
               e.preventDefault();
-              // var data = $(this).serialize();
-              // var text = $('.your-answer').val();
-              // $.post('/answers', data, function (response) {});
-
-              // var formBubble = $(this).parent().parent().parent();
-              // Player.appendAnswer(text, formBubble);
-              // return false;
+              var text = $('.your-answer').val();
+              var question = $('.qinputid').text();
+              var data = {
+                  "text": text,
+                  "question_id": question
+              };
+              $.post('/answers', data, function (response) {});
+              Player.appendAnswer(text, cDOMO);
+              return false;
           });
 
           $('form#new_flashcard').submit(function (event) {
@@ -181,8 +186,7 @@
 
       appendAnswer: function (title, DOMObject) {
           var that = '.answer-wrapper.' + Player.appendCount;
-          var standardText = "just added by you";
-          $("<div class='answer-wrapper " + Player.appendCount + "'></div>").insertBefore(DOMObject);
+          $(DOMObject).children('.lanswer-container').append($("<div class='answer-wrapper " + Player.appendCount + "'></div>"));
           $(that).loadTemplate($("#answer-template"), {
               text: title
           });
