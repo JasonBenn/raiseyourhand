@@ -1,10 +1,11 @@
 <script type="text/html" id="modal-template">
 <p data-content="title" class="modal-title"></p>
 <p data-content="text" class="modal-text"></p>
+<p hidden data-content="question_id" name="question_id" class="qinputid" type="hidden">
 <p class="modal-author" data-content="author"></p>
 <form id="new_answers">
 <!-- <p class="modal-answer-title">Your Answer</p> -->
-<textarea class="your-answer" placeholder="Your Answer" required=true></textarea><br>
+<textarea name="text" class="your-answer" placeholder="Your Answer" required=true></textarea><br>
 <input class="answer-submit" type="submit" value="Answer">
 </form>
 </script>
