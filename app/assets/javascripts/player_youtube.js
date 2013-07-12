@@ -127,11 +127,16 @@
               var text = $('.your-answer').val();
               var question = $('.qinputid').text();
               var data = {
-                  "text": text,
-                  "question_id": question
+                  answer: {
+                      "text": text,
+                          "question_id": question
+                  }
               };
               $.post('/answers', data, function (response) {});
               Player.appendAnswer(text, cDOMO);
+              $(this)[0].reset();
+              $("#fancybox").fadeOut();
+              $("#modal").fadeOut();
               return false;
           });
 
