@@ -8,6 +8,7 @@ Created by:
 * Aaron DuFall (git: aarondufall, aald212@gmail.com)
 * Jordan Nemrow (git: nemrow, nemrowj@gmail.com)
 * Lukas Ingelheim (git: Ingelheim, lukas.ingelheim@gmail.com)
+* Jason Benn (git: JasonBenn, jasoncbenn@gmail.com)
 
 == About
 
