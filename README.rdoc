@@ -11,7 +11,21 @@ Created by:
 
 == About
 
-A final group project for Dev Bootcamp Chicago.
+A final group project for Dev Bootcamp (Chicago, IL).
+
+During our preparation for and throughout DBC, we found ourselves consistently referring to many different types of educational sites.  We'd go to Stack Overflow to have our questions answered in depth, and then we'd turn to sites like Lynda or Udacity to learn new content (and be subsequently quizzed on that content, to aid retention).  What we wanted to build was a site that combined these advantages into one platform.
+
+Raise Your Hand allows users to create and rearrange video-based educational content; it is automatically linked to a live, dynamic question feed.  This makes it possible to ask a question or create a review question at any point during a video lesson.  Review questions are presented to the user at periodic intervals during the lesson, and question and answer content is displayed in a feed to the right of the video at the time it was asked.  Highly upvoted content rises to the top of the Recommended Lessons on the front page, and additionally we built a custom fuzzy search engine that searches across multiple words in fractions of a second.
+
+== Testing
+
+This was, as a team, one of our first serious dives into testing (and at times, TDD).  The majority of our tests were integration tests on controllers to ensure our APIs would respond accordingly to correct and incorrect AJAX payloads.  Note: we (mistakenly) tested a bit of Rails glue code, such as associations and attribute mass-assignability.  It was helpful for spotting code typos but we now know that such tests aren't necessary.
+
+In the process, we learned the value of testing in resolving bugs quickly, especially ones that aren't immediately obvious, making sure the additions of new code don't break existing and working features.
+
+== Final Thoughts
+
+Thanks to Dev Bootcamp for providing the support and strucutre to make this project better.  
 
 We combine the best elements of Stack Overflow and modern Massive Open Online Courses such as Udacity.com or Lynda.
 
