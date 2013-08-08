@@ -27,3 +27,4 @@ config/facebook.yml
 app/helpers/.DS_Store
 
 vendor/assets/javascripts/.DS_Store
+todo
